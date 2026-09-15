@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
 import {
 	QueryClient,
-	QueryClientProvider,
 	type QueryClientConfig,
+	QueryClientProvider,
 } from '@tanstack/react-query';
+import { type ReactNode, useState } from 'react';
 
 /**
  * Sensible defaults for server-state caching. Tune per app as needed.
@@ -14,13 +14,13 @@ import {
  */
 const DEFAULT_CONFIG: QueryClientConfig = {
 	defaultOptions: {
-		queries: {
-			staleTime: 60_000,
-			refetchOnWindowFocus: false,
-			retry: 1,
-		},
 		mutations: {
 			retry: 0,
+		},
+		queries: {
+			refetchOnWindowFocus: false,
+			retry: 1,
+			staleTime: 60_000,
 		},
 	},
 };

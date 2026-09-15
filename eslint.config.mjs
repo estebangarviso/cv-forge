@@ -7,6 +7,7 @@ import react from 'eslint-plugin-react';
 import redos from 'eslint-plugin-redos';
 import regexp from 'eslint-plugin-regexp';
 import sonarjs from 'eslint-plugin-sonarjs';
+import tailwindcss from 'eslint-plugin-tailwindcss';
 import testingLibrary from 'eslint-plugin-testing-library';
 import unicorn from 'eslint-plugin-unicorn';
 import vitest from 'eslint-plugin-vitest';
@@ -29,6 +30,8 @@ export default [
 		ignores: [
 			'build/**/*',
 			'dist/**/*',
+			'.next/**/*',
+			'coverage/**/*',
 			'**/node_modules/**/*',
 			'.reports/**/*',
 			'.vscode/**/*',
@@ -48,9 +51,18 @@ export default [
 			sourceType: 'module',
 		},
 		rules: {
-			'no-invalid-regexp': ERROR,
-			'valid-typeof': ERROR,
 			'array-callback-return': ERROR,
+			'capitalized-comments': [
+				WARN,
+				'never',
+				{
+					block: { ignorePattern: '.*' },
+					line: {
+						ignoreConsecutiveComments: true,
+						ignorePattern: '[A-Z]*:.*',
+					},
+				},
+			],
 			complexity: [WARN, 15],
 			'constructor-super': ERROR,
 			'default-case': WARN,
@@ -91,6 +103,7 @@ export default [
 			'no-func-assign': ERROR,
 			'no-global-assign': ERROR,
 			'no-import-assign': ERROR,
+			'no-invalid-regexp': ERROR,
 			'no-irregular-whitespace': ERROR,
 			'no-lonely-if': WARN,
 			'no-loss-of-precision': ERROR,
@@ -142,32 +155,22 @@ export default [
 			'prefer-spread': WARN,
 			'prefer-template': WARN,
 			'quote-props': [WARN, 'as-needed'],
+			quotes: [
+				WARN,
+				'single',
+				{
+					allowTemplateLiterals: false,
+					avoidEscape: true,
+				},
+			],
 			radix: [WARN, 'as-needed'],
 			'require-atomic-updates': WARN,
 			'require-await': ERROR,
 			'require-unicode-regexp': WARN,
 			'require-yield': ERROR,
 			'use-isnan': ERROR,
+			'valid-typeof': ERROR,
 			yoda: WARN,
-			'capitalized-comments': [
-				WARN,
-				'never',
-				{
-					block: { ignorePattern: '.*' },
-					line: {
-						ignoreConsecutiveComments: true,
-						ignorePattern: '[A-Z]*:.*',
-					},
-				},
-			],
-			quotes: [
-				WARN,
-				'single',
-				{
-					avoidEscape: true,
-					allowTemplateLiterals: false,
-				},
-			],
 		},
 	},
 	// #endregion
@@ -185,18 +188,6 @@ export default [
 		rules: {
 			...typescript.configs.strict[1].rules,
 			...typescript.configs.strict[2].rules,
-			'@typescript-eslint/explicit-function-return-type': OFF,
-			'@typescript-eslint/explicit-module-boundary-types': OFF,
-			'@typescript-eslint/interface-name-prefix': OFF,
-			'@typescript-eslint/no-empty-function': WARN,
-			'@typescript-eslint/no-empty-object-type': OFF,
-			'@typescript-eslint/no-explicit-any': OFF,
-			'@typescript-eslint/no-extraneous-class': OFF,
-			'@typescript-eslint/no-non-null-assertion': OFF,
-			'@typescript-eslint/no-redundant-type-constituents': ERROR,
-			'@typescript-eslint/no-unsafe-function-type': OFF,
-			'@typescript-eslint/no-wrapper-object-types': WARN,
-			'@typescript-eslint/return-await': [ERROR, 'in-try-catch'],
 			'@typescript-eslint/consistent-type-imports': [
 				WARN,
 				{
@@ -204,22 +195,32 @@ export default [
 					prefer: 'type-imports',
 				},
 			],
+			'@typescript-eslint/explicit-function-return-type': OFF,
+			'@typescript-eslint/explicit-module-boundary-types': OFF,
+			'@typescript-eslint/interface-name-prefix': OFF,
+			'@typescript-eslint/no-empty-function': WARN,
 			'@typescript-eslint/no-empty-interface': [
 				ERROR,
 				{ allowSingleExtends: true },
 			],
+			'@typescript-eslint/no-empty-object-type': OFF,
+			'@typescript-eslint/no-explicit-any': OFF,
+			'@typescript-eslint/no-extraneous-class': OFF,
 			'@typescript-eslint/no-floating-promises': [
 				WARN,
 				{
-					ignoreVoid: true,
 					checkThenables: true,
 					ignoreIIFE: true,
+					ignoreVoid: true,
 				},
 			],
 			'@typescript-eslint/no-namespace': [
 				WARN,
 				{ allowDeclarations: true },
 			],
+			'@typescript-eslint/no-non-null-assertion': OFF,
+			'@typescript-eslint/no-redundant-type-constituents': ERROR,
+			'@typescript-eslint/no-unsafe-function-type': OFF,
 			'@typescript-eslint/no-unused-vars': [
 				WARN,
 				{
@@ -244,6 +245,8 @@ export default [
 					variables: true,
 				},
 			],
+			'@typescript-eslint/no-wrapper-object-types': WARN,
+			'@typescript-eslint/return-await': [ERROR, 'in-try-catch'],
 			'@typescript-eslint/sort-type-constituents': [
 				WARN,
 				{
@@ -272,25 +275,40 @@ export default [
 	// #region react
 	{
 		files: [REACT_GLOB],
-		plugins: { react },
 		languageOptions: {
 			parserOptions: {
 				ecmaFeatures: { jsx: true },
-				project: ['tsconfig.json'],
 				globals: {
 					...globals.serviceworker,
 					...globals.browser,
 					JSX: true,
 					React: true,
 				},
+				project: ['tsconfig.json'],
 			},
 		},
+		plugins: { react },
 		rules: {
 			'react/destructuring-assignment': [WARN, 'always'],
 			'react/display-name': OFF,
 			'react/iframe-missing-sandbox': WARN,
 			'react/jsx-boolean-value': WARN,
+			'react/jsx-curly-brace-presence': [
+				WARN,
+				{
+					children: 'never',
+					propElementValues: 'always',
+					props: 'never',
+				},
+			],
 			'react/jsx-fragments': [WARN, 'syntax'],
+			'react/jsx-key': [
+				ERROR,
+				{
+					checkFragmentShorthand: true,
+					warnOnDuplicates: true,
+				},
+			],
 			'react/jsx-no-comment-textnodes': WARN,
 			'react/jsx-no-duplicate-props': WARN,
 			'react/jsx-no-useless-fragment': WARN,
@@ -300,25 +318,11 @@ export default [
 			'react/no-multi-comp': OFF,
 			'react/prop-types': OFF,
 			'react/self-closing-comp': WARN,
-			'react/jsx-curly-brace-presence': [
-				WARN,
-				{
-					children: 'never',
-					propElementValues: 'always',
-					props: 'never',
-				},
-			],
-			'react/jsx-key': [
-				ERROR,
-				{
-					checkFragmentShorthand: true,
-					warnOnDuplicates: true,
-				},
-			],
 		},
 		settings: {
 			react: {
-				version: 'detect',
+				// pin to avoid the deprecated context.getFilename() call in detect mode
+				version: '19.2.8',
 			},
 		},
 	},
@@ -337,9 +341,6 @@ export default [
 		files: [SRC_GLOB],
 		plugins: { sonarjs },
 		rules: {
-			'sonarjs/no-identical-conditions': ERROR,
-			'sonarjs/no-identical-expressions': ERROR,
-			'sonarjs/no-identical-functions': ERROR,
 			'sonarjs/cognitive-complexity': [WARN, 16],
 			'sonarjs/max-switch-cases': [WARN, 12],
 			'sonarjs/no-all-duplicated-branches': ERROR,
@@ -348,6 +349,9 @@ export default [
 			'sonarjs/no-duplicate-string': [WARN, { threshold: 5 }],
 			'sonarjs/no-duplicated-branches': ERROR,
 			'sonarjs/no-element-overwrite': ERROR,
+			'sonarjs/no-identical-conditions': ERROR,
+			'sonarjs/no-identical-expressions': ERROR,
+			'sonarjs/no-identical-functions': ERROR,
 			'sonarjs/no-ignored-return': ERROR,
 			'sonarjs/no-inverted-boolean-check': ERROR,
 			'sonarjs/no-nested-switch': ERROR,
@@ -369,9 +373,8 @@ export default [
 		files: [SRC_GLOB],
 		plugins: { promise },
 		rules: {
-			'promise/avoid-new': OFF,
-			'promise/valid-params': WARN,
 			'promise/always-return': OFF,
+			'promise/avoid-new': OFF,
 			'promise/catch-or-return': ERROR,
 			'promise/no-callback-in-promise': OFF,
 			'promise/no-multiple-resolved': ERROR,
@@ -382,6 +385,7 @@ export default [
 			'promise/no-return-wrap': WARN,
 			'promise/param-names': WARN,
 			'promise/prefer-await-to-then': WARN,
+			'promise/valid-params': WARN,
 		},
 	},
 	// #endregion
@@ -391,9 +395,6 @@ export default [
 		files: [SRC_GLOB],
 		plugins: { unicorn },
 		rules: {
-			'unicorn/no-invalid-fetch-options': ERROR,
-			'unicorn/no-invalid-remove-event-listener': ERROR,
-			'unicorn/text-encoding-identifier-case': WARN,
 			'no-negated-condition': OFF,
 			'no-nested-ternary': OFF,
 			'unicorn/better-regex': WARN,
@@ -404,8 +405,13 @@ export default [
 			'unicorn/escape-case': WARN,
 			'unicorn/expiring-todo-comments': ERROR,
 			'unicorn/explicit-length-check': WARN,
+			'unicorn/filename-case': [
+				ERROR,
+				{
+					cases: { kebabCase: true, pascalCase: true },
+				},
+			],
 			'unicorn/new-for-builtins': ERROR,
-			'unicorn/no-array-for-each': WARN,
 			'unicorn/no-array-method-this-argument': ERROR,
 			'unicorn/no-array-push-push': ERROR,
 			'unicorn/no-await-expression-member': WARN,
@@ -415,6 +421,8 @@ export default [
 			'unicorn/no-empty-file': ERROR,
 			'unicorn/no-hex-escape': WARN,
 			'unicorn/no-instanceof-array': WARN,
+			'unicorn/no-invalid-fetch-options': ERROR,
+			'unicorn/no-invalid-remove-event-listener': ERROR,
 			'unicorn/no-lonely-if': WARN,
 			'unicorn/no-magic-array-flat-depth': WARN,
 			'unicorn/no-negated-condition': ERROR,
@@ -486,13 +494,8 @@ export default [
 			'unicorn/require-post-message-target-origin': ERROR,
 			'unicorn/string-content': WARN,
 			'unicorn/template-indent': WARN,
+			'unicorn/text-encoding-identifier-case': WARN,
 			'unicorn/throw-new-error': ERROR,
-			'unicorn/filename-case': [
-				ERROR,
-				{
-					cases: { kebabCase: true, pascalCase: true },
-				},
-			],
 		},
 	},
 	// #endregion
@@ -503,113 +506,44 @@ export default [
 		plugins: { perfectionist },
 		rules: {
 			'perfectionist/sort-array-includes': WARN,
-			'perfectionist/sort-enums': [WARN, { sortByValue: true }],
-			'perfectionist/sort-exports': WARN,
-			'perfectionist/sort-heritage-clauses': WARN,
-			'perfectionist/sort-jsx-props': WARN,
-			'perfectionist/sort-maps': WARN,
-			'perfectionist/sort-named-exports': WARN,
-			'perfectionist/sort-named-imports': WARN,
-			'perfectionist/sort-sets': WARN,
-			'perfectionist/sort-variable-declarations': WARN,
+			// tODO(perfectionist v5): the custom `groups`/`customGroups`
+			// taxonomies previously configured here targeted an older
+			// perfectionist major. v5.10.0 renamed the predefined group
+			// tokens (e.g. `builtin-type` -> `type-builtin`, the class member
+			// selectors, and the object/interface member groups) and changed
+			// `customGroups` from an object map to an array. The rules below
+			// stay enabled at WARN with the plugin's valid default groups
+			// (sorted via the shared `settings.perfectionist` config) until
+			// the group taxonomy is re-authored for v5.
 			'perfectionist/sort-classes': [
 				WARN,
-				{
-					partitionByComment: 'SECTION:*',
-					groups: [
-						'decorated-method',
-						'method',
-						'private-method',
-						'function-property',
-						'constructor',
-						'decorated-property',
-						'property',
-						'private-decorated-property',
-						'private-property',
-						['decorated-get-method', 'decorated-set-method'],
-						['get-method', 'set-method'],
-						'index-signature',
-						'static-method',
-						'static-private-method',
-						'static-property',
-						'unknown',
-					],
-				},
+				{ partitionByComment: 'SECTION:*' },
 			],
+			'perfectionist/sort-enums': [WARN, { sortByValue: 'always' }],
+			'perfectionist/sort-exports': WARN,
+			'perfectionist/sort-heritage-clauses': WARN,
 			'perfectionist/sort-imports': [
 				WARN,
 				{
 					internalPattern: ['#*/*'],
-					newlinesBetween: 'ignore',
+					// `newlinesBetween` (rule default) conflicts with the shared
+					// `partitionByNewLine` setting; disable partitioning here.
+					partitionByNewLine: false,
 					type: 'alphabetical',
-					groups: [
-						'tsconfig-path',
-						['builtin-type', 'builtin'],
-						['external-type', 'external'],
-						['internal-type', 'internal'],
-						['parent-type', 'parent'],
-						['sibling-type', 'sibling'],
-						['index-type', 'index'],
-						'type',
-						'style',
-						'object',
-						'import',
-						'unknown',
-					],
 				},
 			],
-			'perfectionist/sort-interfaces': [
-				WARN,
-				{
-					customGroups: { top: 'id' },
-					groups: [
-						'top',
-						'member',
-						'multiline-member',
-						'multiline-optional-member',
-						'optional-member',
-						'method',
-						'multiline-method',
-						'multiline-optional-method',
-						'optional-method',
-						'unknown',
-					],
-				},
-			],
-			'perfectionist/sort-object-types': [
-				WARN,
-				{
-					customGroups: { top: 'id' },
-					groups: [
-						'top',
-						'member',
-						'multiline-member',
-						'multiline-optional-member',
-						'optional-member',
-						'method',
-						'multiline-method',
-						'multiline-optional-method',
-						'optional-method',
-						'unknown',
-					],
-				},
-			],
+			'perfectionist/sort-interfaces': WARN,
+			'perfectionist/sort-jsx-props': WARN,
+			'perfectionist/sort-maps': WARN,
+			'perfectionist/sort-named-exports': WARN,
+			'perfectionist/sort-named-imports': WARN,
+			'perfectionist/sort-object-types': WARN,
 			'perfectionist/sort-objects': [
 				WARN,
-				{
-					customGroups: { top: 'id' },
-					ignorePattern: ['features', 'examples', 'manualChunks'],
-					partitionByComment: '#region*',
-					groups: [
-						'top',
-						'member',
-						'multiline-member',
-						'method',
-						'multiline-method',
-						'unknown',
-					],
-				},
+				{ partitionByComment: '#region*' },
 			],
+			'perfectionist/sort-sets': WARN,
+			'perfectionist/sort-variable-declarations': WARN,
 		},
 		settings: {
 			perfectionist: {
@@ -627,10 +561,9 @@ export default [
 		files: [SRC_GLOB],
 		plugins: { regexp },
 		rules: {
-			'no-invalid-regexp': OFF,
-			'regexp/no-invalid-regexp': ERROR,
 			'no-control-regex': ERROR,
 			'no-empty-character-class': OFF,
+			'no-invalid-regexp': OFF,
 			'no-misleading-character-class': ERROR,
 			'no-regex-spaces': ERROR,
 			'no-useless-backreference': OFF,
@@ -653,6 +586,7 @@ export default [
 			'regexp/no-empty-string-literal': ERROR,
 			'regexp/no-escape-backspace': ERROR,
 			'regexp/no-extra-lookaround-assertions': ERROR,
+			'regexp/no-invalid-regexp': ERROR,
 			'regexp/no-invisible-character': ERROR,
 			'regexp/no-lazy-ends': WARN,
 			'regexp/no-legacy-features': ERROR,
@@ -724,7 +658,6 @@ export default [
 			'testing-library': testingLibrary,
 		},
 		rules: {
-			'testing-library/no-wait-for-side-effects': ERROR,
 			'jest-dom/prefer-checked': WARN,
 			'jest-dom/prefer-empty': WARN,
 			'jest-dom/prefer-enabled-disabled': WARN,
@@ -736,8 +669,16 @@ export default [
 			'jest-dom/prefer-to-have-style': WARN,
 			'jest-dom/prefer-to-have-text-content': WARN,
 			'jest-dom/prefer-to-have-value': WARN,
+			'testing-library/await-async-events': [
+				ERROR,
+				{ eventModule: 'userEvent' },
+			],
 			'testing-library/await-async-queries': ERROR,
 			'testing-library/await-async-utils': ERROR,
+			'testing-library/no-await-sync-events': [
+				ERROR,
+				{ eventModules: ['fire-event'] },
+			],
 			'testing-library/no-await-sync-queries': ERROR,
 			'testing-library/no-container': ERROR,
 			'testing-library/no-debugging-utils': WARN,
@@ -749,20 +690,13 @@ export default [
 			'testing-library/no-render-in-lifecycle': ERROR,
 			'testing-library/no-unnecessary-act': ERROR,
 			'testing-library/no-wait-for-multiple-assertions': ERROR,
+			'testing-library/no-wait-for-side-effects': ERROR,
 			'testing-library/no-wait-for-snapshot': ERROR,
 			'testing-library/prefer-find-by': ERROR,
 			'testing-library/prefer-presence-queries': ERROR,
 			'testing-library/prefer-query-by-disappearance': ERROR,
 			'testing-library/prefer-screen-queries': ERROR,
 			'testing-library/render-result-naming-convention': OFF,
-			'testing-library/await-async-events': [
-				ERROR,
-				{ eventModule: 'userEvent' },
-			],
-			'testing-library/no-await-sync-events': [
-				ERROR,
-				{ eventModules: ['fire-event'] },
-			],
 		},
 	},
 	// #endregion
@@ -786,11 +720,19 @@ export default [
 	// #region tailwindcss
 	{
 		files: [REACT_GLOB],
-		plugins: { tailwindcss: (await import('eslint-plugin-tailwindcss')).default },
+		plugins: { tailwindcss },
 		rules: {
 			'tailwindcss/classnames-order': WARN,
+			'tailwindcss/enforces-negative-arbitrary-values': WARN,
+			'tailwindcss/enforces-shorthand': WARN,
 			'tailwindcss/no-contradicting-classname': ERROR,
 			'tailwindcss/no-unnecessary-arbitrary-value': WARN,
+		},
+		settings: {
+			tailwindcss: {
+				// tailwind v4 is CSS-first: point the plugin at the entry stylesheet
+				cssConfigPath: 'src/app/globals.css',
+			},
 		},
 	},
 	// #endregion
@@ -800,7 +742,6 @@ export default [
 		files: [TEST_GLOB],
 		plugins: { vitest },
 		rules: {
-			'vitest/valid-title': OFF,
 			'max-classes-per-file': OFF,
 			'react/no-multi-comp': OFF,
 			'testing-library/no-manual-cleanup': OFF,
@@ -843,6 +784,7 @@ export default [
 			'vitest/prefer-to-contain': WARN,
 			'vitest/prefer-to-have-length': WARN,
 			'vitest/prefer-todo': WARN,
+			'vitest/valid-title': OFF,
 		},
 	},
 	// #endregion

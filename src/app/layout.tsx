@@ -6,6 +6,10 @@
  *
  * This file must exist but acts as a transparent pass-through.
  */
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return children;
+export default function RootLayout({
+	children,
+}: {
+	children: React.ReactNode;
+}) {
+	return children;
 }

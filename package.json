@@ -2,6 +2,7 @@
 	"name": "cv-studio",
 	"version": "0.1.0",
 	"private": true,
+	"license": "AGPL-3.0-or-later",
 	"description": "cv-studio — Next.js App Router Template with DDD + Hexagonal Architecture",
 	"author": "cv-studio Team",
 	"scripts": {
@@ -9,8 +10,8 @@
 		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint && prettier --check .",
-		"lint:fix": "next lint --fix && prettier --write .",
+		"lint": "eslint . && prettier --check .",
+		"lint:fix": "eslint . --fix && prettier --write .",
 		"lint:style": "stylelint --cache \"src/**/*.{css,scss}\" --cache-location node_modules/.cache/stylelint/",
 		"test": "vitest",
 		"test:coverage": "vitest run --coverage",

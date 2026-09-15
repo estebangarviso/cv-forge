@@ -43,21 +43,21 @@ src/
 
 ## Layer responsibilities
 
-| Layer | Path | Rule |
-| --- | --- | --- |
-| App Router | `src/app/` | Routing and composition only — no business logic |
-| Core | `src/core/` | Framework wiring: API client, Query provider, HTTP helper |
-| Modules | `src/modules/<name>/` | Domain, infrastructure, presentation per feature |
-| Shared | `src/shared/` | Global UI primitives and utilities |
+| Layer      | Path                  | Rule                                                      |
+| ---------- | --------------------- | --------------------------------------------------------- |
+| App Router | `src/app/`            | Routing and composition only — no business logic          |
+| Core       | `src/core/`           | Framework wiring: API client, Query provider, HTTP helper |
+| Modules    | `src/modules/<name>/` | Domain, infrastructure, presentation per feature          |
+| Shared     | `src/shared/`         | Global UI primitives and utilities                        |
 
 ## Bounded contexts
 
 Route groups under `[lang]/` mirror domain boundaries:
 
-| Group | Audience | Example routes |
-| --- | --- | --- |
-| `(back-office)` | Admin / operator | customers, employees |
-| `(front-office)` | Customer-facing | storefront, account |
+| Group            | Audience         | Example routes       |
+| ---------------- | ---------------- | -------------------- |
+| `(back-office)`  | Admin / operator | customers, employees |
+| `(front-office)` | Customer-facing  | storefront, account  |
 
 ## Next step
 

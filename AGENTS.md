@@ -6,7 +6,7 @@ Canonical rules for any AI coding assistant working in this repository. This fil
 
 ## Product
 
-CV Studio — a web app where users create, edit, and export professional CVs. Google OAuth for authentication, Google Drive as storage (SoT), browser-native PDF export via `window.print()`.
+CV Studio — a web app where users create, edit, and export professional CVs. Google OAuth for authentication, Google Drive as storage (SoT), PDF export via `@react-pdf/renderer`.
 
 ## Domain glossary
 
@@ -16,26 +16,26 @@ CV Studio — a web app where users create, edit, and export professional CVs. G
 | Template     | Visual layout for rendering a CV (React component + config)                                     |
 | CvData       | The JSON structure holding all CV content (personal, education, experience, skills, references) |
 | Drive folder | `CV Studio` folder in the user's Google Drive; each CV is a JSON file                           |
-| Preview      | The A4 print-ready React component that renders CvData                                          |
-| Editor       | Split view: form (left) + live preview (right)                                                  |
+| Preview      | The live CV preview rendered by `@react-pdf/renderer` inside the editor                         |
+| Editor       | Split view: form (left) + live PDF preview (right)                                              |
 
 ## Project snapshot
 
-| Topic           | Value                                                          |
-| --------------- | -------------------------------------------------------------- |
-| Framework       | Next.js 16 (App Router, Turbopack), React 19                   |
-| Language        | TypeScript, strict mode                                        |
-| Auth            | Auth.js v5 (`next-auth@beta`) with Google OAuth provider       |
-| Storage         | Google Drive API v3 (`googleapis`) — no database               |
-| Server state    | TanStack Query (`@tanstack/react-query`)                       |
-| Client state    | Zustand (`zustand`)                                            |
-| Forms           | `react-hook-form` + `@hookform/resolvers` + Zod                |
-| Styling         | Tailwind CSS v4 + `@tailwindcss/postcss`, CSS variable theming |
-| PDF export      | `window.print()` with `@media print` CSS                       |
-| i18n            | `next-intl` — default locale `es`, supported `es`, `en`        |
-| Testing         | Vitest + React Testing Library                                 |
-| Deployment      | Vercel (serverless)                                            |
-| Package manager | pnpm                                                           |
+| Topic           | Value                                                                                                                     |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| Framework       | Next.js 16 (App Router, Turbopack), React 19                                                                              |
+| Language        | TypeScript, strict mode                                                                                                   |
+| Auth            | Auth.js v5 (`next-auth@beta`) with Google OAuth provider                                                                  |
+| Storage         | Google Drive API v3 (`googleapis`) — no database                                                                          |
+| Server state    | TanStack Query (`@tanstack/react-query`)                                                                                  |
+| Client state    | Zustand (`zustand`)                                                                                                       |
+| Forms           | `react-hook-form` + `@hookform/resolvers` + Zod                                                                           |
+| Styling         | Tailwind CSS v4 + `@tailwindcss/postcss`, CSS variable theming                                                            |
+| PDF export      | `@react-pdf/renderer` — `PdfViewer` (live preview) + `PDFDownloadButton` (export), fonts self-hosted from `public/fonts/` |
+| i18n            | `next-intl` — default locale `es`, supported `es`, `en`                                                                   |
+| Testing         | Vitest + React Testing Library                                                                                            |
+| Deployment      | Vercel (serverless)                                                                                                       |
+| Package manager | pnpm                                                                                                                      |
 
 ## Architecture rules
 
@@ -117,7 +117,7 @@ Use `react-hook-form` with `zodResolver` exclusively. Schemas from `@modules/cv`
 
 - Tailwind CSS v4 only. PostCSS via `@tailwindcss/postcss`.
 - Theming uses CSS variables (see `docs/architecture/005_theming.md`).
-- CV preview uses inline styles for print accuracy — this is intentional.
+- CV rendering for preview and export both go through `@react-pdf/renderer` (`src/shared/ui/pdf/`) — no DOM/CSS print pipeline, no `window.print()`.
 
 ## Naming conventions
 
@@ -154,6 +154,17 @@ Use `react-hook-form` with `zodResolver` exclusively. Schemas from `@modules/cv`
 | [docs/architecture/](docs/architecture/)                                                               | Architecture hub (folder structure, state, theming, data flow) |
 | [docs/getting-started/](docs/getting-started/)                                                         | Setup and commands                                             |
 
+## Skills
+
+Project-specific, repeated patterns that go beyond generic best practices. See [.github/skills/README.md](.github/skills/README.md) for the full index.
+
+| Skill                                                                            | Use when                                                                       |
+| -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| [google-drive-cv-storage](.github/skills/google-drive-cv-storage/SKILL.md)       | Reading, writing, listing, or deleting CVs via Google Drive                    |
+| [google-oauth-token-refresh](.github/skills/google-oauth-token-refresh/SKILL.md) | Touching `src/auth.ts` / `src/proxy.ts`, debugging stale sessions              |
+| [cv-editor-split-view](.github/skills/cv-editor-split-view/SKILL.md)             | Changing the editor's form+preview layout or scroll                            |
+| [react-pdf-cv-rendering](.github/skills/react-pdf-cv-rendering/SKILL.md)         | Changing `CvPdfDocument`/`cv-pdf-*` components, PDF fonts, or `@shared/ui/pdf` |
+
 ## Agent playbooks
 
 ### Implementer
@@ -176,4 +187,14 @@ Use `react-hook-form` with `zodResolver` exclusively. Schemas from `@modules/cv`
 - All visible text uses i18n keys?
 - Drive data in Query, editor state in Zustand?
 - Inputs validated with Zod?
-- CV preview components use inline styles for print fidelity?
+- PDF components import react-pdf only through `@shared/ui/pdf`, never directly?
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

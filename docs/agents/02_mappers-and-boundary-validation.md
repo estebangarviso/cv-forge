@@ -21,20 +21,20 @@ import { UserSchema, type User } from '../../domain/entities/user';
 
 // Wire schema — file-private, never exported
 const WireSessionSchema = z.object({
-  id: z.string(),
-  user_name: z.string(),
-  user_email: z.string().email(),
+	id: z.string(),
+	user_name: z.string(),
+	user_email: z.string().email(),
 });
 
 export const SessionMapper = {
-  toDomain(wire: unknown): User {
-    const parsed = WireSessionSchema.parse(wire);
-    return UserSchema.parse({
-      id: parsed.id,
-      name: parsed.user_name,
-      email: parsed.user_email,
-    });
-  },
+	toDomain(wire: unknown): User {
+		const parsed = WireSessionSchema.parse(wire);
+		return UserSchema.parse({
+			id: parsed.id,
+			name: parsed.user_name,
+			email: parsed.user_email,
+		});
+	},
 };
 ```
 

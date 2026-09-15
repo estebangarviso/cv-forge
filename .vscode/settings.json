@@ -1,54 +1,57 @@
 {
-  "editor.insertSpaces": false,
-  "editor.rulers": [80, 100],
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.fixAll.stylelint": "explicit"
-  },
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.tabCompletion": "on",
-  "eslint.format.enable": true,
-  "eslint.lintTask.enable": false,
-  "eslint.probe": ["javascript", "typescript", "json"],
-  "eslint.trace.server": "off",
-  "eslint.useESLintClass": true,
-  "eslint.validate": ["javascript", "typescript", "typescriptreact", "html"],
-  "css.lint.unknownAtRules": "ignore",
-  "css.validate": false,
-  "css.customData": [".vscode/tailwind.json"],
-  "scss.validate": false,
-  "scss.lint.unknownAtRules": "ignore",
+	"editor.insertSpaces": false,
+	"editor.rulers": [80, 100],
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit",
+		"source.fixAll.stylelint": "explicit"
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.tabCompletion": "on",
+	"eslint.format.enable": true,
+	"eslint.lintTask.enable": false,
+	"eslint.probe": ["javascript", "typescript", "json"],
+	"eslint.trace.server": "off",
+	"eslint.useESLintClass": true,
+	"eslint.validate": ["javascript", "typescript", "typescriptreact", "html"],
+	"css.lint.unknownAtRules": "ignore",
+	"css.validate": false,
+	"css.customData": [".vscode/tailwind.json"],
+	"scss.validate": false,
+	"scss.lint.unknownAtRules": "ignore",
 
-  "stylelint.validate": ["css", "scss"],
-  "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.expand": false,
-  "explorer.fileNesting.patterns": {
-    ".env": ".env*, secrets.*",
-    "*.json": "${capture}.json",
-    "*.ts": "${capture}.*",
-    "*.tsx": "${capture}.*",
-    ".eslintrc.json": ".eslintignore",
-    "README*": "CHANGELOG*, LICENSE*",
-    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, pnpm-workspace.yaml",
-    "tsconfig.json": "tsconfig.*.json",
-    "jest.config.ts": "jest.setup.ts"
-  },
-  "explorer.incrementalNaming": "smart",
-  "explorer.sortOrder": "type",
-  "files.insertFinalNewline": true,
-  "files.trimFinalNewlines": true,
-  "files.trimTrailingWhitespace": true,
-  "files.associations": {
-    "*.css": "tailwindcss"
-  },
-  "prettier.eslintIntegration": true,
-  "prettier.useTabs": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "material-icon-theme.activeIconPack": "react",
-  "material-icon-theme.files.associations": {
-    "*.repository.ts": "Database"
-  },
-  "reactSnippets.settings.importReactOnTop": false,
-  "tailwindCSS.classAttributes": ["class", "className", "ngClass", "tw"],
-  "tailwindCSS.experimental.classRegex": [".*ClassName=\"(.*?)\"", ".*ClassName={\\s*(.*?)\\s*}"]
+	"stylelint.validate": ["css", "scss"],
+	"explorer.fileNesting.enabled": true,
+	"explorer.fileNesting.expand": false,
+	"explorer.fileNesting.patterns": {
+		".env": ".env*, secrets.*",
+		"*.json": "${capture}.json",
+		"*.ts": "${capture}.*",
+		"*.tsx": "${capture}.*",
+		".eslintrc.json": ".eslintignore",
+		"README*": "CHANGELOG*, LICENSE*",
+		"package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, pnpm-workspace.yaml",
+		"tsconfig.json": "tsconfig.*.json",
+		"jest.config.ts": "jest.setup.ts"
+	},
+	"explorer.incrementalNaming": "smart",
+	"explorer.sortOrder": "type",
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	"files.trimTrailingWhitespace": true,
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"prettier.eslintIntegration": true,
+	"prettier.useTabs": true,
+	"typescript.tsdk": "node_modules/typescript/lib",
+	"material-icon-theme.activeIconPack": "react",
+	"material-icon-theme.files.associations": {
+		"*.repository.ts": "Database"
+	},
+	"reactSnippets.settings.importReactOnTop": false,
+	"tailwindCSS.classAttributes": ["class", "className", "ngClass", "tw"],
+	"tailwindCSS.experimental.classRegex": [
+		".*ClassName=\"(.*?)\"",
+		".*ClassName={\\s*(.*?)\\s*}"
+	]
 }
