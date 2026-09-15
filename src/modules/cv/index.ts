@@ -1,30 +1,57 @@
 export type {
 	CvData,
 	JobEntry,
+	OtherIcon,
 	RefEntry,
 	SideEntry,
 	Skill,
 } from './domain/entities/cv-data';
 export {
 	CvDataSchema,
+	EMPTY_CV,
 	JobEntrySchema,
+	OTHER_ICON_OPTIONS,
 	RefEntrySchema,
+	resolveOtherIcon,
 	SideEntrySchema,
 	SkillSchema,
 } from './domain/entities/cv-data';
 export type { TemplateConfig } from './domain/entities/template-config';
+export type {
+	ResolvedTypographyStyle,
+	Typography,
+	TypographyFeatures,
+	TypographyRole,
+	TypographyRoleOverride,
+} from './domain/entities/template-config';
 export {
 	DEFAULT_TEMPLATE,
+	DEFAULT_TYPOGRAPHY,
+	resolveTypography,
 	TemplateConfigSchema,
+	TYPOGRAPHY_ROLES,
+	TypographyFeaturesSchema,
+	TypographyRoleOverrideSchema,
+	TypographyRoleSchema,
+	TypographySchema,
 } from './domain/entities/template-config';
 export type { CvRepository } from './domain/interfaces/cv-repository.interface';
-export {
-	getLoadCvUseCase,
-	getSaveCvUseCase,
-	setCvRepository,
-} from './infrastructure/cv.factory';
 export { CvForm } from './presentation/components/cv-form';
-export { CvPreview } from './presentation/components/cv-preview';
-export { PrintButton } from './presentation/components/print-button';
-export { useCv, useCvList, useSaveCv } from './presentation/hooks/use-cv';
+export { CvPdfDocument } from './presentation/components/cv-pdf-document';
+export { ThemeDialog } from './presentation/components/theme-dialog';
+export { TypographyDialog } from './presentation/components/typography-dialog';
+export {
+	DuplicateFontError,
+	useCustomFont,
+	useDeleteFont,
+	useFontsList,
+	useUploadFont,
+} from './presentation/hooks/use-custom-font';
+export {
+	useCreateCv,
+	useCv,
+	useCvList,
+	useDeleteCv,
+	useSaveCv,
+} from './presentation/hooks/use-cv';
 export { useCvEditorStore } from './presentation/state/cv-editor.store';
