@@ -13,11 +13,11 @@ Theming is dynamic and runtime-driven via native CSS variables in `src/app/globa
 ```css
 /* globals.css — tenant-neutral defaults */
 :root {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 3.9%;
-  --primary: 0 0% 9%;
-  --primary-foreground: 0 0% 98%;
-  /* … */
+	--background: 0 0% 100%;
+	--foreground: 0 0% 3.9%;
+	--primary: 0 0% 9%;
+	--primary-foreground: 0 0% 98%;
+	/* … */
 }
 ```
 
@@ -40,12 +40,12 @@ So `bg-primary` and `text-primary` follow whatever you set on `--primary`.
 
 ## Rules
 
-| Rule | Detail |
-| --- | --- |
-| Tailwind v4 only | No SCSS for new work |
-| HSL channels | Store channels without `hsl()` wrapper in `:root` |
-| No per-tenant builds | Palette changes are runtime CSS variables |
-| Match manifest | Set `theme_color` / `background_color` in `src/app/manifest.ts` |
+| Rule                 | Detail                                                          |
+| -------------------- | --------------------------------------------------------------- |
+| Tailwind v4 only     | No SCSS for new work                                            |
+| HSL channels         | Store channels without `hsl()` wrapper in `:root`               |
+| No per-tenant builds | Palette changes are runtime CSS variables                       |
+| Match manifest       | Set `theme_color` / `background_color` in `src/app/manifest.ts` |
 
 ## Checklist
 

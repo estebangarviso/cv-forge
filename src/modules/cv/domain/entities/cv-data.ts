@@ -1,47 +1,47 @@
 import { z } from 'zod';
 
 export const SkillSchema = z.object({
-  label: z.string().min(1),
-  level: z.number().min(0).max(100),
-  subtitle: z.string().optional(),
+	label: z.string().min(1),
+	level: z.number().min(0).max(100),
+	subtitle: z.string().optional(),
 });
 
 export const SideEntrySchema = z.object({
-  title: z.string().min(1),
-  subtitle: z.string(),
+	subtitle: z.string(),
+	title: z.string().min(1),
 });
 
 export const JobEntrySchema = z.object({
-  role: z.string().min(1),
-  details: z.string(),
-  bullets: z.array(z.string()),
+	bullets: z.array(z.string()),
+	details: z.string(),
+	role: z.string().min(1),
 });
 
 export const RefEntrySchema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-  phone: z.string(),
+	email: z.string().email(),
+	name: z.string().min(1),
+	phone: z.string(),
 });
 
 export const CvDataSchema = z.object({
-  id: z.string().uuid().optional(),
-  name: z.string().min(1),
-  title: z.string(),
-  phone: z.string(),
-  email: z.string().email(),
-  city: z.string(),
-  aboutMe: z.string(),
-  education: z.array(SideEntrySchema),
-  courses: z.array(SideEntrySchema),
-  extracurricular: z.array(SideEntrySchema),
-  experience: z.array(JobEntrySchema),
-  skills: z.array(SkillSchema),
-  languages: z.array(SkillSchema),
-  references: z.array(RefEntrySchema),
-  linkedinUrl: z.string().url().optional(),
-  drivingLicense: z.string().optional(),
-  createdAt: z.string().datetime().optional(),
-  updatedAt: z.string().datetime().optional(),
+	aboutMe: z.string(),
+	city: z.string(),
+	courses: z.array(SideEntrySchema),
+	createdAt: z.string().datetime().optional(),
+	drivingLicense: z.string().optional(),
+	education: z.array(SideEntrySchema),
+	email: z.string().email(),
+	experience: z.array(JobEntrySchema),
+	extracurricular: z.array(SideEntrySchema),
+	id: z.string().uuid().optional(),
+	languages: z.array(SkillSchema),
+	linkedinUrl: z.string().url().optional(),
+	name: z.string().min(1),
+	phone: z.string(),
+	references: z.array(RefEntrySchema),
+	skills: z.array(SkillSchema),
+	title: z.string(),
+	updatedAt: z.string().datetime().optional(),
 });
 
 export type CvData = z.infer<typeof CvDataSchema>;

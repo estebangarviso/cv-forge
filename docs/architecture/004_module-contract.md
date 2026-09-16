@@ -12,12 +12,12 @@ Then: define Zod entities → declare port interfaces → implement adapters →
 
 ## Rules
 
-| # | Rule |
-| --- | --- |
-| 1 | **Single entry point** — `index.ts` is the ONLY file other modules import |
-| 2 | **Port/adapter separation** — `domain/` defines interfaces; `infrastructure/` implements them |
-| 3 | **Layer isolation** — `domain/` has zero framework imports (pure TS + Zod) |
-| 4 | **No cross-module internals** — modules talk via shared types, never internal paths |
+| #   | Rule                                                                                          |
+| --- | --------------------------------------------------------------------------------------------- |
+| 1   | **Single entry point** — `index.ts` is the ONLY file other modules import                     |
+| 2   | **Port/adapter separation** — `domain/` defines interfaces; `infrastructure/` implements them |
+| 3   | **Layer isolation** — `domain/` has zero framework imports (pure TS + Zod)                    |
+| 4   | **No cross-module internals** — modules talk via shared types, never internal paths           |
 
 ## Import pattern
 
@@ -41,14 +41,14 @@ import { useAuthStore } from '@modules/auth/presentation/state/auth.store';
 
 ## Naming conventions
 
-| Thing | Convention |
-| --- | --- |
-| Files | `kebab-case.ts` / `kebab-case.tsx` |
-| Hooks | `use-<name>.ts` exporting `useName()` |
-| Zustand stores | `<name>.store.ts` exporting `useNameStore` |
-| Entities | `<name>.ts` with `NameSchema` + inferred `Name` |
-| Ports | `<name>-repository.interface.ts` |
-| Module wiring | `<name>.factory.ts` exporting `getX()` accessors |
+| Thing          | Convention                                       |
+| -------------- | ------------------------------------------------ |
+| Files          | `kebab-case.ts` / `kebab-case.tsx`               |
+| Hooks          | `use-<name>.ts` exporting `useName()`            |
+| Zustand stores | `<name>.store.ts` exporting `useNameStore`       |
+| Entities       | `<name>.ts` with `NameSchema` + inferred `Name`  |
+| Ports          | `<name>-repository.interface.ts`                 |
+| Module wiring  | `<name>.factory.ts` exporting `getX()` accessors |
 
 ## Next step
 

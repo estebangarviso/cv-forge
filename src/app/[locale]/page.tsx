@@ -1,12 +1,12 @@
-import { redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
+import { redirect } from 'next/navigation';
 
 type Props = {
-  params: Promise<{ locale: string }>;
+	params: Promise<{ locale: string }>;
 };
 
 export default async function HomePage({ params }: Props) {
-  const { locale } = await params;
-  setRequestLocale(locale);
-  redirect(`/${locale}/login`);
+	const { locale } = await params;
+	setRequestLocale(locale);
+	redirect(`/${locale}/login`);
 }

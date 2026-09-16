@@ -24,8 +24,8 @@ export * from './primitives/skeleton';
 export * from './primitives/table';
 export * from './primitives/tabs';
 export * from './primitives/textarea';
-export * from './primitives/toggle-group';
 export * from './primitives/toggle';
+export * from './primitives/toggle-group';
 export * from './primitives/tooltip';
 
 export { DataTable } from './data-table';

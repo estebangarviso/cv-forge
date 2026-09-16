@@ -1,9 +1,9 @@
 allowBuilds:
-  '@parcel/watcher': true
-  '@swc/core': true
-  esbuild: true
-  sharp: true
-  unrs-resolver: true
+    '@parcel/watcher': true
+    '@swc/core': true
+    esbuild: true
+    sharp: true
+    unrs-resolver: true
 # pnpm settings — NOT a monorepo.
 #
 # There is no `packages:` key, so this project is a single package. In pnpm 10+/11
@@ -11,9 +11,15 @@ allowBuilds:
 # package.json "pnpm" field. Here it only approves postinstall build scripts for
 # the native dependencies we trust (needed by esbuild, sharp, SWC, etc.).
 onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - '@swc/core'
-  - esbuild
-  - sharp
-  - unrs-resolver
-storeDir: /Users/egarv/Repositories/cv-studio/.pnpm-store/v11
+    - '@parcel/watcher'
+    - '@swc/core'
+    - esbuild
+    - sharp
+    - unrs-resolver
+
+# eslint-plugin-vitest@0.5.4 pins @typescript-eslint/utils@7.18.0, whose
+# LegacyESLint shim is incompatible with ESLint 10 ("Class extends value
+# undefined"). Force it onto the v8 line already used by the rest of the
+# ESLint toolchain so the flat config loads under ESLint 10.
+overrides:
+    eslint-plugin-vitest>@typescript-eslint/utils: '8.63.0'

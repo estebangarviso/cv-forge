@@ -17,14 +17,7 @@ export default defineConfig({
 		},
 	},
 	test: {
-		environment: 'happy-dom',
-		include: ['src/**/*.{spec,test}.{ts,tsx}'],
-		reporters: ['verbose'],
-		setupFiles: ['./vitest.setup.ts'],
 		coverage: {
-			include: ['src/**/*.{ts,tsx}'],
-			reporter: ['text', 'text-summary', 'lcov', 'cobertura', 'json'],
-			reportsDirectory: '.reports/coverage',
 			exclude: [
 				'**/*.d.ts',
 				'**/index.ts',
@@ -33,6 +26,9 @@ export default defineConfig({
 				'**/__tests__/**',
 				'**/*.{test,spec}.*',
 			],
+			include: ['src/**/*.{ts,tsx}'],
+			reporter: ['text', 'text-summary', 'lcov', 'cobertura', 'json'],
+			reportsDirectory: '.reports/coverage',
 			thresholds: {
 				branches: 80,
 				functions: 80,
@@ -40,5 +36,9 @@ export default defineConfig({
 				statements: 80,
 			},
 		},
+		environment: 'happy-dom',
+		include: ['src/**/*.{spec,test}.{ts,tsx}'],
+		reporters: ['verbose'],
+		setupFiles: ['./vitest.setup.ts'],
 	},
 });

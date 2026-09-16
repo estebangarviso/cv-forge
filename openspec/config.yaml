@@ -1,0 +1,72 @@
+schema: spec-driven
+
+store: cv-studio
+
+context: |
+    Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, pnpm.
+    Modular DDD + Hexagonal: src/modules/<name>/{domain,infrastructure,presentation}, barrel index.ts.
+    Persistence: Google Drive API (no DB). Server state: TanStack Query. Client state: Zustand.
+    PDF via @react-pdf/renderer (src/shared/ui/pdf/). i18n: next-intl (es default, en).
+    Testing: Vitest configured, 0 test files exist today, coverage thresholds set at 80%.
+
+strict_tdd: true
+
+testing:
+    runner: vitest
+    commands:
+        test: pnpm test
+        coverage: pnpm test:coverage
+        watch: pnpm test:watch
+        mutation: pnpm test:mutation
+    layers:
+        unit: vitest + @testing-library/react + happy-dom
+        integration: none detected
+        e2e: none detected
+    coverage:
+        available: true
+        thresholds:
+            branches: 80
+            functions: 80
+            lines: 80
+            statements: 80
+        note:
+            thresholds are configured but zero test files exist — first spec that touches
+            covered code will need new tests before the coverage gate can pass.
+    quality:
+        linter: pnpm lint (eslint + prettier --check), pnpm lint:style (stylelint)
+        type_checker: pnpm type-check (tsc --noEmit, strict mode)
+        formatter: pnpm format (prettier --write)
+    mutation_testing:
+        tool: stryker (@stryker-mutator/core, vitest-runner, typescript-checker)
+        command: pnpm test:mutation
+
+rules:
+    proposal:
+        - Include rollback plan for risky changes (Drive schema, auth/token flow, PDF rendering).
+        - Call out which module(s) under src/modules/ own the change.
+    specs:
+        - Use Given/When/Then for scenarios.
+        - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY).
+        - Domain entities are Zod schemas — spec any new/changed schema shape explicitly.
+    design:
+        - Document which module layer (domain/infrastructure/presentation) owns each change.
+        - Note any new public API surface exported via a module's index.ts barrel.
+        - Flag any i18n string additions (must ship keys in both es.json and en.json).
+    tasks:
+        - Group by phase, use hierarchical numbering.
+        - Keep tasks completable in one session.
+        - Since no tests exist yet, first task touching a module should include its first test file.
+    apply:
+        guidelines:
+            - Follow existing module boundaries — never import another module's internal paths.
+            - No hardcoded visible text — use next-intl keys in es.json and en.json.
+            - No direct Google Drive calls from components — go through the drive module port.
+            - No any — use Zod schemas and inferred types.
+        tdd: true
+        test_command: pnpm test
+    verify:
+        test_command: pnpm test:coverage
+        build_command: pnpm build
+        coverage_threshold: 80
+    archive:
+        - Warn before merging destructive deltas (Drive file schema, auth session shape).

@@ -1,20 +1,20 @@
 {
-  "recommendations": [
-    "adam-bender.commit-message-editor",
-    "alefragnani.bookmarks",
-    "bradgashler.htmltagwrap",
-    "exodiusstudios.comment-anchors",
-    "oouo-diogo-perdigao.docthis",
-    "christian-kohler.path-intellisense",
-    "rldnrl.typescript-snippet",
-    "p42ai.refactor",
-    "nicholashsiang.vscode-javascript-snippet",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "manuelalabor.rxjs-debugging-for-vs-code",
-    "svipas.prettier-plus",
-    "pkief.material-icon-theme",
-    "bradlc.vscode-tailwindcss",
-    "cucumberopen.cucumber-official"
-  ]
+	"recommendations": [
+		"adam-bender.commit-message-editor",
+		"alefragnani.bookmarks",
+		"bradgashler.htmltagwrap",
+		"exodiusstudios.comment-anchors",
+		"oouo-diogo-perdigao.docthis",
+		"christian-kohler.path-intellisense",
+		"rldnrl.typescript-snippet",
+		"p42ai.refactor",
+		"nicholashsiang.vscode-javascript-snippet",
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"manuelalabor.rxjs-debugging-for-vs-code",
+		"svipas.prettier-plus",
+		"pkief.material-icon-theme",
+		"bradlc.vscode-tailwindcss",
+		"cucumberopen.cucumber-official"
+	]
 }

@@ -23,12 +23,14 @@ Closes #
 ## Pre-Merge Checklist
 
 ### Code Quality
+
 - [ ] `pnpm lint` passes (ESLint + Prettier)
 - [ ] `pnpm type-check` passes with no errors
 - [ ] No unused variables, parameters, or imports
 - [ ] No `any` — use Zod schemas and inferred types
 
 ### Architecture
+
 - [ ] Modules imported only via their `@modules/<name>` barrel (no internal paths)
 - [ ] Domain layer has zero framework imports (pure TS + Zod)
 - [ ] Server data uses TanStack Query; client state uses Zustand (not conflated)
@@ -36,15 +38,18 @@ Closes #
 - [ ] No external DI containers/decorators — React Context + hooks only
 
 ### Security
+
 - [ ] No secrets committed; only public config exposed via `NEXT_PUBLIC_*`
 - [ ] External input validated with Zod (client validation treated as UX only)
 - [ ] No `dangerouslySetInnerHTML` with unsanitized input
 
 ### Tests
+
 - [ ] Unit tests added / updated for new or changed logic
 - [ ] `pnpm test` passes locally
 
 ### Documentation
+
 - [ ] Public functions and types have doc comments
 - [ ] `docs/` / `README.md` / `AGENTS.md` updated if conventions changed
 

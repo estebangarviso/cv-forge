@@ -17,4 +17,4 @@ export const DEFAULT_LOCALE: Locale = 'es';
 
 /** Type guard — safe for use in middleware (Edge runtime). */
 export const isLocale = (value: string): value is Locale =>
-  (SUPPORTED_LOCALES as readonly string[]).includes(value);
+	(SUPPORTED_LOCALES as readonly string[]).includes(value);

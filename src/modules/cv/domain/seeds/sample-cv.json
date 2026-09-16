@@ -1,0 +1,134 @@
+{
+	"aboutMe": "Ingeniero de software con 5+ años de experiencia en desarrollo full-stack. Apasionado por crear soluciones escalables y de calidad, con enfoque en testing y arquitectura limpia. Disfruto colaborar con equipos multidisciplinarios para resolver problemas complejos.",
+	"address": "San Francisco, CA",
+	"courses": [
+		{
+			"title": "Advanced TypeScript Patterns",
+			"subtitle": "Frontend Masters / 2024"
+		},
+		{
+			"title": "System Design Fundamentals",
+			"subtitle": "Online Academy / 2023"
+		}
+	],
+	"cvTitle": "Alex Johnson - Software Engineer",
+	"education": [
+		{
+			"title": "Bachelor of Science in Computer Science",
+			"subtitle": "Tech University / San Francisco / 2018"
+		}
+	],
+	"email": "alex.johnson@example.com",
+	"experience": [
+		{
+			"role": "Senior Software Engineer",
+			"details": "Led the development of core platform features. Mentored junior developers and conducted code reviews. Improved system performance by 40% through optimization work.",
+			"bullets": [
+				"Architected microservices migration from monolithic application",
+				"Implemented comprehensive test suite increasing coverage to 85%",
+				"Reduced API response time from 2s to 200ms"
+			]
+		},
+		{
+			"role": "Full-Stack Developer",
+			"details": "Developed new features and maintained legacy systems. Collaborated with product and design teams on feature specification and implementation.",
+			"bullets": [
+				"Built React components for customer-facing dashboard",
+				"Designed and implemented REST API endpoints",
+				"Optimized database queries reducing load times by 50%"
+			]
+		}
+	],
+	"extracurricular": [
+		{
+			"title": "Open Source Contributor",
+			"subtitle": "React Documentation / 2022-present"
+		}
+	],
+	"languages": [
+		{
+			"label": "English",
+			"level": 100,
+			"subtitle": "Native"
+		},
+		{
+			"label": "Spanish",
+			"level": 70,
+			"subtitle": "Intermediate"
+		}
+	],
+	"name": "Alex Johnson",
+	"other": [
+		{
+			"icon": "linkedin",
+			"label": "LinkedIn",
+			"value": "https://example.invalid/profile"
+		},
+		{
+			"icon": "link",
+			"label": "Portfolio",
+			"value": "https://alexjohnson.dev"
+		},
+		{
+			"icon": "mail",
+			"label": "Email",
+			"value": "alex.johnson@example.com"
+		}
+	],
+	"phone": "+1 555-0123",
+	"references": [
+		{
+			"name": "Jane Smith",
+			"email": "jane.smith@example.com",
+			"phone": "+1 555-0456"
+		},
+		{
+			"name": "Bob Wilson",
+			"email": "bob.wilson@example.com",
+			"phone": "+1 555-0789"
+		}
+	],
+	"skills": [
+		{
+			"label": "TypeScript",
+			"level": 95
+		},
+		{
+			"label": "React",
+			"level": 90
+		},
+		{
+			"label": "Node.js",
+			"level": 88
+		},
+		{
+			"label": "System Design",
+			"level": 80
+		},
+		{
+			"label": "Testing & QA",
+			"level": 85
+		}
+	],
+	"theme": {
+		"colors": {
+			"accent": "#1A1A2E",
+			"muted": "#555555",
+			"sidebarBg": "#D4EDEC"
+		},
+		"id": "classic-teal-v1",
+		"mainTopPadding": 0,
+		"name": "Profesional Teal",
+		"sidebarWidth": 29,
+		"typography": {
+			"fontFamily": "Inter",
+			"headingSize": 24,
+			"name": "Inter / 11pt",
+			"smallSize": 9,
+			"titleSize": 18
+		}
+	},
+	"title": "Software Engineer",
+	"createdAt": "2024-01-15T10:00:00Z",
+	"updatedAt": "2024-09-11T14:30:00Z"
+}

@@ -3,15 +3,15 @@
 import { create } from 'zustand';
 
 interface CvEditorState {
-  isDirty: boolean;
-  activeSection: string | null;
-  setDirty: (dirty: boolean) => void;
-  setActiveSection: (section: string | null) => void;
+	activeSection: string | null;
+	isDirty: boolean;
+	setActiveSection: (section: string | null) => void;
+	setDirty: (dirty: boolean) => void;
 }
 
 export const useCvEditorStore = create<CvEditorState>((set) => ({
-  isDirty: false,
-  activeSection: null,
-  setDirty: (dirty) => set({ isDirty: dirty }),
-  setActiveSection: (section) => set({ activeSection: section }),
+	activeSection: null,
+	isDirty: false,
+	setActiveSection: (section) => set({ activeSection: section }),
+	setDirty: (dirty) => set({ isDirty: dirty }),
 }));

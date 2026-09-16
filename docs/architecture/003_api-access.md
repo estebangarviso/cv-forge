@@ -37,11 +37,11 @@ For endpoints not covered by the generated OpenAPI spec:
 
 ```typescript
 export class HttpAuthRepository implements AuthRepository {
-  constructor(private readonly http: HttpClient) {}
+	constructor(private readonly http: HttpClient) {}
 
-  async login(credentials: LoginCredentials): Promise<Session> {
-    return this.http.post('/auth/login', credentials, SessionSchema);
-  }
+	async login(credentials: LoginCredentials): Promise<Session> {
+		return this.http.post('/auth/login', credentials, SessionSchema);
+	}
 }
 ```
 

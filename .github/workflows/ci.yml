@@ -2,7 +2,6 @@ name: CI
 
 on:
     pull_request:
-        branches: [main]
     push:
         branches: [main]
     workflow_dispatch:
@@ -15,11 +14,15 @@ concurrency:
     cancel-in-progress: true
 
 env:
-    PNPM_VERSION: "11.10.0"
+    PNPM_VERSION: '11.10.0'
 
 jobs:
-    lint:
-        name: Lint
+    # Installs once and caches node_modules (+ the pnpm store, via setup-node's
+    # built-in pnpm cache) so lint/type-check/test/build restore instead of
+    # reinstalling. Those 4 jobs only depend on this one, so they still run
+    # in parallel against each other.
+    install:
+        name: Install
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v5
@@ -30,11 +33,40 @@ jobs:
               with:
                   node-version-file: .nvmrc
                   cache: pnpm
-            - run: pnpm install --frozen-lockfile
+            - id: cache-node-modules
+              uses: actions/cache@v4
+              with:
+                  key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+                  path: node_modules
+            - if: steps.cache-node-modules.outputs.cache-hit != 'true'
+              run: pnpm install --frozen-lockfile
+
+    lint:
+        name: Lint
+        needs: install
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: ${{ env.PNPM_VERSION }}
+            - uses: actions/setup-node@v5
+              with:
+                  node-version-file: .nvmrc
+                  cache: pnpm
+            - id: restore-node-modules
+              uses: actions/cache/restore@v4
+              with:
+                  key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+                  path: node_modules
+            - if: steps.restore-node-modules.outputs.cache-hit != 'true'
+              run: pnpm install --frozen-lockfile
             - run: pnpm lint
+            - run: pnpm lint:style
 
     type-check:
         name: Type-check
+        needs: install
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v5
@@ -45,11 +77,18 @@ jobs:
               with:
                   node-version-file: .nvmrc
                   cache: pnpm
-            - run: pnpm install --frozen-lockfile
+            - id: restore-node-modules
+              uses: actions/cache/restore@v4
+              with:
+                  key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+                  path: node_modules
+            - if: steps.restore-node-modules.outputs.cache-hit != 'true'
+              run: pnpm install --frozen-lockfile
             - run: pnpm type-check
 
     test:
         name: Test
+        needs: install
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v5
@@ -60,5 +99,48 @@ jobs:
               with:
                   node-version-file: .nvmrc
                   cache: pnpm
-            - run: pnpm install --frozen-lockfile
-            - run: pnpm exec vitest run
+            - id: restore-node-modules
+              uses: actions/cache/restore@v4
+              with:
+                  key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+                  path: node_modules
+            - if: steps.restore-node-modules.outputs.cache-hit != 'true'
+              run: pnpm install --frozen-lockfile
+            - run: pnpm exec vitest run --passWithNoTests
+
+    build:
+        name: Build
+        needs: install
+        runs-on: ubuntu-latest
+        env:
+            NEXT_PUBLIC_API_URL: http://localhost:3001/api
+            NEXT_PUBLIC_APP_NAME: cv-studio
+            NEXT_PUBLIC_APP_ENV: production
+            NEXT_PUBLIC_BASE_URL: http://localhost:3000
+            NEXT_PUBLIC_DEFAULT_LOCALE: es
+        steps:
+            - uses: actions/checkout@v5
+            - uses: pnpm/action-setup@v4
+              with:
+                  version: ${{ env.PNPM_VERSION }}
+            - uses: actions/setup-node@v5
+              with:
+                  node-version-file: .nvmrc
+                  cache: pnpm
+            - id: restore-node-modules
+              uses: actions/cache/restore@v4
+              with:
+                  key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+                  path: node_modules
+            - if: steps.restore-node-modules.outputs.cache-hit != 'true'
+              run: pnpm install --frozen-lockfile
+            # Reuses Next.js's own incremental compiler cache across runs so an
+            # unchanged commit (or a small diff) only rebuilds what changed,
+            # instead of a full cold build every time.
+            - uses: actions/cache@v4
+              with:
+                  key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+                  path: .next/cache
+                  restore-keys: |
+                      nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+            - run: pnpm build

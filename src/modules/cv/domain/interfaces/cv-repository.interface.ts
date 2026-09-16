@@ -1,8 +1,8 @@
 import type { CvData } from '../entities/cv-data';
 
 export interface CvRepository {
-  list(): Promise<Pick<CvData, 'id' | 'name' | 'updatedAt'>[]>;
-  getById(id: string): Promise<CvData | null>;
-  save(cv: CvData): Promise<CvData>;
-  delete(id: string): Promise<void>;
+	delete(id: string): Promise<void>;
+	getById(id: string): Promise<CvData | null>;
+	list(): Promise<Pick<CvData, 'id' | 'name' | 'updatedAt'>[]>;
+	save(cv: CvData): Promise<CvData>;
 }

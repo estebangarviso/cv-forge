@@ -12,18 +12,18 @@ pnpm lint && pnpm type-check   # before committing
 
 ## Scripts
 
-| Command | Description |
-| --- | --- |
-| `pnpm dev` | Development server (Turbopack) |
-| `pnpm build` | Production build |
-| `pnpm start` | Serve the production build |
-| `pnpm test` | Unit tests (Vitest) |
-| `pnpm test:coverage` | Tests with coverage |
-| `pnpm test:mutation` | Mutation testing (Stryker) |
-| `pnpm type-check` | TypeScript check |
-| `pnpm lint` | ESLint + Prettier |
-| `pnpm openapi:gen` | Regenerate `src/core/api/v1.ts` from the OpenAPI spec |
-| `pnpm init:project` | Replace template placeholders across the repo |
+| Command              | Description                                           |
+| -------------------- | ----------------------------------------------------- |
+| `pnpm dev`           | Development server (Turbopack)                        |
+| `pnpm build`         | Production build                                      |
+| `pnpm start`         | Serve the production build                            |
+| `pnpm test`          | Unit tests (Vitest)                                   |
+| `pnpm test:coverage` | Tests with coverage                                   |
+| `pnpm test:mutation` | Mutation testing (Stryker)                            |
+| `pnpm type-check`    | TypeScript check                                      |
+| `pnpm lint`          | ESLint + Prettier                                     |
+| `pnpm openapi:gen`   | Regenerate `src/core/api/v1.ts` from the OpenAPI spec |
+| `pnpm init:project`  | Replace template placeholders across the repo         |
 
 ## OpenAPI generation
 
@@ -35,11 +35,11 @@ Writes `src/core/api/v1.ts` (git-ignored). Re-run whenever the backend spec chan
 
 ## Verify before done
 
-| Change type | Run |
-| --- | --- |
-| Any code change | `pnpm lint` + `pnpm type-check` |
-| Logic, hooks, modules | Also `pnpm test` |
-| API contract change | `pnpm openapi:gen` then `pnpm type-check` |
+| Change type           | Run                                       |
+| --------------------- | ----------------------------------------- |
+| Any code change       | `pnpm lint` + `pnpm type-check`           |
+| Logic, hooks, modules | Also `pnpm test`                          |
+| API contract change   | `pnpm openapi:gen` then `pnpm type-check` |
 
 ## Next step
 

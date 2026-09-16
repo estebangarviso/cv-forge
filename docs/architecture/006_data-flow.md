@@ -18,13 +18,13 @@ User action → Component (react-hook-form)
 
 ## Layer trace
 
-| Step | Layer | Responsibility |
-| --- | --- | --- |
-| 1 | Component | Collect input via `react-hook-form` + Zod |
-| 2 | Hook | Orchestrate `useQuery` / `useMutation` |
-| 3 | Use case | Pure domain logic; no framework imports |
-| 4 | Repository | Call API via `useApiClient()` transport or `getHttpClient()` |
-| 5 | Response | Zod validation → Query cache; session facts → Zustand |
+| Step | Layer      | Responsibility                                               |
+| ---- | ---------- | ------------------------------------------------------------ |
+| 1    | Component  | Collect input via `react-hook-form` + Zod                    |
+| 2    | Hook       | Orchestrate `useQuery` / `useMutation`                       |
+| 3    | Use case   | Pure domain logic; no framework imports                      |
+| 4    | Repository | Call API via `useApiClient()` transport or `getHttpClient()` |
+| 5    | Response   | Zod validation → Query cache; session facts → Zustand        |
 
 ## Example: login
 
@@ -35,12 +35,12 @@ User action → Component (react-hook-form)
 
 ## Rules
 
-| Rule | Detail |
-| --- | --- |
-| Forms | `react-hook-form` + `zodResolver` exclusively |
-| Server data | Lands in TanStack Query cache — not Zustand |
+| Rule            | Detail                                                    |
+| --------------- | --------------------------------------------------------- |
+| Forms           | `react-hook-form` + `zodResolver` exclusively             |
+| Server data     | Lands in TanStack Query cache — not Zustand               |
 | Client identity | Session/auth facts may update Zustand on mutation success |
-| Validation | Zod at form boundary and repository response boundary |
+| Validation      | Zod at form boundary and repository response boundary     |
 
 ## Checklist
 

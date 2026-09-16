@@ -1,31 +1,31 @@
 {
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "Run dev",
-      "type": "node-terminal",
-      "request": "launch",
-      "sourceMaps": true,
-      "command": "pnpm run dev",
-      "serverReadyAction": {
-        "pattern": "started server on .+, url: (https?://.+)",
-        "uriFormat": "%s",
-        "action": "debugWithChrome"
-      }
-    },
-    {
-      "name": "Run Unit Tests",
-      "type": "node-terminal",
-      "request": "launch",
-      "sourceMaps": true,
-      "command": "pnpm run test",
-      "internalConsoleOptions": "neverOpen",
-      "serverReadyAction": {
-        "pattern": "started server on .+, url: (https?://.+)",
-        "uriFormat": "%s",
-        "action": "debugWithChrome"
-      }
-    }
-    // Cypress need to be debugged with a command cy(...).debug or debbuger directly in the code and open Inspect in the browser
-  ]
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Run dev",
+			"type": "node-terminal",
+			"request": "launch",
+			"sourceMaps": true,
+			"command": "pnpm run dev",
+			"serverReadyAction": {
+				"pattern": "started server on .+, url: (https?://.+)",
+				"uriFormat": "%s",
+				"action": "debugWithChrome"
+			}
+		},
+		{
+			"name": "Run Unit Tests",
+			"type": "node-terminal",
+			"request": "launch",
+			"sourceMaps": true,
+			"command": "pnpm run test",
+			"internalConsoleOptions": "neverOpen",
+			"serverReadyAction": {
+				"pattern": "started server on .+, url: (https?://.+)",
+				"uriFormat": "%s",
+				"action": "debugWithChrome"
+			}
+		}
+		// Cypress need to be debugged with a command cy(...).debug or debbuger directly in the code and open Inspect in the browser
+	]
 }

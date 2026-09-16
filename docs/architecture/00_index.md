@@ -14,29 +14,29 @@ A lean, functional Next.js 16 app built around **feature modules**, a **type-saf
 
 Full stack snapshot: [AGENTS.md § Project snapshot](../../AGENTS.md#project-snapshot).
 
-| Topic | Where |
-| --- | --- |
+| Topic                         | Where                                                             |
+| ----------------------------- | ----------------------------------------------------------------- |
 | App Router + bounded contexts | `src/app/` — `(back-office)` and `(front-office)` under `[lang]/` |
-| Feature modules | `src/modules/<name>/` |
-| Shared kernel | `src/core/` (API client, Query provider, HTTP helper) |
-| Global UI primitives | `src/shared/` |
+| Feature modules               | `src/modules/<name>/`                                             |
+| Shared kernel                 | `src/core/` (API client, Query provider, HTTP helper)             |
+| Global UI primitives          | `src/shared/`                                                     |
 
 ## Deep dives
 
-| Doc | Read it when you want to… |
-| --- | --- |
+| Doc                                               | Read it when you want to…                           |
+| ------------------------------------------------- | --------------------------------------------------- |
 | [001 Folder structure](./001_folder-structure.md) | See the full `src/` tree and layer responsibilities |
-| [002 State management](./002_state-management.md) | Choose TanStack Query vs Zustand |
-| [003 API access](./003_api-access.md) | Wire openapi-fetch and repository HTTP |
-| [004 Module contract](./004_module-contract.md) | Scaffold a new hexagonal module |
-| [005 Theming](./005_theming.md) | Set CSS-variable palettes per tenant |
-| [006 Data flow](./006_data-flow.md) | Trace a request from UI to backend |
+| [002 State management](./002_state-management.md) | Choose TanStack Query vs Zustand                    |
+| [003 API access](./003_api-access.md)             | Wire openapi-fetch and repository HTTP              |
+| [004 Module contract](./004_module-contract.md)   | Scaffold a new hexagonal module                     |
+| [005 Theming](./005_theming.md)                   | Set CSS-variable palettes per tenant                |
+| [006 Data flow](./006_data-flow.md)               | Trace a request from UI to backend                  |
 
 ## Related docs
 
-| Doc | Read it when you want to… |
-| --- | --- |
-| [README.md](../../README.md) | Quick start and doc entry points |
-| [AGENTS.md](../../AGENTS.md) | Enforceable rules, conventions, agent playbooks |
-| [docs/README.md](../README.md) | Full documentation map |
-| [Commands](../getting-started/002_commands.md) | pnpm scripts reference |
+| Doc                                            | Read it when you want to…                       |
+| ---------------------------------------------- | ----------------------------------------------- |
+| [README.md](../../README.md)                   | Quick start and doc entry points                |
+| [AGENTS.md](../../AGENTS.md)                   | Enforceable rules, conventions, agent playbooks |
+| [docs/README.md](../README.md)                 | Full documentation map                          |
+| [Commands](../getting-started/002_commands.md) | pnpm scripts reference                          |

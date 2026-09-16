@@ -1,102 +1,102 @@
 version: 2
 
 updates:
-  # ──────────────────────────────────────────────────────────────────────────
-  # npm / pnpm — application dependencies (root lockfile)
-  # ──────────────────────────────────────────────────────────────────────────
-  - package-ecosystem: npm
-    directory: /
-    schedule:
-      interval: weekly
-      day: monday
-      time: "09:00"
-      timezone: America/Santiago
-    open-pull-requests-limit: 10
-    # Group minor and patch updates together to reduce PR noise.
-    # Security and major updates are always sent as individual PRs.
-    groups:
-      next-react:
-        patterns:
-          - "next"
-          - "react"
-          - "react-dom"
-          - "eslint-config-next"
-          - "@types/react"
-          - "@types/react-dom"
-      data-layer:
-        patterns:
-          - "@tanstack/*"
-          - "zustand"
-          - "openapi-fetch"
-          - "openapi-typescript"
-      forms-validation:
-        patterns:
-          - "react-hook-form"
-          - "@hookform/*"
-          - "zod"
-      styling:
-        patterns:
-          - "tailwindcss"
-          - "tailwind-merge"
-          - "class-variance-authority"
-          - "clsx"
-          - "next-themes"
-      linting:
-        patterns:
-          - "eslint"
-          - "prettier"
-          - "stylelint*"
-      testing:
-        patterns:
-          - "vitest"
-          - "@vitest/*"
-          - "@vitejs/*"
-          - "@testing-library/*"
-          - "happy-dom"
-          - "@stryker-mutator/*"
-      minor-patch:
-        update-types:
-          - minor
-          - patch
-    labels:
-      - "dependencies"
-      - "javascript"
-    commit-message:
-      prefix: "chore(deps)"
-      include: scope
+    # ──────────────────────────────────────────────────────────────────────────
+    # npm / pnpm — application dependencies (root lockfile)
+    # ──────────────────────────────────────────────────────────────────────────
+    - package-ecosystem: npm
+      directory: /
+      schedule:
+          interval: weekly
+          day: monday
+          time: '09:00'
+          timezone: America/Santiago
+      open-pull-requests-limit: 10
+      # Group minor and patch updates together to reduce PR noise.
+      # Security and major updates are always sent as individual PRs.
+      groups:
+          next-react:
+              patterns:
+                  - 'next'
+                  - 'react'
+                  - 'react-dom'
+                  - 'eslint-config-next'
+                  - '@types/react'
+                  - '@types/react-dom'
+          data-layer:
+              patterns:
+                  - '@tanstack/*'
+                  - 'zustand'
+                  - 'openapi-fetch'
+                  - 'openapi-typescript'
+          forms-validation:
+              patterns:
+                  - 'react-hook-form'
+                  - '@hookform/*'
+                  - 'zod'
+          styling:
+              patterns:
+                  - 'tailwindcss'
+                  - 'tailwind-merge'
+                  - 'class-variance-authority'
+                  - 'clsx'
+                  - 'next-themes'
+          linting:
+              patterns:
+                  - 'eslint'
+                  - 'prettier'
+                  - 'stylelint*'
+          testing:
+              patterns:
+                  - 'vitest'
+                  - '@vitest/*'
+                  - '@vitejs/*'
+                  - '@testing-library/*'
+                  - 'happy-dom'
+                  - '@stryker-mutator/*'
+          minor-patch:
+              update-types:
+                  - minor
+                  - patch
+      labels:
+          - 'dependencies'
+          - 'javascript'
+      commit-message:
+          prefix: 'chore(deps)'
+          include: scope
 
-  # ──────────────────────────────────────────────────────────────────────────
-  # GitHub Actions — keep workflow actions up to date
-  # ──────────────────────────────────────────────────────────────────────────
-  - package-ecosystem: github-actions
-    directory: /
-    schedule:
-      interval: weekly
-      day: monday
-      time: "09:00"
-      timezone: America/Santiago
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "ci/cd"
-    commit-message:
-      prefix: "chore(ci)"
-      include: scope
+    # ──────────────────────────────────────────────────────────────────────────
+    # GitHub Actions — keep workflow actions up to date
+    # ──────────────────────────────────────────────────────────────────────────
+    - package-ecosystem: github-actions
+      directory: /
+      schedule:
+          interval: weekly
+          day: monday
+          time: '09:00'
+          timezone: America/Santiago
+      open-pull-requests-limit: 5
+      labels:
+          - 'dependencies'
+          - 'ci/cd'
+      commit-message:
+          prefix: 'chore(ci)'
+          include: scope
 
-  # ──────────────────────────────────────────────────────────────────────────
-  # Docker — keep base images current (Dockerfile FROM instructions)
-  # ──────────────────────────────────────────────────────────────────────────
-  - package-ecosystem: docker
-    directory: /
-    schedule:
-      interval: weekly
-      day: monday
-      time: "09:00"
-      timezone: America/Santiago
-    open-pull-requests-limit: 3
-    labels:
-      - "dependencies"
-      - "docker"
-    commit-message:
-      prefix: "chore(docker)"
-      include: scope
+    # ──────────────────────────────────────────────────────────────────────────
+    # Docker — keep base images current (Dockerfile FROM instructions)
+    # ──────────────────────────────────────────────────────────────────────────
+    - package-ecosystem: docker
+      directory: /
+      schedule:
+          interval: weekly
+          day: monday
+          time: '09:00'
+          timezone: America/Santiago
+      open-pull-requests-limit: 3
+      labels:
+          - 'dependencies'
+          - 'docker'
+      commit-message:
+          prefix: 'chore(docker)'
+          include: scope

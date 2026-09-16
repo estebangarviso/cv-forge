@@ -20,6 +20,12 @@ coverage/
 # Regenerate locally / in CI instead of committing the output.
 src/core/api/v1.ts
 
+# ─── PDF fonts ─────────────────────────────────────
+# Copied from @fontsource/* packages via `pnpm pdf-fonts:copy` (runs on
+# postinstall). Regenerate instead of committing — see
+# src/shared/ui/pdf/pdf-fonts.config.mjs.
+public/fonts/
+
 # ─── Environment ───────────────────────────────────
 .env
 .env.local
@@ -45,3 +51,13 @@ pnpm-debug.log*
 # ─── TypeScript ────────────────────────────────────
 *.tsbuildinfo
 next-env.d.ts
+# Local AI runtime state
+.atl/
+.codegraph/
+
+# ─── Local Seeds ────────────────────────────────────
+# Developer-local seed data (never commit personal fixtures)
+src/modules/cv/domain/seeds/*.local.json
+
+# Temporal files
+tmp/
