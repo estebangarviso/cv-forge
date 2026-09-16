@@ -9,7 +9,7 @@ import { CustomFontMetaSchema } from '../domain/entities/custom-font';
 // `listFiles`/`findFileByName` (CVs) filter strictly by
 // `mimeType='application/json'`, so font files never pollute the CV list
 // regardless of folder, but nesting keeps My Drive tidy to browse.
-const FOLDER_NAME = 'CV Studio';
+const FOLDER_NAME = 'CVForge';
 const ASSETS_FOLDER_NAME = 'assets';
 const FONTS_FOLDER_NAME = 'fonts';
 const FONT_MIME_TYPES = ['font/ttf', 'font/otf', 'font/woff', 'font/woff2'];
@@ -18,8 +18,8 @@ export class DriveFontRepository implements FontRepository {
 	constructor(private readonly driveRepo: DriveRepository) {}
 
 	/**
-	 * Resolves `CV Studio/assets/fonts/`, moving any font files still sitting
-	 * directly in the root `CV Studio` folder (from before this subfolder
+	 * Resolves `CVForge/assets/fonts/`, moving any font files still sitting
+	 * directly in the root `CVForge` folder (from before this subfolder
 	 * existed) into it. Only called from `upload()` — the sole method that
 	 * needs folder resolution at all; `getMetadata`/`getContent` fetch by
 	 * Drive id directly and don't care which folder a file lives in.

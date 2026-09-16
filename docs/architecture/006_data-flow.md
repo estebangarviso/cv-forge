@@ -8,13 +8,13 @@ A typical user action flows from the UI through hooks and use cases to the backe
 User action → Component (react-hook-form)
             → Hook (TanStack Query)
             → Use Case (domain)
-            → Repository (port) → API client / HTTP → CV Studio API[^1]
+            → Repository (port) → API client / HTTP → CVForge API[^1]
                                         ↓
             Zod-validated response → Query cache (server state)
                                    → Zustand store (client identity)
 ```
 
-[^1]: `CV Studio API` is a template placeholder rewritten by `pnpm init:project`.
+[^1]: `CVForge API` is a template placeholder rewritten by `pnpm init:project`.
 
 ## Layer trace
 

@@ -6,7 +6,7 @@ import type { CvRepository } from '../domain/interfaces/cv-repository.interface'
 
 import { CvDataSchema } from '../domain/entities/cv-data';
 
-const FOLDER_NAME = 'CV Studio';
+const FOLDER_NAME = 'CVForge';
 const DOCUMENTS_FOLDER_NAME = 'documents';
 const MAX_COPY_NAME_ATTEMPTS = 100;
 
@@ -23,8 +23,8 @@ export class DriveCvRepository implements CvRepository {
 	constructor(private readonly driveRepo: DriveRepository) {}
 
 	/**
-	 * Resolves `CV Studio/documents/`. `migrate` also moves any CV JSON files
-	 * still sitting directly in the root `CV Studio` folder (from before this
+	 * Resolves `CVForge/documents/`. `migrate` also moves any CV JSON files
+	 * still sitting directly in the root `CVForge` folder (from before this
 	 * subfolder existed) into `documents/` — self-healing, and cheap once
 	 * there's nothing left to move, so only worth doing from the low-frequency
 	 * `list()` call, not from `save()` (which runs on every autosave).

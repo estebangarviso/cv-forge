@@ -1,6 +1,6 @@
-# Contributing to CV Studio
+# Contributing to CVForge
 
-Thank you for contributing to CV Studio. Read [AGENTS.md](AGENTS.md) first; it is the canonical source for repository rules and architecture decisions.
+Thank you for contributing to CVForge. Read [AGENTS.md](AGENTS.md) first; it is the canonical source for repository rules and architecture decisions.
 
 ## Before Opening a Pull Request
 
@@ -16,9 +16,9 @@ Keep changes focused, explain the user-facing behavior, and include validation r
 
 ## Architecture
 
-CV Studio uses DDD and hexagonal architecture. A module under `src/modules/<name>/` owns its `domain`, `infrastructure`, and `presentation` layers. Domain code is framework-free and models data with Zod. Import another module through its public `index.ts` barrel, not through internal paths.
+CVForge uses DDD and hexagonal architecture. A module under `src/modules/<name>/` owns its `domain`, `infrastructure`, and `presentation` layers. Domain code is framework-free and models data with Zod. Import another module through its public `index.ts` barrel, not through internal paths.
 
-Google Drive is the only product persistence layer. CV Studio does not use SQL, NoSQL, or a central personal-data store. Do not call Google Drive directly from UI components; use the module port and repository adapter.
+Google Drive is the only product persistence layer. CVForge does not use SQL, NoSQL, or a central personal-data store. Do not call Google Drive directly from UI components; use the module port and repository adapter.
 
 Visible text must use `next-intl` keys in both `src/modules/i18n/messages/es.json` and `en.json`.
 
