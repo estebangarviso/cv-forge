@@ -83,3 +83,26 @@ export function useDeleteCv() {
 		},
 	});
 }
+
+export function useDuplicateCv() {
+	const queryClient = useQueryClient();
+	return useMutation({
+		mutationFn: async (input: { copyTitle: string; sourceId: string }) => {
+			const res = await fetch(`/api/cv/${input.sourceId}/duplicate`, {
+				body: JSON.stringify({ copyTitle: input.copyTitle }),
+				headers: { 'Content-Type': 'application/json' },
+				method: 'POST',
+			});
+			if (!res.ok) {
+				const body = (await res.json().catch(() => ({}))) as {
+					error?: string;
+				};
+				throw new Error(body.error ?? 'DUPLICATE_FAILED');
+			}
+			return res.json() as Promise<CvData>;
+		},
+		onSuccess: () => {
+			void queryClient.invalidateQueries({ queryKey: ['cvs'] });
+		},
+	});
+}

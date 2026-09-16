@@ -36,6 +36,7 @@ export {
 	TypographySchema,
 } from './domain/entities/template-config';
 export type { CvRepository } from './domain/interfaces/cv-repository.interface';
+export { DuplicateCvUseCase } from './domain/use-cases/duplicate-cv.use-case';
 export { CvForm } from './presentation/components/cv-form';
 export { CvPdfDocument } from './presentation/components/cv-pdf-document';
 export { ThemeDialog } from './presentation/components/theme-dialog';
@@ -52,6 +53,7 @@ export {
 	useCv,
 	useCvList,
 	useDeleteCv,
+	useDuplicateCv,
 	useSaveCv,
 } from './presentation/hooks/use-cv';
 export { useCvEditorStore } from './presentation/state/cv-editor.store';
