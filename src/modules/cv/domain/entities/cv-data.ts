@@ -1,5 +1,57 @@
 import { z } from 'zod';
 
+import { DEFAULT_TEMPLATE, TemplateConfigSchema } from './template-config';
+
+/** Matches `PdfIconName` in `@shared/ui/pdf` (plus `'auto'`/`'none'`) — kept as a plain string union here so domain stays framework-free. */
+export const OTHER_ICON_OPTIONS = [
+	'auto',
+	'none',
+	'link',
+	'linkedin',
+	'mail',
+	'phone',
+	'pin',
+	'idCard',
+] as const;
+export const OtherIconSchema = z.enum(OTHER_ICON_OPTIONS);
+export type OtherIcon = z.infer<typeof OtherIconSchema>;
+
+export const OtherEntrySchema = z.object({
+	icon: OtherIconSchema.default('auto'),
+	label: z.string().default(''),
+	value: z.string().default(''),
+});
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/;
+const PHONE_PATTERN = /^[\d+][\s\d()-]{5,}$/;
+
+/**
+ * Resolves the icon to render for an "other" entry. An explicit (non-`auto`)
+ * choice always wins; `auto` sniffs the value's shape (LinkedIn domain,
+ * mailto:/email, tel:/phone, http(s) URL) and falls back to no icon.
+ */
+export function resolveOtherIcon(
+	value: string,
+	explicitIcon: OtherIcon,
+): Exclude<OtherIcon, 'auto'> {
+	if (explicitIcon !== 'auto') return explicitIcon;
+
+	const trimmed = value.trim();
+	if (/^https?:\/\//i.test(trimmed)) {
+		try {
+			const { hostname } = new URL(trimmed);
+			if (hostname.replace(/^w{3}\./, '') === 'linkedin.com')
+				return 'linkedin';
+		} catch {
+			// falls through to the generic 'link' icon below
+		}
+		return 'link';
+	}
+	if (/^mailto:/i.test(trimmed) || EMAIL_PATTERN.test(trimmed)) return 'mail';
+	if (/^tel:/i.test(trimmed) || PHONE_PATTERN.test(trimmed)) return 'phone';
+	return 'none';
+}
+
 export const SkillSchema = z.object({
 	label: z.string().min(1),
 	level: z.number().min(0).max(100),
@@ -18,29 +70,32 @@ export const JobEntrySchema = z.object({
 });
 
 export const RefEntrySchema = z.object({
-	email: z.string().email(),
+	email: z.string().email().or(z.literal('')),
 	name: z.string().min(1),
 	phone: z.string(),
 });
 
 export const CvDataSchema = z.object({
-	aboutMe: z.string(),
-	city: z.string(),
-	courses: z.array(SideEntrySchema),
+	aboutMe: z.string().default(''),
+	address: z.string().default(''),
+	courses: z.array(SideEntrySchema).default([]),
 	createdAt: z.string().datetime().optional(),
-	drivingLicense: z.string().optional(),
-	education: z.array(SideEntrySchema),
-	email: z.string().email(),
-	experience: z.array(JobEntrySchema),
-	extracurricular: z.array(SideEntrySchema),
-	id: z.string().uuid().optional(),
-	languages: z.array(SkillSchema),
-	linkedinUrl: z.string().url().optional(),
-	name: z.string().min(1),
-	phone: z.string(),
-	references: z.array(RefEntrySchema),
-	skills: z.array(SkillSchema),
-	title: z.string(),
+	/** Display title of the Drive document (separate from the person's name on the CV). */
+	cvTitle: z.string().default(''),
+	education: z.array(SideEntrySchema).default([]),
+	email: z.string().email().or(z.literal('')).default(''),
+	experience: z.array(JobEntrySchema).default([]),
+	extracurricular: z.array(SideEntrySchema).default([]),
+	id: z.string().optional(),
+	languages: z.array(SkillSchema).default([]),
+	name: z.string().default(''),
+	other: z.array(OtherEntrySchema).default([]),
+	phone: z.string().default(''),
+	references: z.array(RefEntrySchema).default([]),
+	skills: z.array(SkillSchema).default([]),
+	/** Per-CV template config (colors, layout, typography) — defaults keep older Drive files without this field working unchanged. */
+	theme: TemplateConfigSchema.default(DEFAULT_TEMPLATE),
+	title: z.string().default(''),
 	updatedAt: z.string().datetime().optional(),
 });
 
@@ -49,3 +104,23 @@ export type Skill = z.infer<typeof SkillSchema>;
 export type SideEntry = z.infer<typeof SideEntrySchema>;
 export type JobEntry = z.infer<typeof JobEntrySchema>;
 export type RefEntry = z.infer<typeof RefEntrySchema>;
+export type OtherEntry = z.infer<typeof OtherEntrySchema>;
+
+export const EMPTY_CV: CvData = {
+	aboutMe: '',
+	address: '',
+	courses: [],
+	cvTitle: '',
+	education: [],
+	email: '',
+	experience: [],
+	extracurricular: [],
+	languages: [],
+	name: '',
+	other: [],
+	phone: '',
+	references: [],
+	skills: [],
+	theme: DEFAULT_TEMPLATE,
+	title: '',
+};

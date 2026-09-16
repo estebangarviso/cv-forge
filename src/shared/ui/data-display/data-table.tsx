@@ -23,6 +23,13 @@ import {
 } from '@tanstack/react-table';
 import { useState } from 'react';
 
+import { EmptyState } from '../feedback/empty-state';
+
+/** Per-table `meta` shape — pass `updateData` to support editable cells (a cell renderer calls `table.options.meta?.updateData(row.index, column.id, value)`). */
+export interface DataTableMeta {
+	updateData?: (rowIndex: number, columnId: string, value: unknown) => void;
+}
+
 const features = tableFeatures({
 	columnFilteringFeature,
 	columnVisibilityFeature,
@@ -35,12 +42,24 @@ const features = tableFeatures({
 	rowPaginationFeature,
 	rowSortingFeature,
 	sortedRowModel: createSortedRowModel(),
+	// phantom value only — never read at runtime, see @tanstack/table-core's metaHelper
+	tableMeta: {} as DataTableMeta,
 });
+
+export type DataTableColumnDef<TData extends RowData> = ColumnDef<
+	typeof features,
+	TData
+>;
 
 interface DataTableProps<TData extends RowData> {
 	className?: string;
-	columns: ColumnDef<typeof features, TData>[];
+	columns: DataTableColumnDef<TData>[];
 	data: TData[];
+	/** Empty-state copy shown when `data` has no rows. */
+	emptyDescription?: React.ReactNode;
+	emptyTitle?: string;
+	/** `{ updateData }` for editable cells; omit for read-only tables. */
+	meta?: DataTableMeta;
 	pageSize?: number;
 	searchPlaceholder?: string | null;
 }
@@ -49,6 +68,9 @@ export function DataTable<TData extends RowData>({
 	className,
 	columns,
 	data,
+	emptyDescription,
+	emptyTitle = 'No results.',
+	meta,
 	pageSize = 10,
 	searchPlaceholder = 'Search…',
 }: DataTableProps<TData>) {
@@ -59,6 +81,7 @@ export function DataTable<TData extends RowData>({
 		columns,
 		data,
 		features,
+		meta,
 		onGlobalFilterChange: setGlobalFilter,
 		onSortingChange: setSorting,
 		state: {
@@ -147,11 +170,11 @@ export function DataTable<TData extends RowData>({
 							))
 						) : (
 							<tr>
-								<td
-									className='px-4 py-10 text-center text-muted-foreground'
-									colSpan={columns.length}
-								>
-									No results.
+								<td className='p-0' colSpan={columns.length}>
+									<EmptyState
+										description={emptyDescription}
+										title={emptyTitle}
+									/>
 								</td>
 							</tr>
 						)}

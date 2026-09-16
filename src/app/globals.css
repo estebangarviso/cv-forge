@@ -128,31 +128,10 @@
 
 		@apply bg-background text-foreground;
 	}
-}
 
-@media print {
-	@page {
-		size: a4;
-		margin: 0;
-	}
-
-	body {
-		-webkit-print-color-adjust: exact;
-		print-color-adjust: exact;
-	}
-
-	.print\:hidden {
-		display: none !important;
-	}
-
-	.print\:block {
+	/* Radix ScrollArea's Viewport wraps children in a `display: table` div to
+	   measure content size, which breaks `position: sticky` for descendants. */
+	[data-radix-scroll-area-viewport] > div {
 		display: block !important;
-	}
-
-	.cv-preview {
-		width: 100% !important;
-		min-height: auto !important;
-		margin: 0 !important;
-		box-shadow: none !important;
 	}
 }

@@ -1,5 +1,6 @@
 export * from './primitives/accordion';
 export * from './primitives/alert';
+export * from './primitives/alert-dialog';
 export * from './primitives/avatar';
 export * from './primitives/badge';
 export * from './primitives/breadcrumb';
@@ -21,6 +22,8 @@ export * from './primitives/separator';
 export * from './primitives/sheet';
 export * from './primitives/sidebar';
 export * from './primitives/skeleton';
+export * from './primitives/slider';
+export * from './primitives/switch';
 export * from './primitives/table';
 export * from './primitives/tabs';
 export * from './primitives/textarea';
@@ -28,4 +31,9 @@ export * from './primitives/toggle';
 export * from './primitives/toggle-group';
 export * from './primitives/tooltip';
 
-export { DataTable } from './data-table';
+export {
+	DataTable,
+	type DataTableColumnDef,
+	type DataTableMeta,
+} from './data-display/data-table';
+export { EmptyState } from './feedback/empty-state';

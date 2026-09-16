@@ -34,7 +34,8 @@ Alert.displayName = 'Alert';
 const AlertTitle = React.forwardRef<
 	HTMLParagraphElement,
 	React.HTMLAttributes<HTMLHeadingElement>
->(({ children, className, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
+	// eslint-disable-next-line jsx-a11y/heading-has-content -- content always injected via props spread
 	<h5
 		className={cn(
 			'mb-1 leading-none font-medium tracking-tight',
@@ -42,9 +43,7 @@ const AlertTitle = React.forwardRef<
 		)}
 		ref={ref}
 		{...props}
-	>
-		{children}
-	</h5>
+	/>
 ));
 AlertTitle.displayName = 'AlertTitle';
 
