@@ -5,8 +5,9 @@ import {
 	parseAllowedEmails,
 } from './is-email-allowed.use-case';
 
+const aliceDummyEmail = 'alice@example.com';
+
 describe('parseAllowedEmails', () => {
-	const aliceDummyEmail = 'alice@example.com';
 	it('returns an empty list when the input is undefined or empty', () => {
 		expect(parseAllowedEmails(undefined)).toStrictEqual([]);
 		expect(parseAllowedEmails('')).toStrictEqual([]);
@@ -34,13 +35,15 @@ describe('isEmailAllowed', () => {
 	});
 
 	it('rejects null/undefined emails when the allowlist is non-empty', () => {
-		expect(isEmailAllowed(null, [mockAliceEmail])).toBe(false);
-		expect(isEmailAllowed(undefined, [mockAliceEmail])).toBe(false);
+		expect(isEmailAllowed(null, [aliceDummyEmail])).toBe(false);
+		expect(isEmailAllowed(undefined, [aliceDummyEmail])).toBe(false);
 	});
 
 	it('matches an exact email case-insensitively', () => {
-		expect(isEmailAllowed(mockAliceEmail, [mockAliceEmail])).toBe(true);
-		expect(isEmailAllowed('bob@example.com', [mockAliceEmail])).toBe(false);
+		expect(isEmailAllowed(aliceDummyEmail, [aliceDummyEmail])).toBe(true);
+		expect(isEmailAllowed('bob@example.com', [aliceDummyEmail])).toBe(
+			false,
+		);
 	});
 
 	it('matches a domain wildcard entry', () => {
@@ -51,9 +54,9 @@ describe('isEmailAllowed', () => {
 	});
 
 	it('matches against a mixed allowlist of exact emails and domains', () => {
-		const allowlist = [mockAliceEmail, '@company.com'];
+		const allowlist = [aliceDummyEmail, '@company.com'];
 
-		expect(isEmailAllowed(mockAliceEmail, allowlist)).toBe(true);
+		expect(isEmailAllowed(aliceDummyEmail, allowlist)).toBe(true);
 		expect(isEmailAllowed('someone@company.com', allowlist)).toBe(true);
 		expect(isEmailAllowed('bob@example.com', allowlist)).toBe(false);
 	});
