@@ -25,13 +25,12 @@
 
 ## Environment variables
 
-| Variable               | Required | Description                                           |
-| ---------------------- | -------- | ----------------------------------------------------- |
-| `AUTH_SECRET`          | Yes      | Random secret for Auth.js (`openssl rand -base64 32`) |
-| `GOOGLE_CLIENT_ID`     | Yes      | Google OAuth client ID                                |
-| `GOOGLE_CLIENT_SECRET` | Yes      | Google OAuth client secret                            |
-
-Get OAuth credentials from [Google Cloud Console](https://console.cloud.google.com/apis/credentials). Set the redirect URI to `http://localhost:3000/api/auth/callback/google`.
+| Variable                                                                                                                                                                        | Required | Description                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ----------------------------------------------------- |
+| `AUTH_SECRET`                                                                                                                                                                   | Yes      | Random secret for Auth.js (`openssl rand -base64 32`) |
+| `GOOGLE_CLIENT_ID`                                                                                                                                                              | Yes      | Google OAuth client ID                                |
+| `GOOGLE_CLIENT_SECRET`                                                                                                                                                          | Yes      | Google OAuth client secret                            |     | `ALLOWED_EMAILS` | No  | Comma-separated emails/`@domain.com` wildcards allowed to sign in. Unset = anyone with a Google account. |
+| Get OAuth credentials from [Google Cloud Console](https://console.cloud.google.com/apis/credentials). Set the redirect URI to `http://localhost:3000/api/auth/callback/google`. |
 
 ## Stack
 
