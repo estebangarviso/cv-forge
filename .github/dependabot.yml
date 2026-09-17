@@ -12,10 +12,18 @@ updates:
           time: '09:00'
           timezone: America/Santiago
       open-pull-requests-limit: 10
+      # Keep @types/node on the same major as runtime (.nvmrc / engines = Node 24).
+      ignore:
+          - dependency-name: '@types/node'
+            update-types:
+                - version-update:semver-major
       # Group minor and patch updates together to reduce PR noise.
       # Security and major updates are always sent as individual PRs.
       groups:
           next-react:
+              update-types:
+                  - minor
+                  - patch
               patterns:
                   - 'next'
                   - 'react'
@@ -24,17 +32,26 @@ updates:
                   - '@types/react'
                   - '@types/react-dom'
           data-layer:
+              update-types:
+                  - minor
+                  - patch
               patterns:
                   - '@tanstack/*'
                   - 'zustand'
                   - 'openapi-fetch'
                   - 'openapi-typescript'
           forms-validation:
+              update-types:
+                  - minor
+                  - patch
               patterns:
                   - 'react-hook-form'
                   - '@hookform/*'
                   - 'zod'
           styling:
+              update-types:
+                  - minor
+                  - patch
               patterns:
                   - 'tailwindcss'
                   - 'tailwind-merge'
@@ -42,11 +59,17 @@ updates:
                   - 'clsx'
                   - 'next-themes'
           linting:
+              update-types:
+                  - minor
+                  - patch
               patterns:
                   - 'eslint'
                   - 'prettier'
                   - 'stylelint*'
           testing:
+              update-types:
+                  - minor
+                  - patch
               patterns:
                   - 'vitest'
                   - '@vitest/*'
