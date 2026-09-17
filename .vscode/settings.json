@@ -3,10 +3,21 @@
 	"editor.rulers": [80, 100],
 	"editor.codeActionsOnSave": {
 		"source.fixAll.eslint": "explicit",
-		"source.fixAll.stylelint": "explicit"
+		"source.fixAll.stylelint": "explicit",
+		"source.fixAll.markdownlint": "never"
 	},
 	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.tabCompletion": "on",
+	// Prettier owns .md formatting (`pnpm lint` runs `prettier --check .`).
+	// markdownlint stays lint-only so the two don't fight on save.
+	// Its rules live in .markdownlint.jsonc so they apply outside VS Code too.
+	"[markdown]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.formatOnSave": true,
+		"editor.codeActionsOnSave": {
+			"source.fixAll.markdownlint": "never"
+		}
+	},
 	"eslint.format.enable": true,
 	"eslint.lintTask.enable": false,
 	"eslint.probe": ["javascript", "typescript", "json"],

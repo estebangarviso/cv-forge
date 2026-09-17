@@ -1,10 +1,15 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 
 import { SignInButton } from './sign-in-button';
 
-export default function LoginPage() {
-	const t = useTranslations('login');
+export default async function LoginPage({
+	searchParams,
+}: {
+	searchParams: Promise<{ error?: string }>;
+}) {
+	const { error } = await searchParams;
+	const t = await getTranslations('login');
 
 	return (
 		<div className='flex min-h-[60vh] flex-col items-center justify-center'>
@@ -19,6 +24,11 @@ export default function LoginPage() {
 			<p className='mt-2 max-w-sm text-center text-muted-foreground'>
 				{t('description')}
 			</p>
+			{error === 'AccessDenied' ? (
+				<p className='mt-4 max-w-sm text-center text-sm text-destructive'>
+					{t('accessDenied')}
+				</p>
+			) : null}
 			<SignInButton />
 		</div>
 	);

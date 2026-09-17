@@ -6,7 +6,8 @@
 	"login": {
 		"title": "CVForge",
 		"description": "Crea y gestiona tus currículos con vista previa en tiempo real y almacenamiento en Google Drive.",
-		"signInWithGoogle": "Continuar con Google"
+		"signInWithGoogle": "Continuar con Google",
+		"accessDenied": "Tu cuenta de Google no está autorizada para usar esta aplicación. Contacta al administrador si crees que es un error."
 	},
 	"resumes": {
 		"title": "Mis Currículos",

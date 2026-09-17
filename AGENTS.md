@@ -104,6 +104,7 @@ Use `react-hook-form` with `zodResolver` exclusively. Schemas from `@modules/cv`
 - Route handler at `src/app/api/auth/[...nextauth]/route.ts` re-exports handlers.
 - Google OAuth with `drive.file` scope for Drive access.
 - Session provides `accessToken` for Drive API calls.
+- Access control: the `signIn` callback rejects users whose email isn't in `ALLOWED_EMAILS` (see `@modules/auth`'s `isEmailAllowed`/`parseAllowedEmails`). Unset `ALLOWED_EMAILS` allows any Google account — keep this logic in the domain layer, never inline it in `src/auth.ts`.
 
 ## API routes
 

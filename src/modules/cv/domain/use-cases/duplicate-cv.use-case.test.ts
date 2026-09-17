@@ -30,7 +30,9 @@ describe('DuplicateCvUseCase', () => {
 
 	it('should forward sourceId and copyTitle to repository and return the result', async () => {
 		const fakeRepo: CvRepository = {
-			delete: async () => {},
+			delete: async () => {
+				/* empty */
+			},
 			duplicate: (sourceId, copyTitle) => {
 				expect(sourceId).toBe('source-id');
 				expect(copyTitle).toBe('My CV - Copy');

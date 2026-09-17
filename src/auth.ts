@@ -1,5 +1,8 @@
+import { isEmailAllowed, parseAllowedEmails } from '@modules/auth';
 import NextAuth from 'next-auth';
 import Google from 'next-auth/providers/google';
+
+const allowedEmails = parseAllowedEmails(process.env.ALLOWED_EMAILS);
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
 	callbacks: {
@@ -55,6 +58,13 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 				error: token.error,
 			};
 		},
+		signIn({ user }) {
+			return isEmailAllowed(user.email, allowedEmails);
+		},
+	},
+	pages: {
+		error: '/login',
+		signIn: '/login',
 	},
 	providers: [
 		Google({

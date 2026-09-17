@@ -4,12 +4,13 @@ import { describe, expect, it, vi } from 'vitest';
 
 import type { CvData } from '../domain/entities/cv-data';
 
-import { CvDataSchema, EMPTY_CV } from '../domain/entities/cv-data';
+import { EMPTY_CV } from '../domain/entities/cv-data';
 import { DEFAULT_TEMPLATE } from '../domain/entities/template-config';
 import { DriveCvRepository } from './drive-cv.repository';
 
 describe('DriveCvRepository.duplicate', () => {
 	const now = new Date().toISOString();
+	const duplicatedTitle = 'My CV - Copy';
 	const sourceCV: CvData = {
 		...EMPTY_CV,
 		aboutMe: 'About me text',
@@ -91,7 +92,10 @@ describe('DriveCvRepository.duplicate', () => {
 			const repo = new DriveCvRepository(
 				fakeDriveRepo as DriveRepository,
 			);
-			const duplicate = await repo.duplicate('source-id', 'My CV - Copy');
+			const duplicate = await repo.duplicate(
+				'source-id',
+				duplicatedTitle,
+			);
 
 			// verify content fields are preserved
 			expect(duplicate.name).toBe(sourceCV.name);
@@ -100,10 +104,10 @@ describe('DriveCvRepository.duplicate', () => {
 			expect(duplicate.address).toBe(sourceCV.address);
 			expect(duplicate.title).toBe(sourceCV.title);
 			expect(duplicate.aboutMe).toBe(sourceCV.aboutMe);
-			expect(duplicate.experience).toEqual(sourceCV.experience);
-			expect(duplicate.education).toEqual(sourceCV.education);
-			expect(duplicate.skills).toEqual(sourceCV.skills);
-			expect(duplicate.theme).toEqual(sourceCV.theme);
+			expect(duplicate.experience).toStrictEqual(sourceCV.experience);
+			expect(duplicate.education).toStrictEqual(sourceCV.education);
+			expect(duplicate.skills).toStrictEqual(sourceCV.skills);
+			expect(duplicate.theme).toStrictEqual(sourceCV.theme);
 		});
 
 		it('should create duplicate with new ID', async () => {
@@ -112,7 +116,10 @@ describe('DriveCvRepository.duplicate', () => {
 			const repo = new DriveCvRepository(
 				fakeDriveRepo as DriveRepository,
 			);
-			const duplicate = await repo.duplicate('source-id', 'My CV - Copy');
+			const duplicate = await repo.duplicate(
+				'source-id',
+				duplicatedTitle,
+			);
 
 			expect(duplicate.id).toBe('new-id');
 			expect(duplicate.id).not.toBe(sourceCV.id);
@@ -126,7 +133,10 @@ describe('DriveCvRepository.duplicate', () => {
 			const repo = new DriveCvRepository(
 				fakeDriveRepo as DriveRepository,
 			);
-			const duplicate = await repo.duplicate('source-id', 'My CV - Copy');
+			const duplicate = await repo.duplicate(
+				'source-id',
+				duplicatedTitle,
+			);
 
 			const afterTime = new Date().toISOString();
 
@@ -150,9 +160,12 @@ describe('DriveCvRepository.duplicate', () => {
 			const repo = new DriveCvRepository(
 				fakeDriveRepo as DriveRepository,
 			);
-			const duplicate = await repo.duplicate('source-id', 'My CV - Copy');
+			const duplicate = await repo.duplicate(
+				'source-id',
+				duplicatedTitle,
+			);
 
-			expect(duplicate.cvTitle).toBe('My CV - Copy');
+			expect(duplicate.cvTitle).toBe(duplicatedTitle);
 		});
 	});
 
@@ -169,7 +182,7 @@ describe('DriveCvRepository.duplicate', () => {
 			);
 
 			await expect(
-				repo.duplicate('nonexistent-id', 'My CV - Copy'),
+				repo.duplicate('nonexistent-id', duplicatedTitle),
 			).rejects.toThrow();
 		});
 
@@ -214,7 +227,7 @@ describe('DriveCvRepository.duplicate', () => {
 			);
 
 			await expect(
-				repo.duplicate('source-id', 'My CV - Copy'),
+				repo.duplicate('source-id', duplicatedTitle),
 			).rejects.toThrow();
 
 			expect(deleteFileSpy).not.toHaveBeenCalled();
@@ -259,7 +272,7 @@ describe('DriveCvRepository.duplicate', () => {
 			);
 
 			await expect(
-				repo.duplicate('source-id', 'My CV - Copy'),
+				repo.duplicate('source-id', duplicatedTitle),
 			).rejects.toThrow();
 		});
 	});
@@ -283,7 +296,7 @@ describe('DriveCvRepository.duplicate', () => {
 			const repo = new DriveCvRepository(
 				fakeDriveRepo as DriveRepository,
 			);
-			await repo.duplicate('source-id', 'My CV - Copy');
+			await repo.duplicate('source-id', duplicatedTitle);
 
 			expect(createFileSpy).toHaveBeenCalledWith(
 				expect.anything(),
@@ -332,7 +345,10 @@ describe('DriveCvRepository.duplicate', () => {
 			const repo = new DriveCvRepository(
 				fakeDriveRepo as DriveRepository,
 			);
-			const duplicate = await repo.duplicate('source-id', 'My CV - Copy');
+			const duplicate = await repo.duplicate(
+				'source-id',
+				duplicatedTitle,
+			);
 
 			expect(duplicate.cvTitle).toBe('My CV - Copy 3');
 			expect(createFileSpy).toHaveBeenCalledWith(
@@ -354,7 +370,7 @@ describe('DriveCvRepository.duplicate', () => {
 			);
 
 			await expect(
-				repo.duplicate('source-id', 'My CV - Copy'),
+				repo.duplicate('source-id', duplicatedTitle),
 			).rejects.toThrow('NAME_CONFLICT');
 		});
 	});

@@ -6,7 +6,8 @@
 	"login": {
 		"title": "CVForge",
 		"description": "Create and manage your resumes with real-time preview and Google Drive storage.",
-		"signInWithGoogle": "Continue with Google"
+		"signInWithGoogle": "Continue with Google",
+		"accessDenied": "Your Google account isn't authorized to use this app. Contact the administrator if you believe this is a mistake."
 	},
 	"resumes": {
 		"title": "My Resumes",
