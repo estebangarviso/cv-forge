@@ -34,7 +34,7 @@ jobs:
                   node-version-file: .nvmrc
                   cache: pnpm
             - id: cache-node-modules
-              uses: actions/cache@v4
+              uses: actions/cache@v6
               with:
                   key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
                   path: node_modules
@@ -55,7 +55,7 @@ jobs:
                   node-version-file: .nvmrc
                   cache: pnpm
             - id: restore-node-modules
-              uses: actions/cache/restore@v4
+              uses: actions/cache/restore@v6
               with:
                   key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
                   path: node_modules
@@ -78,7 +78,7 @@ jobs:
                   node-version-file: .nvmrc
                   cache: pnpm
             - id: restore-node-modules
-              uses: actions/cache/restore@v4
+              uses: actions/cache/restore@v6
               with:
                   key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
                   path: node_modules
@@ -100,7 +100,7 @@ jobs:
                   node-version-file: .nvmrc
                   cache: pnpm
             - id: restore-node-modules
-              uses: actions/cache/restore@v4
+              uses: actions/cache/restore@v6
               with:
                   key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
                   path: node_modules
@@ -128,7 +128,7 @@ jobs:
                   node-version-file: .nvmrc
                   cache: pnpm
             - id: restore-node-modules
-              uses: actions/cache/restore@v4
+              uses: actions/cache/restore@v6
               with:
                   key: node-modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
                   path: node_modules
@@ -137,7 +137,7 @@ jobs:
             # Reuses Next.js's own incremental compiler cache across runs so an
             # unchanged commit (or a small diff) only rebuilds what changed,
             # instead of a full cold build every time.
-            - uses: actions/cache@v4
+            - uses: actions/cache@v6
               with:
                   key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
                   path: .next/cache
