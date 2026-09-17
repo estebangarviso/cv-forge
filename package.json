@@ -117,7 +117,7 @@
 		"eslint-plugin-unicorn": "73.0.0",
 		"eslint-plugin-vitest": "0.5.4",
 		"globals": "17.9.0",
-		"happy-dom": "20.11.2",
+		"happy-dom": "20.14.5",
 		"openapi-typescript": "7.13.0",
 		"prettier": "3.9.6",
 		"sass-embedded": "1.100.0",
@@ -133,7 +133,7 @@
 		"tailwindcss": "4.3.3",
 		"typescript": "6.0.3",
 		"typescript-eslint": "8.66.0",
-		"vitest": "4.1.10"
+		"vitest": "5.0.0"
 	},
 	"engines": {
 		"node": ">=24",
