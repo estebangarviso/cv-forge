@@ -30,6 +30,8 @@ Template contributions should preserve existing CV data, use fictional preview d
 
 ## Pull Requests
 
+`main` is protected by a ruleset requiring passing checks and linear history. For work that naturally splits into dependent chunks, follow the [trunk-based stacked PR guide](docs/guides/001_trunk-based-stacked-prs.md) instead of one large PR.
+
 Use a clear title and describe:
 
 - What changed and why.

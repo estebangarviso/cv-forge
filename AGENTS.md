@@ -153,6 +153,7 @@ Use `react-hook-form` with `zodResolver` exclusively. Schemas from `@modules/cv`
 | [docs/agents/05_shared-ui-library.md](docs/agents/05_shared-ui-library.md)                             | Shared UI decision gate                                        |
 | [docs/architecture/](docs/architecture/)                                                               | Architecture hub (folder structure, state, theming, data flow) |
 | [docs/getting-started/](docs/getting-started/)                                                         | Setup and commands                                             |
+| [docs/guides/001_trunk-based-stacked-prs.md](docs/guides/001_trunk-based-stacked-prs.md)               | Stacked PR / trunk-based delivery protocol                     |
 
 ## Skills
 
