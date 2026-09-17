@@ -1,10 +1,10 @@
 {
-	"name": "cv-studio",
+	"name": "cvforge",
 	"version": "0.1.0",
 	"private": true,
 	"license": "AGPL-3.0-or-later",
-	"description": "cv-studio — Next.js App Router Template with DDD + Hexagonal Architecture",
-	"author": "cv-studio Team",
+	"description": "CVForge — CV builder with Google OAuth, Google Drive storage, and PDF export",
+	"author": "CVForge Team",
 	"scripts": {
 		"init:project": "node scripts/init.mjs",
 		"postinstall": "node scripts/copy-pdf-fonts.mjs",

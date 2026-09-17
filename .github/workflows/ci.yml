@@ -114,7 +114,7 @@ jobs:
         runs-on: ubuntu-latest
         env:
             NEXT_PUBLIC_API_URL: http://localhost:3001/api
-            NEXT_PUBLIC_APP_NAME: cv-studio
+            NEXT_PUBLIC_APP_NAME: cvforge
             NEXT_PUBLIC_APP_ENV: production
             NEXT_PUBLIC_BASE_URL: http://localhost:3000
             NEXT_PUBLIC_DEFAULT_LOCALE: es

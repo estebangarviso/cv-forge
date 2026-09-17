@@ -4,7 +4,7 @@
 		"editor": "Editor"
 	},
 	"login": {
-		"title": "CV Studio",
+		"title": "CVForge",
 		"description": "Crea y gestiona tus currículos con vista previa en tiempo real y almacenamiento en Google Drive.",
 		"signInWithGoogle": "Continuar con Google"
 	},
@@ -93,7 +93,7 @@
 		"save": "Guardar"
 	},
 	"shell": {
-		"brand": "CV Studio",
+		"brand": "CVForge",
 		"toggleSidebar": "Alternar barra lateral",
 		"signOut": "Cerrar sesión",
 		"userMenu": "Menú de usuario"

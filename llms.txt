@@ -1,8 +1,8 @@
-# CV Studio — LLM Context
+# CVForge — LLM Context
 
 ## Overview
 Next.js 16 App Router for an enterprise frontend.
-Connects to an OpenAPI 3.1 backend CV Studio API via a typed
+Connects to an OpenAPI 3.1 backend CVForge API via a typed
 client. Lean functional architecture — DDD + Hexagonal modules, no Redux.
 
 Full rules: see AGENTS.md. Architecture: see docs/architecture/00_index.md.

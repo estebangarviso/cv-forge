@@ -1,4 +1,4 @@
-# AGENTS.md — CV Studio
+# AGENTS.md — CVForge
 
 Canonical rules for any AI coding assistant working in this repository. This file is the single source of truth for enforceable conventions. `README.md` owns onboarding; `docs/` owns deep dives.
 
@@ -6,7 +6,7 @@ Canonical rules for any AI coding assistant working in this repository. This fil
 
 ## Product
 
-CV Studio — a web app where users create, edit, and export professional CVs. Google OAuth for authentication, Google Drive as storage (SoT), PDF export via `@react-pdf/renderer`.
+CVForge — a web app where users create, edit, and export professional CVs. Google OAuth for authentication, Google Drive as storage (SoT), PDF export via `@react-pdf/renderer`.
 
 ## Domain glossary
 
@@ -15,7 +15,7 @@ CV Studio — a web app where users create, edit, and export professional CVs. G
 | Resume / CV  | A user's curriculum vitae document                                                              |
 | Template     | Visual layout for rendering a CV (React component + config)                                     |
 | CvData       | The JSON structure holding all CV content (personal, education, experience, skills, references) |
-| Drive folder | `CV Studio` folder in the user's Google Drive; each CV is a JSON file                           |
+| Drive folder | `CVForge` folder in the user's Google Drive; each CV is a JSON file                             |
 | Preview      | The live CV preview rendered by `@react-pdf/renderer` inside the editor                         |
 | Editor       | Split view: form (left) + live PDF preview (right)                                              |
 

@@ -9,7 +9,7 @@ export default function LoginPage() {
 	return (
 		<div className='flex min-h-[60vh] flex-col items-center justify-center'>
 			<Image
-				alt='CV Studio'
+				alt='CVForge'
 				className='mb-4 size-16'
 				height={64}
 				src='/logo.svg'

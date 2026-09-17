@@ -15,7 +15,7 @@ export default function FrontOfficeLayout({
 					src='/logo.svg'
 					width={28}
 				/>
-				<span className='text-lg font-semibold'>CV Studio</span>
+				<span className='text-lg font-semibold'>CVForge</span>
 			</header>
 			<main className='p-6'>{children}</main>
 		</div>

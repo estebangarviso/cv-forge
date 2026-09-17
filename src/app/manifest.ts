@@ -31,9 +31,9 @@ export default function manifest(): MetadataRoute.Manifest {
 				type: 'image/png',
 			},
 		],
-		name: 'CV Studio',
+		name: 'CVForge',
 		orientation: 'portrait',
-		short_name: 'cv-studio',
+		short_name: 'cvforge',
 		start_url: '/app',
 		theme_color: '#000000',
 	};

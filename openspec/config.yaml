@@ -1,6 +1,6 @@
 schema: spec-driven
 
-store: cv-studio
+store: cvforge
 
 context: |
     Next.js 16 (App Router, Turbopack), React 19, TypeScript strict, pnpm.

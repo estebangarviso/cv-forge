@@ -4,7 +4,7 @@
 		"editor": "Editor"
 	},
 	"login": {
-		"title": "CV Studio",
+		"title": "CVForge",
 		"description": "Create and manage your resumes with real-time preview and Google Drive storage.",
 		"signInWithGoogle": "Continue with Google"
 	},
@@ -93,7 +93,7 @@
 		"save": "Save"
 	},
 	"shell": {
-		"brand": "CV Studio",
+		"brand": "CVForge",
 		"toggleSidebar": "Toggle sidebar",
 		"signOut": "Sign out",
 		"userMenu": "User menu"
