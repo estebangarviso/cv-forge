@@ -7,7 +7,7 @@ import { resolveOtherIcon } from '../../domain/entities/cv-data';
 import { resolvePdfTypography } from '../lib/resolve-pdf-typography';
 import { CvPdfSkillBar } from './cv-pdf-skill-bar';
 
-const URL_PATTERN = /^https?:\/\//;
+const URL_PATTERN = /^https?:\/\//u;
 
 const styles = StyleSheet.create({
 	bulletDot: { width: 10 },

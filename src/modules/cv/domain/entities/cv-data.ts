@@ -22,8 +22,8 @@ export const OtherEntrySchema = z.object({
 	value: z.string().default(''),
 });
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/;
-const PHONE_PATTERN = /^[\d+][\s\d()-]{5,}$/;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/u;
+const PHONE_PATTERN = /^[\d+][\s\d()-]{5,}$/u;
 
 /**
  * Resolves the icon to render for an "other" entry. An explicit (non-`auto`)
@@ -37,18 +37,19 @@ export function resolveOtherIcon(
 	if (explicitIcon !== 'auto') return explicitIcon;
 
 	const trimmed = value.trim();
-	if (/^https?:\/\//i.test(trimmed)) {
+	if (/^https?:\/\//iu.test(trimmed)) {
 		try {
 			const { hostname } = new URL(trimmed);
-			if (hostname.replace(/^w{3}\./, '') === 'linkedin.com')
+			if (hostname.replace(/^w{3}\./u, '') === 'linkedin.com')
 				return 'linkedin';
 		} catch {
 			// falls through to the generic 'link' icon below
 		}
 		return 'link';
 	}
-	if (/^mailto:/i.test(trimmed) || EMAIL_PATTERN.test(trimmed)) return 'mail';
-	if (/^tel:/i.test(trimmed) || PHONE_PATTERN.test(trimmed)) return 'phone';
+	if (/^mailto:/iu.test(trimmed) || EMAIL_PATTERN.test(trimmed))
+		return 'mail';
+	if (/^tel:/iu.test(trimmed) || PHONE_PATTERN.test(trimmed)) return 'phone';
 	return 'none';
 }
 

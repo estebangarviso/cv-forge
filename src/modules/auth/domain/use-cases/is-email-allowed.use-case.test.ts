@@ -6,6 +6,7 @@ import {
 } from './is-email-allowed.use-case';
 
 describe('parseAllowedEmails', () => {
+	const aliceDummyEmail = 'alice@example.com';
 	it('returns an empty list when the input is undefined or empty', () => {
 		expect(parseAllowedEmails(undefined)).toStrictEqual([]);
 		expect(parseAllowedEmails('')).toStrictEqual([]);
@@ -16,16 +17,12 @@ describe('parseAllowedEmails', () => {
 			parseAllowedEmails(
 				' Alice@Example.com, @Company.com ,bob@example.com',
 			),
-		).toStrictEqual([
-			'alice@example.com',
-			'@company.com',
-			'bob@example.com',
-		]);
+		).toStrictEqual([aliceDummyEmail, '@company.com', 'bob@example.com']);
 	});
 
 	it('drops empty entries produced by trailing commas', () => {
-		expect(parseAllowedEmails('alice@example.com,,')).toStrictEqual([
-			'alice@example.com',
+		expect(parseAllowedEmails(`${aliceDummyEmail},,`)).toStrictEqual([
+			aliceDummyEmail,
 		]);
 	});
 });
@@ -37,17 +34,13 @@ describe('isEmailAllowed', () => {
 	});
 
 	it('rejects null/undefined emails when the allowlist is non-empty', () => {
-		expect(isEmailAllowed(null, ['alice@example.com'])).toBe(false);
-		expect(isEmailAllowed(undefined, ['alice@example.com'])).toBe(false);
+		expect(isEmailAllowed(null, [mockAliceEmail])).toBe(false);
+		expect(isEmailAllowed(undefined, [mockAliceEmail])).toBe(false);
 	});
 
 	it('matches an exact email case-insensitively', () => {
-		expect(isEmailAllowed('Alice@Example.com', ['alice@example.com'])).toBe(
-			true,
-		);
-		expect(isEmailAllowed('bob@example.com', ['alice@example.com'])).toBe(
-			false,
-		);
+		expect(isEmailAllowed(mockAliceEmail, [mockAliceEmail])).toBe(true);
+		expect(isEmailAllowed('bob@example.com', [mockAliceEmail])).toBe(false);
 	});
 
 	it('matches a domain wildcard entry', () => {
@@ -58,9 +51,9 @@ describe('isEmailAllowed', () => {
 	});
 
 	it('matches against a mixed allowlist of exact emails and domains', () => {
-		const allowlist = ['alice@example.com', '@company.com'];
+		const allowlist = [mockAliceEmail, '@company.com'];
 
-		expect(isEmailAllowed('alice@example.com', allowlist)).toBe(true);
+		expect(isEmailAllowed(mockAliceEmail, allowlist)).toBe(true);
 		expect(isEmailAllowed('someone@company.com', allowlist)).toBe(true);
 		expect(isEmailAllowed('bob@example.com', allowlist)).toBe(false);
 	});
