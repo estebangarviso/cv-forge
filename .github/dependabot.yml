@@ -38,8 +38,6 @@ updates:
               patterns:
                   - '@tanstack/*'
                   - 'zustand'
-                  - 'openapi-fetch'
-                  - 'openapi-typescript'
           forms-validation:
               update-types:
                   - minor

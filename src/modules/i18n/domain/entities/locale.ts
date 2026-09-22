@@ -1,10 +1,6 @@
 /**
  * Locale configuration.
  *
- * Replace placeholders via `node scripts/init.mjs`:
- *   - 'es', 'en' → e.g. 'en', 'es'
- *   - es    → e.g. en
- *
  * This file is imported by the Next.js middleware (Edge runtime) — keep it
  * dependency-free (no framework imports, no Node.js built-ins).
  */

@@ -39,7 +39,6 @@ assignees: ''
 <!-- Check all that apply -->
 
 - [ ] `src/app` — routing / layouts / pages
-- [ ] `src/core/api` — typed API client / transport
 - [ ] `src/core/query` — TanStack Query / server state
 - [ ] `src/modules/*` — a feature module (name it below)
 - [ ] Forms — react-hook-form / Zod validation

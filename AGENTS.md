@@ -150,7 +150,6 @@ Use `react-hook-form` with `zodResolver` exclusively. Schemas from `@modules/cv`
 | [docs/agents/00_index.md](docs/agents/00_index.md)                                                     | Agent reference hub                                            |
 | [docs/agents/01_directory-structure.md](docs/agents/01_directory-structure.md)                         | Module layout details                                          |
 | [docs/agents/02_mappers-and-boundary-validation.md](docs/agents/02_mappers-and-boundary-validation.md) | Wire → domain mapping rules                                    |
-| [docs/agents/03_api-access-and-transport.md](docs/agents/03_api-access-and-transport.md)               | Transport gate and patterns                                    |
 | [docs/agents/05_shared-ui-library.md](docs/agents/05_shared-ui-library.md)                             | Shared UI decision gate                                        |
 | [docs/architecture/](docs/architecture/)                                                               | Architecture hub (folder structure, state, theming, data flow) |
 | [docs/getting-started/](docs/getting-started/)                                                         | Setup and commands                                             |

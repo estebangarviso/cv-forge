@@ -7,7 +7,7 @@ Layout for this template. Canonical agent rules: [AGENTS.md](../../AGENTS.md).
 ```
 src/
 ├── app/[locale]/            # (back-office) and (front-office) bounded contexts
-├── core/                    # api/ (openapi-fetch), query/, http/, providers.tsx
+├── core/                    # query/, providers.tsx
 ├── modules/<name>/          # domain · infrastructure · presentation · index.ts
 └── shared/                  # Global UI + styles + utils + config
     ├── ui/primitives/       # shadcn components
@@ -29,7 +29,7 @@ modules/<name>/
 │   └── use-cases/           # Optional orchestration
 ├── infrastructure/
 │   ├── mappers/             # Wire → domain
-│   ├── repositories/        # Port adapters (HTTP / openapi-fetch)
+│   ├── repositories/        # Port adapters (Google Drive API)
 │   └── <name>.factory.ts    # Wiring: singleton or client-injected
 ├── presentation/
 │   ├── components/
@@ -41,10 +41,10 @@ modules/<name>/
 
 ## Factory wiring
 
-| Pattern                         | Example                     | When                                   |
-| ------------------------------- | --------------------------- | -------------------------------------- |
-| **Context-scoped** (client arg) | `getUserRepository(client)` | openapi-fetch from `useApiClient()`    |
-| **Singleton**                   | `getAuthRepository()`       | Module with no external API dependency |
+| Pattern                        | Example                        | When                                   |
+| ------------------------------ | ------------------------------ | -------------------------------------- |
+| **Context-scoped** (token arg) | `getCvRepository(accessToken)` | Needs the caller's Drive access token  |
+| **Singleton**                  | `getAuthRepository()`          | Module with no external API dependency |
 
 ## Public API
 

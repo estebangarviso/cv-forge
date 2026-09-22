@@ -21,13 +21,8 @@ src/
 │   └── api/health/route.ts      # Health check route handler
 │
 ├── core/                        # Shared kernel (framework-level wiring)
-│   ├── api/                     # Type-safe API client
-│   │   ├── client.ts            # createApiCoreClient() — openapi-fetch transport
-│   │   ├── context.tsx          # ApiProvider + useApiClient() (tenant scoping)
-│   │   └── v1.ts                # Generated OpenAPI types (git-ignored)
 │   ├── query/                   # TanStack Query provider
 │   │   └── query-provider.tsx
-│   ├── http/                    # Zod-validated fetch helper + getHttpClient() singleton
 │   └── providers.tsx            # Client provider composition
 │
 ├── modules/                     # Feature modules (the core of the app)

@@ -6,7 +6,6 @@
 	"description": "CVForge — CV builder with Google OAuth, Google Drive storage, and PDF export",
 	"author": "CVForge Team",
 	"scripts": {
-		"init:project": "node scripts/init.mjs",
 		"postinstall": "node scripts/copy-pdf-fonts.mjs",
 		"pdf-fonts:copy": "node scripts/copy-pdf-fonts.mjs",
 		"dev": "next dev --turbopack",
@@ -20,7 +19,6 @@
 		"test:watch": "vitest --watch",
 		"test:mutation": "stryker run",
 		"type-check": "tsc --noEmit",
-		"openapi:gen": "openapi-typescript ${OPENAPI_SPEC_URL:-http://localhost:3001/api/openapi.json} -o src/core/api/v1.ts",
 		"format": "prettier --write ."
 	},
 	"dependencies": {
@@ -118,7 +116,6 @@
 		"eslint-plugin-vitest": "0.5.4",
 		"globals": "17.12.0",
 		"happy-dom": "20.14.5",
-		"openapi-typescript": "7.13.0",
 		"prettier": "3.9.6",
 		"sass-embedded": "1.104.1",
 		"stylelint": "17.15.0",

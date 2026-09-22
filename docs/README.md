@@ -6,7 +6,6 @@ How this folder is organized: each subfolder maps 1:1 to a sidebar section in th
 
 ## Getting started
 
-- [001 Customize your fork](getting-started/001_customize-your-fork.md) — Mechanical `init:project` pass + judgment checklist for turning the template into your product.
 - [002 Commands](getting-started/002_commands.md) — pnpm scripts reference.
 
 ## Architecture
@@ -14,7 +13,6 @@ How this folder is organized: each subfolder maps 1:1 to a sidebar section in th
 - [00 Architecture hub](architecture/00_index.md) — Overview, quick path, reference layout.
 - [001 Folder structure](architecture/001_folder-structure.md) — `src/` tree and layer responsibilities.
 - [002 State management](architecture/002_state-management.md) — TanStack Query vs Zustand lanes.
-- [003 API access](architecture/003_api-access.md) — `openapi-fetch` client + repository HTTP.
 - [004 Module contract](architecture/004_module-contract.md) — Hexagonal rules and scaffold command.
 - [005 Theming](architecture/005_theming.md) — CSS variables and Tailwind v4 `@theme inline`.
 - [006 Data flow](architecture/006_data-flow.md) — Request path from UI to backend.
