@@ -12,7 +12,7 @@
 
     ```bash
     pnpm install
-    cp .env.local.example .env.local   # add your Google OAuth credentials (see below)
+    cp .env.example .env.local   # add your Google OAuth credentials (see below)
     ```
 
 2. Start the dev server:
@@ -31,6 +31,7 @@
 | `GOOGLE_CLIENT_ID`     | Yes      | Google OAuth client ID                                                                                   |
 | `GOOGLE_CLIENT_SECRET` | Yes      | Google OAuth client secret                                                                               |
 | `ALLOWED_EMAILS`       | No       | Comma-separated emails/`@domain.com` wildcards allowed to sign in. Unset = anyone with a Google account. |
+| `NEXT_PUBLIC_BASE_URL` | No       | Absolute base URL for `metadataBase`. Derived from `VERCEL_PROJECT_PRODUCTION_URL` on Vercel.            |
 
 Get OAuth credentials from [Google Cloud Console](https://console.cloud.google.com/apis/credentials). Set the redirect URI to `http://localhost:3000/api/auth/callback/google`.
 

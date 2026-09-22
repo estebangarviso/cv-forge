@@ -18,15 +18,6 @@ const nextConfig: NextConfig = {
 		config.resolve.alias.canvas = false;
 		return config;
 	},
-	// placeholder: configure external API rewrites here
-	// async rewrites() {
-	//   return [
-	//     {
-	//       source: '/api/v1/:path*',
-	//       destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
-	//     },
-	//   ];
-	// },
 };
 
 export default withNextIntl(nextConfig);

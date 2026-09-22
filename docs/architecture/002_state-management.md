@@ -47,4 +47,4 @@ The auth module stores the resolved `Session` in Zustand so any component can re
 
 ## Next step
 
-[003 API access](./003_api-access.md) — wire the typed client and repository HTTP.
+[004 Module contract](./004_module-contract.md) — scaffold a new hexagonal module.

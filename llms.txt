@@ -14,7 +14,7 @@ Doc index: docs/README.md.
 - TanStack Query (server state)
 - Zustand (client state)
 - react-hook-form + @hookform/resolvers + Zod (forms + validation)
-- openapi-fetch (type-safe API client from OpenAPI 3.1)
+- googleapis (Google Drive API v3 — storage)
 - Tailwind CSS v4 (styling, CSS-variable theming)
 - Vitest + React Testing Library (testing)
 - pnpm (package manager)
@@ -27,11 +27,10 @@ Doc index: docs/README.md.
 - SSR for optimization only — no business logic in the server layer
 
 ## Key Files
-- src/core/api/ — typed API client (client.ts) + ApiProvider (context.tsx)
 - src/core/query/ — TanStack Query provider
-- src/core/http/ — Zod-validated fetch helper + getHttpClient() singleton
 - src/core/providers.tsx — client provider composition
-- src/modules/auth/ — canonical module example (Zustand store + Query mutation)
+- src/auth.ts — Auth.js v5 config (Google OAuth + ALLOWED_EMAILS gate)
+- src/modules/cv/ — canonical module (CvData schema, Drive repository, editor)
 
 ## Module Structure
 Each module: domain/ (entities, interfaces, use-cases) → infrastructure/ (repos,
@@ -44,10 +43,8 @@ mappers) → presentation/ (components, hooks, state/*.store.ts) → index.ts
 - pnpm lint — ESLint + Prettier check
 - pnpm build — production build
 - pnpm type-check — TypeScript check
-- pnpm openapi:gen — regenerate src/core/api/v1.ts from the OpenAPI spec
 
 ## Documentation
 - docs/README.md — central index
-- docs/getting-started/001_customize-your-fork.md — fork checklist
 - docs/architecture/00_index.md — architecture hub
 - docs/guides/001_trunk-based-stacked-prs.md — trunk-based stacked PR protocol

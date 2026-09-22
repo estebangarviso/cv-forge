@@ -15,10 +15,6 @@ dist/
 coverage/
 .reports/
 
-# ─── API generation ────────────────────────────────
-# Type definitions generated from the backend OpenAPI spec via `pnpm openapi:gen`.
-# Regenerate locally / in CI instead of committing the output.
-src/core/api/v1.ts
 
 # ─── PDF fonts ─────────────────────────────────────
 # Copied from @fontsource/* packages via `pnpm pdf-fonts:copy` (runs on

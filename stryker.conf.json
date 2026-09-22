@@ -5,7 +5,6 @@
 	"mutate": [
 		"src/**/*.ts",
 		"src/**/*.tsx",
-		"!src/core/api/v1.ts",
 		"!src/**/*.test.ts?(x)",
 		"!src/**/*.spec.ts?(x)"
 	],
