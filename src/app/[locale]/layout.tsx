@@ -16,12 +16,21 @@ const inter = Inter({
 	weight: ['400', '500', '600', '700'],
 });
 
+// vercel always sets VERCEL_PROJECT_PRODUCTION_URL (without a scheme), so a
+// deployment only needs NEXT_PUBLIC_BASE_URL for a custom domain or other hosts.
+function resolveBaseUrl(): string {
+	if (process.env.NEXT_PUBLIC_BASE_URL)
+		return process.env.NEXT_PUBLIC_BASE_URL;
+	if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+		return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+	}
+	return 'http://localhost:3000';
+}
+
 export const metadata: Metadata = {
 	description:
 		'CV builder with Google OAuth, Drive storage, and browser-native PDF export',
-	metadataBase: new URL(
-		process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000',
-	),
+	metadataBase: new URL(resolveBaseUrl()),
 	robots: { follow: false, index: false },
 	title: 'CVForge',
 };
