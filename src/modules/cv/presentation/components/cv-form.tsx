@@ -228,7 +228,13 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						<div className='grid grid-cols-2 gap-3'>
 							<div>
 								<Label htmlFor='name'>{t('name')}</Label>
-								<Input id='name' {...register('name')} />
+								<Controller
+									control={form.control}
+									name='name'
+									render={({ field }) => (
+										<Input id='name' {...field} />
+									)}
+								/>
 								{errors.name && (
 									<p className='mt-1 text-xs text-destructive'>
 										{errors.name.message}
@@ -237,17 +243,29 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 							</div>
 							<div>
 								<Label htmlFor='title'>{t('title')}</Label>
-								<Input id='title' {...register('title')} />
+								<Controller
+									control={form.control}
+									name='title'
+									render={({ field }) => (
+										<Input id='title' {...field} />
+									)}
+								/>
 							</div>
 							<div>
 								<Label htmlFor='email'>{t('email')}</Label>
 								<div className='relative'>
 									<Mail className='pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground' />
-									<Input
-										id='email'
-										type='email'
-										{...register('email')}
-										className='pl-9'
+									<Controller
+										control={form.control}
+										name='email'
+										render={({ field }) => (
+											<Input
+												className='pl-9'
+												id='email'
+												type='email'
+												{...field}
+											/>
+										)}
 									/>
 								</div>
 							</div>
@@ -255,10 +273,16 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 								<Label htmlFor='phone'>{t('phone')}</Label>
 								<div className='relative'>
 									<Phone className='pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground' />
-									<Input
-										id='phone'
-										{...register('phone')}
-										className='pl-9'
+									<Controller
+										control={form.control}
+										name='phone'
+										render={({ field }) => (
+											<Input
+												className='pl-9'
+												id='phone'
+												{...field}
+											/>
+										)}
 									/>
 								</div>
 							</div>
@@ -266,10 +290,16 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 								<Label htmlFor='address'>{t('address')}</Label>
 								<div className='relative'>
 									<MapPin className='pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground' />
-									<Input
-										id='address'
-										{...register('address')}
-										className='pl-9'
+									<Controller
+										control={form.control}
+										name='address'
+										render={({ field }) => (
+											<Input
+												className='pl-9'
+												id='address'
+												{...field}
+											/>
+										)}
 									/>
 								</div>
 							</div>
@@ -286,7 +316,13 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						className='[[data-state=closed]_&]:hidden'
 						forceMount
 					>
-						<Textarea {...register('aboutMe')} rows={3} />
+						<Controller
+							control={form.control}
+							name='aboutMe'
+							render={({ field }) => (
+								<Textarea rows={3} {...field} />
+							)}
+						/>
 					</AccordionContent>
 				</AccordionItem>
 
