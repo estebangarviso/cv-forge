@@ -12,7 +12,6 @@ import {
 	Separator,
 	Sidebar,
 	SidebarContent,
-	SidebarFooter,
 	SidebarGroup,
 	SidebarHeader,
 	SidebarInset,
@@ -28,6 +27,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
+import { LocaleSwitcher } from '../../(front-office)/locale-switcher';
 import { APP_NAV_ITEMS } from './app-nav';
 
 function getInitials(name: string | null | undefined): string {
@@ -89,42 +89,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 						</SidebarMenu>
 					</SidebarGroup>
 				</SidebarContent>
-
-				<SidebarFooter className='p-2'>
-					<DropdownMenu>
-						<DropdownMenuTrigger asChild>
-							<SidebarMenuButton className='w-full'>
-								<Avatar className='size-6'>
-									<AvatarFallback className='text-xs'>
-										{getInitials(session?.user?.name)}
-									</AvatarFallback>
-								</Avatar>
-								<span className='truncate'>
-									{session?.user?.name ?? ''}
-								</span>
-							</SidebarMenuButton>
-						</DropdownMenuTrigger>
-						<DropdownMenuContent
-							align='start'
-							className='w-56'
-							side='top'
-						>
-							<DropdownMenuLabel>
-								{t('shell.userMenu')}
-							</DropdownMenuLabel>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem onClick={() => signOut()}>
-								<LogOut className='mr-2 size-4' />
-								{t('shell.signOut')}
-							</DropdownMenuItem>
-						</DropdownMenuContent>
-					</DropdownMenu>
-				</SidebarFooter>
 			</Sidebar>
 
 			<SidebarInset className='@container/content has-data-[layout=fixed]:h-svh peer-data-[variant=inset]:has-data-[layout=fixed]:h-[calc(100svh-(var(--spacing)*4))]'>
 				<header className='z-50 h-16 shadow-none'>
-					<div className='relative flex h-full items-center gap-3 p-4 sm:gap-4'>
+					<div className='relative flex h-full items-center justify-between gap-3 p-4 sm:gap-4'>
 						<SidebarTrigger
 							aria-label='Toggle sidebar'
 							className='-ml-1'
@@ -133,6 +102,42 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 							className='mr-2 h-4'
 							orientation='vertical'
 						/>
+						<div className='flex items-center gap-1'>
+							<LocaleSwitcher />
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<button
+										aria-label={t('shell.userMenu')}
+										className='flex h-9 items-center gap-2 rounded-md px-2 text-sm transition-colors outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring'
+										type='button'
+									>
+										<Avatar className='size-7'>
+											<AvatarFallback className='text-xs'>
+												{getInitials(
+													session?.user?.name,
+												)}
+											</AvatarFallback>
+										</Avatar>
+										<span className='hidden max-w-32 truncate sm:inline'>
+											{session?.user?.name ?? ''}
+										</span>
+									</button>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent
+									align='end'
+									className='w-56'
+								>
+									<DropdownMenuLabel>
+										{t('shell.userMenu')}
+									</DropdownMenuLabel>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem onClick={() => signOut()}>
+										<LogOut className='mr-2 size-4' />
+										{t('shell.signOut')}
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
+						</div>
 					</div>
 				</header>
 				{/* bounded, non-scrolling: pages own their internal scroll regions */}

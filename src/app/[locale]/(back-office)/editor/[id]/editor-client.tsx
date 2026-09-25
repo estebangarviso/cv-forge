@@ -481,7 +481,11 @@ export function EditorClient({ id }: EditorClientProps) {
 							</div>
 						</div>
 						<ScrollArea className='min-h-0 flex-1'>
-							<CvForm form={form} onSubmit={handleSubmit} />
+							<CvForm
+								form={form}
+								key={`${data?.id ?? id}:${data?.updatedAt ?? ''}`}
+								onSubmit={handleSubmit}
+							/>
 						</ScrollArea>
 					</div>
 					{hasContent && (

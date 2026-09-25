@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 		'CV builder with Google OAuth, Drive storage, and browser-native PDF export',
 	metadataBase: new URL(resolveBaseUrl()),
 	robots: { follow: false, index: false },
-	title: 'CVForge',
+	title: 'CV Forge',
 };
 
 export function generateStaticParams() {

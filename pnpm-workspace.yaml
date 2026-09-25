@@ -27,3 +27,6 @@ onlyBuiltDependencies:
 # ESLint toolchain so the flat config loads under ESLint 10.
 overrides:
     eslint-plugin-vitest>@typescript-eslint/utils: '8.63.0'
+
+patchedDependencies:
+    next-themes@0.4.6: patches/next-themes@0.4.6.patch
