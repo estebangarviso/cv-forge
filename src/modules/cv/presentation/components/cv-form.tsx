@@ -221,7 +221,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 					<AccordionHeader className='sticky top-0 z-20 bg-background'>
 						{t('personal')}
 					</AccordionHeader>
-					<AccordionContent className='space-y-3'>
+					<AccordionContent className='space-y-3' forceMount>
 						<div className='grid grid-cols-2 gap-3'>
 							<div>
 								<Label htmlFor='name'>{t('name')}</Label>
@@ -279,7 +279,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 					<AccordionHeader className='sticky top-0 z-20 bg-background'>
 						{t('aboutMe')}
 					</AccordionHeader>
-					<AccordionContent>
+					<AccordionContent forceMount>
 						<Textarea {...register('aboutMe')} rows={3} />
 					</AccordionContent>
 				</AccordionItem>
@@ -289,7 +289,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 					<AccordionHeader className='sticky top-0 z-20 bg-background'>
 						{t('experience')}
 					</AccordionHeader>
-					<AccordionContent className='space-y-3'>
+					<AccordionContent className='space-y-3' forceMount>
 						<DndContext
 							collisionDetection={closestCenter}
 							onDragEnd={makeDragEnd(
@@ -376,7 +376,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 					<AccordionHeader className='sticky top-0 z-20 bg-background'>
 						{t('education')}
 					</AccordionHeader>
-					<AccordionContent className='space-y-3'>
+					<AccordionContent className='space-y-3' forceMount>
 						<DndContext
 							collisionDetection={closestCenter}
 							onDragEnd={makeDragEnd(
@@ -452,7 +452,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 					<AccordionHeader className='sticky top-0 z-20 bg-background'>
 						{t('courses')}
 					</AccordionHeader>
-					<AccordionContent className='space-y-3'>
+					<AccordionContent className='space-y-3' forceMount>
 						<DndContext
 							collisionDetection={closestCenter}
 							onDragEnd={makeDragEnd(
@@ -528,7 +528,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 					<AccordionHeader className='sticky top-0 z-20 bg-background'>
 						{t('extracurricular')}
 					</AccordionHeader>
-					<AccordionContent className='space-y-3'>
+					<AccordionContent className='space-y-3' forceMount>
 						<DndContext
 							collisionDetection={closestCenter}
 							onDragEnd={makeDragEnd(
@@ -606,7 +606,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 					<AccordionHeader className='sticky top-0 z-20 bg-background'>
 						{t('skills')}
 					</AccordionHeader>
-					<AccordionContent className='space-y-3'>
+					<AccordionContent className='space-y-3' forceMount>
 						<DndContext
 							collisionDetection={closestCenter}
 							onDragEnd={makeDragEnd(skills.move, skills.fields)}
@@ -709,7 +709,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 					<AccordionHeader className='sticky top-0 z-20 bg-background'>
 						{t('languages')}
 					</AccordionHeader>
-					<AccordionContent className='space-y-3'>
+					<AccordionContent className='space-y-3' forceMount>
 						<DndContext
 							collisionDetection={closestCenter}
 							onDragEnd={makeDragEnd(
@@ -817,7 +817,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 					<AccordionHeader className='sticky top-0 z-20 bg-background'>
 						{t('references')}
 					</AccordionHeader>
-					<AccordionContent className='space-y-3'>
+					<AccordionContent className='space-y-3' forceMount>
 						<DndContext
 							collisionDetection={closestCenter}
 							onDragEnd={makeDragEnd(
@@ -902,7 +902,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 					<AccordionHeader className='sticky top-0 z-20 bg-background'>
 						{t('other')}
 					</AccordionHeader>
-					<AccordionContent className='space-y-3'>
+					<AccordionContent className='space-y-3' forceMount>
 						<DndContext
 							collisionDetection={closestCenter}
 							onDragEnd={makeDragEnd(other.move, other.fields)}
