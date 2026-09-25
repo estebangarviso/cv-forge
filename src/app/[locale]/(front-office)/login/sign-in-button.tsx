@@ -10,7 +10,7 @@ export function SignInButton() {
 
 	return (
 		<button
-			className='mt-6 inline-flex items-center gap-3 rounded-lg border bg-white px-6 py-3 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50'
+			className='mt-6 inline-flex w-full items-center justify-center gap-3 rounded-lg border bg-white px-6 py-3 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50'
 			onClick={() =>
 				signIn('google', { callbackUrl: `/${locale}/resumes` })
 			}

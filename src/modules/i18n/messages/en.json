@@ -4,9 +4,12 @@
 		"editor": "Editor"
 	},
 	"login": {
-		"title": "CVForge",
-		"description": "Create and manage your resumes with real-time preview and Google Drive storage.",
+		"title": "CV Forge",
+		"heading": "Sign in",
 		"signInWithGoogle": "Continue with Google",
+		"consent": "By continuing, you agree to our <privacy>Privacy Policy</privacy> and <terms>Terms of Service</terms>.",
+		"privacyPolicy": "Privacy Policy",
+		"termsOfService": "Terms of Service",
 		"accessDenied": "Your Google account isn't authorized to use this app. Contact the administrator if you believe this is a mistake."
 	},
 	"resumes": {
@@ -94,7 +97,7 @@
 		"save": "Save"
 	},
 	"shell": {
-		"brand": "CVForge",
+		"brand": "CV Forge",
 		"toggleSidebar": "Toggle sidebar",
 		"signOut": "Sign out",
 		"userMenu": "User menu"
@@ -210,5 +213,101 @@
 		"sidebarWidth": "Sidebar width (%)",
 		"mainTopPadding": "Space above work experience (cm)",
 		"resetAll": "Reset to defaults"
+	},
+	"footer": {
+		"privacyPolicy": "Privacy Policy",
+		"termsOfService": "Terms of Service",
+		"copyright": "© {year} CV Forge"
+	},
+	"privacy": {
+		"title": "Privacy Policy",
+		"updated": "Last updated: {date}",
+		"intro": "CV Forge (\"we\", \"our\") is an open-source CV builder. This policy explains what data we access through Google and how it's used.",
+		"dataCollected": {
+			"title": "What we access",
+			"body": "When you sign in with Google, we request your name, email address, and profile picture to identify your session, plus access limited to the files CV Forge itself creates in your Google Drive, via Google's drive.file scope. We never request, read, or modify any other file in your Drive."
+		},
+		"dataStorage": {
+			"title": "Where your data lives",
+			"body": "Your CV content is stored exclusively as a file in your own Google Drive — we do not copy or retain it on our servers. Your session is kept in an encrypted cookie in your browser; we do not maintain a separate user database."
+		},
+		"dataUsage": {
+			"title": "How we use it",
+			"body": "We use your Google profile only to authenticate you and, if configured, to check your email against an access allowlist. We use your Drive access only to create, read, update, and delete the CV files you manage through CV Forge."
+		},
+		"dataSharing": {
+			"title": "Sharing",
+			"body": "We do not sell, rent, or share your data with third parties, and we do not use it for advertising."
+		},
+		"googleApiCompliance": {
+			"title": "Google API Services User Data Policy",
+			"body": "CV Forge's use and transfer of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements."
+		},
+		"dataRetention": {
+			"title": "Retention and deletion",
+			"body": "Revoking CV Forge's access from your Google Account settings, or deleting your CV files from Drive, immediately removes CV Forge's ability to access that data — there is no server-side copy to delete."
+		},
+		"rights": {
+			"title": "Your rights",
+			"body": "Because your data lives in your own Google Drive, you're always in control: view, export, or delete it at any time directly from Drive, or revoke CV Forge's access from your Google Account's third-party access settings."
+		},
+		"changes": {
+			"title": "Changes to this policy",
+			"body": "We may update this policy as the app evolves. Material changes will be reflected here with an updated date."
+		},
+		"contact": {
+			"title": "Contact",
+			"body": "Questions about this policy?",
+			"linkText": "Open an issue on GitHub"
+		}
+	},
+	"terms": {
+		"title": "Terms of Service",
+		"updated": "Last updated: {date}",
+		"acceptance": {
+			"title": "Acceptance of terms",
+			"body": "By using CV Forge, you agree to these terms. If you don't agree, please don't use the app."
+		},
+		"serviceDescription": {
+			"title": "The service",
+			"body": "CV Forge is a free, open-source tool for building and exporting CVs. It stores your CV data in your own Google Drive account, not on our servers."
+		},
+		"account": {
+			"title": "Your account",
+			"body": "You're responsible for keeping your Google Account secure. We rely on Google to authenticate you and never see your Google password."
+		},
+		"acceptableUse": {
+			"title": "Acceptable use",
+			"body": "Don't use CV Forge to store or process unlawful content, attempt to disrupt the service, or access other users' data."
+		},
+		"availability": {
+			"title": "Availability",
+			"body": "CV Forge is provided \"as is\" and \"as available\", without uptime guarantees. As an open-source project, features may change or be discontinued at any time."
+		},
+		"intellectualProperty": {
+			"title": "Intellectual property",
+			"body": "You retain full ownership of your CV content. CV Forge's source code is licensed under AGPL-3.0-or-later; see the repository for details."
+		},
+		"liability": {
+			"title": "Limitation of liability",
+			"body": "To the maximum extent permitted by law, CV Forge and its contributors are not liable for damages arising from use of the service, including data loss in your Google Drive."
+		},
+		"termination": {
+			"title": "Termination",
+			"body": "You may stop using CV Forge at any time by revoking its access from your Google Account. We may suspend access for accounts that violate these terms."
+		},
+		"changes": {
+			"title": "Changes to these terms",
+			"body": "We may update these terms as the app evolves. Continued use after changes means you accept the updated terms."
+		},
+		"governingLaw": {
+			"title": "Governing law",
+			"body": "These terms are governed by the laws applicable to the maintainer's jurisdiction, without regard to conflict-of-law principles."
+		},
+		"contact": {
+			"title": "Contact",
+			"body": "Questions about these terms?",
+			"linkText": "Open an issue on GitHub"
+		}
 	}
 }

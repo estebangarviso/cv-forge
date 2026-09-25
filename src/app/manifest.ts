@@ -31,7 +31,7 @@ export default function manifest(): MetadataRoute.Manifest {
 				type: 'image/png',
 			},
 		],
-		name: 'CVForge',
+		name: 'CV Forge',
 		orientation: 'portrait',
 		short_name: 'cvforge',
 		start_url: '/app',

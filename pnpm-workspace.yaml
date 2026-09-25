@@ -1,12 +1,12 @@
 allowBuilds:
-    '@parcel/watcher': true
-    '@swc/core': true
-    # canvas: optional pdfjs-dist native addon (server-side only — excluded from browser bundle via webpack alias)
-    canvas: false
-    core-js: true
-    esbuild: true
-    sharp: true
-    unrs-resolver: true
+  '@parcel/watcher': true
+  '@swc/core': true
+  # canvas: optional pdfjs-dist native addon (server-side only — excluded from browser bundle via webpack alias)
+  canvas: false
+  core-js: true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
 # pnpm settings — NOT a monorepo.
 #
 # There is no `packages:` key, so this project is a single package. In pnpm 10+/11
@@ -14,16 +14,19 @@ allowBuilds:
 # package.json "pnpm" field. Here it only approves postinstall build scripts for
 # the native dependencies we trust (needed by esbuild, sharp, SWC, etc.).
 onlyBuiltDependencies:
-    - '@parcel/watcher'
-    - '@swc/core'
-    - core-js
-    - esbuild
-    - sharp
-    - unrs-resolver
+  - '@parcel/watcher'
+  - '@swc/core'
+  - core-js
+  - esbuild
+  - sharp
+  - unrs-resolver
 
 # eslint-plugin-vitest@0.5.4 pins @typescript-eslint/utils@7.18.0, whose
 # LegacyESLint shim is incompatible with ESLint 10 ("Class extends value
 # undefined"). Force it onto the v8 line already used by the rest of the
 # ESLint toolchain so the flat config loads under ESLint 10.
 overrides:
-    eslint-plugin-vitest>@typescript-eslint/utils: '8.63.0'
+  eslint-plugin-vitest>@typescript-eslint/utils: '8.63.0'
+
+patchedDependencies:
+  next-themes@0.4.6: patches/next-themes@0.4.6.patch

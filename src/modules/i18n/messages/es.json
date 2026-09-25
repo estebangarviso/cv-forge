@@ -4,9 +4,12 @@
 		"editor": "Editor"
 	},
 	"login": {
-		"title": "CVForge",
-		"description": "Crea y gestiona tus currículos con vista previa en tiempo real y almacenamiento en Google Drive.",
+		"title": "CV Forge",
+		"heading": "Inicia sesión",
 		"signInWithGoogle": "Continuar con Google",
+		"consent": "Al continuar, aceptas nuestra <privacy>Política de privacidad</privacy> y nuestros <terms>Términos de servicio</terms>.",
+		"privacyPolicy": "Política de privacidad",
+		"termsOfService": "Términos de servicio",
 		"accessDenied": "Tu cuenta de Google no está autorizada para usar esta aplicación. Contacta al administrador si crees que es un error."
 	},
 	"resumes": {
@@ -94,7 +97,7 @@
 		"save": "Guardar"
 	},
 	"shell": {
-		"brand": "CVForge",
+		"brand": "CV Forge",
 		"toggleSidebar": "Alternar barra lateral",
 		"signOut": "Cerrar sesión",
 		"userMenu": "Menú de usuario"
@@ -210,5 +213,101 @@
 		"sidebarWidth": "Ancho de la barra lateral (%)",
 		"mainTopPadding": "Espacio sobre experiencia laboral (cm)",
 		"resetAll": "Restablecer valores por defecto"
+	},
+	"footer": {
+		"privacyPolicy": "Política de privacidad",
+		"termsOfService": "Términos de servicio",
+		"copyright": "© {year} CV Forge"
+	},
+	"privacy": {
+		"title": "Política de privacidad",
+		"updated": "Última actualización: {date}",
+		"intro": "CV Forge (\"nosotros\") es un creador de currículos de código abierto. Esta política explica qué datos accedemos a través de Google y cómo los usamos.",
+		"dataCollected": {
+			"title": "Qué accedemos",
+			"body": "Al iniciar sesión con Google, solicitamos tu nombre, correo electrónico y foto de perfil para identificar tu sesión, además de acceso limitado a los archivos que CV Forge crea en tu Google Drive, mediante el permiso drive.file de Google. Nunca solicitamos, leemos ni modificamos ningún otro archivo de tu Drive."
+		},
+		"dataStorage": {
+			"title": "Dónde viven tus datos",
+			"body": "El contenido de tu CV se almacena exclusivamente como un archivo en tu propio Google Drive — no lo copiamos ni lo conservamos en nuestros servidores. Tu sesión se guarda en una cookie cifrada en tu navegador; no mantenemos una base de datos de usuarios separada."
+		},
+		"dataUsage": {
+			"title": "Cómo lo usamos",
+			"body": "Usamos tu perfil de Google únicamente para autenticarte y, si está configurado, para verificar tu correo contra una lista de acceso permitido. Usamos tu acceso a Drive únicamente para crear, leer, actualizar y eliminar los archivos de CV que gestionas a través de CV Forge."
+		},
+		"dataSharing": {
+			"title": "Compartir datos",
+			"body": "No vendemos, alquilamos ni compartimos tus datos con terceros, y no los usamos con fines publicitarios."
+		},
+		"googleApiCompliance": {
+			"title": "Política de datos de usuario de los servicios API de Google",
+			"body": "El uso y la transferencia de información recibida de las API de Google por parte de CV Forge cumple con la Política de datos de usuario de los servicios API de Google, incluyendo los requisitos de Uso Limitado."
+		},
+		"dataRetention": {
+			"title": "Retención y eliminación",
+			"body": "Revocar el acceso de CV Forge desde la configuración de tu cuenta de Google, o eliminar tus archivos de CV desde Drive, elimina de inmediato la capacidad de CV Forge para acceder a esos datos — no existe una copia en nuestros servidores que eliminar."
+		},
+		"rights": {
+			"title": "Tus derechos",
+			"body": "Como tus datos viven en tu propio Google Drive, siempre tienes el control: puedes ver, exportar o eliminarlos en cualquier momento directamente desde Drive, o revocar el acceso de CV Forge desde la configuración de acceso de terceros de tu cuenta de Google."
+		},
+		"changes": {
+			"title": "Cambios a esta política",
+			"body": "Podemos actualizar esta política a medida que la app evoluciona. Los cambios importantes se reflejarán aquí con una fecha actualizada."
+		},
+		"contact": {
+			"title": "Contacto",
+			"body": "¿Tienes preguntas sobre esta política?",
+			"linkText": "Abre un issue en GitHub"
+		}
+	},
+	"terms": {
+		"title": "Términos de servicio",
+		"updated": "Última actualización: {date}",
+		"acceptance": {
+			"title": "Aceptación de los términos",
+			"body": "Al usar CV Forge, aceptas estos términos. Si no estás de acuerdo, por favor no uses la app."
+		},
+		"serviceDescription": {
+			"title": "El servicio",
+			"body": "CV Forge es una herramienta gratuita y de código abierto para crear y exportar currículos. Almacena los datos de tu CV en tu propia cuenta de Google Drive, no en nuestros servidores."
+		},
+		"account": {
+			"title": "Tu cuenta",
+			"body": "Eres responsable de mantener segura tu cuenta de Google. Dependemos de Google para autenticarte y nunca vemos tu contraseña de Google."
+		},
+		"acceptableUse": {
+			"title": "Uso aceptable",
+			"body": "No uses CV Forge para almacenar o procesar contenido ilegal, intentar interrumpir el servicio, o acceder a los datos de otros usuarios."
+		},
+		"availability": {
+			"title": "Disponibilidad",
+			"body": "CV Forge se ofrece \"tal cual\" y \"según disponibilidad\", sin garantías de tiempo de actividad. Al ser un proyecto de código abierto, las funciones pueden cambiar o discontinuarse en cualquier momento."
+		},
+		"intellectualProperty": {
+			"title": "Propiedad intelectual",
+			"body": "Conservas la propiedad total del contenido de tu CV. El código fuente de CV Forge está licenciado bajo AGPL-3.0-or-later; consulta el repositorio para más detalles."
+		},
+		"liability": {
+			"title": "Limitación de responsabilidad",
+			"body": "En la máxima medida permitida por la ley, CV Forge y sus colaboradores no son responsables por daños derivados del uso del servicio, incluyendo la pérdida de datos en tu Google Drive."
+		},
+		"termination": {
+			"title": "Terminación",
+			"body": "Puedes dejar de usar CV Forge en cualquier momento revocando su acceso desde tu cuenta de Google. Podemos suspender el acceso a cuentas que violen estos términos."
+		},
+		"changes": {
+			"title": "Cambios a estos términos",
+			"body": "Podemos actualizar estos términos a medida que la app evoluciona. Continuar usando la app después de un cambio implica que aceptas los términos actualizados."
+		},
+		"governingLaw": {
+			"title": "Ley aplicable",
+			"body": "Estos términos se rigen por las leyes aplicables a la jurisdicción del mantenedor, sin dar efecto a principios de conflicto de leyes."
+		},
+		"contact": {
+			"title": "Contacto",
+			"body": "¿Tienes preguntas sobre estos términos?",
+			"linkText": "Abre un issue en GitHub"
+		}
 	}
 }
