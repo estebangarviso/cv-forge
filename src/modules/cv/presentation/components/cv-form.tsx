@@ -1,22 +1,6 @@
 'use client';
 
 import {
-	closestCenter,
-	DndContext,
-	type DragEndEvent,
-	KeyboardSensor,
-	PointerSensor,
-	useSensor,
-	useSensors,
-} from '@dnd-kit/core';
-import {
-	SortableContext,
-	sortableKeyboardCoordinates,
-	useSortable,
-	verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import {
 	Accordion,
 	AccordionContent,
 	AccordionHeader,
@@ -32,99 +16,27 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@shared/ui/primitives/select';
-import { Slider } from '@shared/ui/primitives/slider';
 import { Textarea } from '@shared/ui/primitives/textarea';
-import { GripVertical, Mail, MapPin, Phone } from 'lucide-react';
+import { Mail, MapPin, Phone } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
 
 import type { CvData } from '../../domain/entities/cv-data';
 
 import { OTHER_ICON_OPTIONS } from '../../domain/entities/cv-data';
 import { BulletsField } from './bullets-field';
-import { InsertDivider } from './insert-divider';
+import { CvFormEntryList } from './cv-form-entry-list';
+import { CvFormSkillList } from './cv-form-skill-list';
+import {
+	DragHandle,
+	RemoveEntryButton,
+	SortableFieldArray,
+} from './cv-form-sortable';
 
 interface CvFormProps {
 	form: UseFormReturn<CvData>;
 	onSubmit: (data: CvData) => void;
-}
-
-interface SortableItemProps {
-	children: (
-		handleProps: React.HTMLAttributes<HTMLElement>,
-	) => React.ReactNode;
-	id: string;
-}
-
-function SortableItem({ children, id }: SortableItemProps) {
-	const {
-		attributes,
-		isDragging,
-		listeners,
-		setNodeRef,
-		transform,
-		transition,
-	} = useSortable({ id });
-	return (
-		<div
-			ref={setNodeRef}
-			style={{
-				opacity: isDragging ? 0.5 : 1,
-				transform: CSS.Transform.toString(transform),
-				transition,
-			}}
-		>
-			{children({ ...attributes, ...listeners })}
-		</div>
-	);
-}
-
-function makeDragEnd(
-	move: (from: number, to: number) => void,
-	fields: Array<{ id: string }>,
-) {
-	return ({ active, over }: DragEndEvent) => {
-		if (!over || active.id === over.id) return;
-		const from = fields.findIndex((f) => f.id === active.id);
-		const to = fields.findIndex((f) => f.id === over.id);
-		if (from !== -1 && to !== -1) move(from, to);
-	};
-}
-
-interface FieldArrayListProps<T> {
-	emptyValue: T;
-	fields: { id: string }[];
-	insert: (index: number, value: T) => void;
-	insertLabel: string;
-	renderItem: (field: { id: string }, index: number) => React.ReactNode;
-}
-
-/** Interleaves an `InsertDivider` before the first item and after every item, so a field array can grow at any position — replaces a single header button that only ever appended at the end. */
-function FieldArrayList<T>({
-	emptyValue,
-	fields,
-	insert,
-	insertLabel,
-	renderItem,
-}: FieldArrayListProps<T>) {
-	return (
-		<>
-			<InsertDivider
-				label={insertLabel}
-				onInsert={() => insert(0, emptyValue)}
-			/>
-			{fields.map((field, i) => (
-				<Fragment key={field.id}>
-					{renderItem(field, i)}
-					<InsertDivider
-						label={insertLabel}
-						onInsert={() => insert(i + 1, emptyValue)}
-					/>
-				</Fragment>
-			))}
-		</>
-	);
 }
 
 // order matches the form's own section order — also the "all expanded" default.
@@ -169,20 +81,6 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 		control: form.control,
 		name: 'experience',
 	});
-	const education = useFieldArray({
-		control: form.control,
-		name: 'education',
-	});
-	const courses = useFieldArray({ control: form.control, name: 'courses' });
-	const extracurricular = useFieldArray({
-		control: form.control,
-		name: 'extracurricular',
-	});
-	const skills = useFieldArray({ control: form.control, name: 'skills' });
-	const languages = useFieldArray({
-		control: form.control,
-		name: 'languages',
-	});
 	const references = useFieldArray({
 		control: form.control,
 		name: 'references',
@@ -201,13 +99,6 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 			JSON.stringify(openSections),
 		);
 	}, [openSections]);
-
-	const sensors = useSensors(
-		useSensor(PointerSensor),
-		useSensor(KeyboardSensor, {
-			coordinateGetter: sortableKeyboardCoordinates,
-		}),
-	);
 
 	return (
 		<form className='space-y-6 pr-4' onSubmit={handleSubmit(onSubmit)}>
@@ -313,7 +204,7 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						{t('aboutMe')}
 					</AccordionHeader>
 					<AccordionContent
-						className='[[data-state=closed]_&]:hidden'
+						className='in-data-[state=closed]:hidden'
 						forceMount
 					>
 						<Controller
@@ -332,87 +223,46 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						{t('experience')}
 					</AccordionHeader>
 					<AccordionContent
-						className='space-y-3 [[data-state=closed]_&]:hidden'
+						className='space-y-3 in-data-[state=closed]:hidden'
 						forceMount
 					>
-						<DndContext
-							collisionDetection={closestCenter}
-							onDragEnd={makeDragEnd(
-								experience.move,
-								experience.fields,
-							)}
-							sensors={sensors}
-						>
-							<SortableContext
-								items={experience.fields.map((f) => f.id)}
-								strategy={verticalListSortingStrategy}
-							>
-								<FieldArrayList
-									emptyValue={{
-										bullets: [''],
-										details: '',
-										role: '',
-									}}
-									fields={experience.fields}
-									insert={experience.insert}
-									insertLabel={t('add')}
-									renderItem={(field, i) => (
-										<SortableItem
-											id={field.id}
-											key={field.id}
-										>
-											{(handleProps) => (
-												<div className='space-y-2 rounded border p-3'>
-													<div className='flex items-center gap-2'>
-														<button
-															className='cursor-grab text-muted-foreground hover:text-foreground'
-															type='button'
-															{...handleProps}
-														>
-															<GripVertical className='size-4' />
-														</button>
-														<Input
-															placeholder={t(
-																'role',
-															)}
-															{...register(
-																`experience.${i}.role`,
-															)}
-															className='flex-1'
-														/>
-														<Button
-															onClick={() =>
-																experience.remove(
-																	i,
-																)
-															}
-															size='sm'
-															type='button'
-															variant='ghost'
-														>
-															✕
-														</Button>
-													</div>
-													<Input
-														placeholder={t(
-															'details',
-														)}
-														{...register(
-															`experience.${i}.details`,
-														)}
-													/>
-													<BulletsField
-														control={form.control}
-														jobIndex={i}
-														setValue={form.setValue}
-													/>
-												</div>
+						<SortableFieldArray
+							emptyValue={{
+								bullets: [''],
+								details: '',
+								role: '',
+							}}
+							fields={experience.fields}
+							insert={experience.insert}
+							insertLabel={t('add')}
+							move={experience.move}
+							renderItem={(i, handleProps) => (
+								<div className='space-y-2 rounded border p-3'>
+									<div className='flex items-center gap-2'>
+										<DragHandle {...handleProps} />
+										<Input
+											placeholder={t('role')}
+											{...register(
+												`experience.${i}.role`,
 											)}
-										</SortableItem>
-									)}
-								/>
-							</SortableContext>
-						</DndContext>
+											className='flex-1'
+										/>
+										<RemoveEntryButton
+											onClick={() => experience.remove(i)}
+										/>
+									</div>
+									<Input
+										placeholder={t('details')}
+										{...register(`experience.${i}.details`)}
+									/>
+									<BulletsField
+										control={form.control}
+										jobIndex={i}
+										setValue={form.setValue}
+									/>
+								</div>
+							)}
+						/>
 					</AccordionContent>
 				</AccordionItem>
 
@@ -422,76 +272,16 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						{t('education')}
 					</AccordionHeader>
 					<AccordionContent
-						className='space-y-3 [[data-state=closed]_&]:hidden'
+						className='space-y-3 in-data-[state=closed]:hidden'
 						forceMount
 					>
-						<DndContext
-							collisionDetection={closestCenter}
-							onDragEnd={makeDragEnd(
-								education.move,
-								education.fields,
-							)}
-							sensors={sensors}
-						>
-							<SortableContext
-								items={education.fields.map((f) => f.id)}
-								strategy={verticalListSortingStrategy}
-							>
-								<FieldArrayList
-									emptyValue={{
-										subtitle: '',
-										title: '',
-									}}
-									fields={education.fields}
-									insert={education.insert}
-									insertLabel={t('add')}
-									renderItem={(field, i) => (
-										<SortableItem
-											id={field.id}
-											key={field.id}
-										>
-											{(handleProps) => (
-												<div className='flex items-center gap-2'>
-													<button
-														className='cursor-grab text-muted-foreground hover:text-foreground'
-														type='button'
-														{...handleProps}
-													>
-														<GripVertical className='size-4' />
-													</button>
-													<Input
-														placeholder={t(
-															'entryTitle',
-														)}
-														{...register(
-															`education.${i}.title`,
-														)}
-													/>
-													<Input
-														placeholder={t(
-															'entrySubtitle',
-														)}
-														{...register(
-															`education.${i}.subtitle`,
-														)}
-													/>
-													<Button
-														onClick={() =>
-															education.remove(i)
-														}
-														size='sm'
-														type='button'
-														variant='ghost'
-													>
-														✕
-													</Button>
-												</div>
-											)}
-										</SortableItem>
-									)}
-								/>
-							</SortableContext>
-						</DndContext>
+						<CvFormEntryList
+							addLabel={t('add')}
+							form={form}
+							name='education'
+							subtitleLabel={t('entrySubtitle')}
+							titleLabel={t('entryTitle')}
+						/>
 					</AccordionContent>
 				</AccordionItem>
 
@@ -501,76 +291,16 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						{t('courses')}
 					</AccordionHeader>
 					<AccordionContent
-						className='space-y-3 [[data-state=closed]_&]:hidden'
+						className='space-y-3 in-data-[state=closed]:hidden'
 						forceMount
 					>
-						<DndContext
-							collisionDetection={closestCenter}
-							onDragEnd={makeDragEnd(
-								courses.move,
-								courses.fields,
-							)}
-							sensors={sensors}
-						>
-							<SortableContext
-								items={courses.fields.map((f) => f.id)}
-								strategy={verticalListSortingStrategy}
-							>
-								<FieldArrayList
-									emptyValue={{
-										subtitle: '',
-										title: '',
-									}}
-									fields={courses.fields}
-									insert={courses.insert}
-									insertLabel={t('add')}
-									renderItem={(field, i) => (
-										<SortableItem
-											id={field.id}
-											key={field.id}
-										>
-											{(handleProps) => (
-												<div className='flex items-center gap-2'>
-													<button
-														className='cursor-grab text-muted-foreground hover:text-foreground'
-														type='button'
-														{...handleProps}
-													>
-														<GripVertical className='size-4' />
-													</button>
-													<Input
-														placeholder={t(
-															'entryTitle',
-														)}
-														{...register(
-															`courses.${i}.title`,
-														)}
-													/>
-													<Input
-														placeholder={t(
-															'entrySubtitle',
-														)}
-														{...register(
-															`courses.${i}.subtitle`,
-														)}
-													/>
-													<Button
-														onClick={() =>
-															courses.remove(i)
-														}
-														size='sm'
-														type='button'
-														variant='ghost'
-													>
-														✕
-													</Button>
-												</div>
-											)}
-										</SortableItem>
-									)}
-								/>
-							</SortableContext>
-						</DndContext>
+						<CvFormEntryList
+							addLabel={t('add')}
+							form={form}
+							name='courses'
+							subtitleLabel={t('entrySubtitle')}
+							titleLabel={t('entryTitle')}
+						/>
 					</AccordionContent>
 				</AccordionItem>
 
@@ -580,78 +310,16 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						{t('extracurricular')}
 					</AccordionHeader>
 					<AccordionContent
-						className='space-y-3 [[data-state=closed]_&]:hidden'
+						className='space-y-3 in-data-[state=closed]:hidden'
 						forceMount
 					>
-						<DndContext
-							collisionDetection={closestCenter}
-							onDragEnd={makeDragEnd(
-								extracurricular.move,
-								extracurricular.fields,
-							)}
-							sensors={sensors}
-						>
-							<SortableContext
-								items={extracurricular.fields.map((f) => f.id)}
-								strategy={verticalListSortingStrategy}
-							>
-								<FieldArrayList
-									emptyValue={{
-										subtitle: '',
-										title: '',
-									}}
-									fields={extracurricular.fields}
-									insert={extracurricular.insert}
-									insertLabel={t('add')}
-									renderItem={(field, i) => (
-										<SortableItem
-											id={field.id}
-											key={field.id}
-										>
-											{(handleProps) => (
-												<div className='flex items-center gap-2'>
-													<button
-														className='cursor-grab text-muted-foreground hover:text-foreground'
-														type='button'
-														{...handleProps}
-													>
-														<GripVertical className='size-4' />
-													</button>
-													<Input
-														placeholder={t(
-															'entryTitle',
-														)}
-														{...register(
-															`extracurricular.${i}.title`,
-														)}
-													/>
-													<Input
-														placeholder={t(
-															'entrySubtitle',
-														)}
-														{...register(
-															`extracurricular.${i}.subtitle`,
-														)}
-													/>
-													<Button
-														onClick={() =>
-															extracurricular.remove(
-																i,
-															)
-														}
-														size='sm'
-														type='button'
-														variant='ghost'
-													>
-														✕
-													</Button>
-												</div>
-											)}
-										</SortableItem>
-									)}
-								/>
-							</SortableContext>
-						</DndContext>
+						<CvFormEntryList
+							addLabel={t('add')}
+							form={form}
+							name='extracurricular'
+							subtitleLabel={t('entrySubtitle')}
+							titleLabel={t('entryTitle')}
+						/>
 					</AccordionContent>
 				</AccordionItem>
 
@@ -661,103 +329,15 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						{t('skills')}
 					</AccordionHeader>
 					<AccordionContent
-						className='space-y-3 [[data-state=closed]_&]:hidden'
+						className='space-y-3 in-data-[state=closed]:hidden'
 						forceMount
 					>
-						<DndContext
-							collisionDetection={closestCenter}
-							onDragEnd={makeDragEnd(skills.move, skills.fields)}
-							sensors={sensors}
-						>
-							<SortableContext
-								items={skills.fields.map((f) => f.id)}
-								strategy={verticalListSortingStrategy}
-							>
-								<FieldArrayList
-									emptyValue={{ label: '', level: 50 }}
-									fields={skills.fields}
-									insert={skills.insert}
-									insertLabel={t('add')}
-									renderItem={(field, i) => (
-										<SortableItem
-											id={field.id}
-											key={field.id}
-										>
-											{(handleProps) => (
-												<div className='space-y-1 rounded border p-3'>
-													<div className='flex items-center gap-2'>
-														<button
-															className='cursor-grab text-muted-foreground hover:text-foreground'
-															type='button'
-															{...handleProps}
-														>
-															<GripVertical className='size-4' />
-														</button>
-														<Input
-															placeholder={t(
-																'skillLabel',
-															)}
-															{...register(
-																`skills.${i}.label`,
-															)}
-															className='flex-1'
-														/>
-														<Button
-															onClick={() =>
-																skills.remove(i)
-															}
-															size='sm'
-															type='button'
-															variant='ghost'
-														>
-															✕
-														</Button>
-													</div>
-													<div className='flex items-center gap-3'>
-														<Controller
-															control={
-																form.control
-															}
-															name={`skills.${i}.level`}
-															render={({
-																field: {
-																	onChange,
-																	value,
-																},
-															}) => (
-																<>
-																	<Slider
-																		className='flex-1'
-																		max={
-																			100
-																		}
-																		min={0}
-																		onValueChange={([
-																			v,
-																		]) =>
-																			onChange(
-																				v,
-																			)
-																		}
-																		step={1}
-																		value={[
-																			value,
-																		]}
-																	/>
-																	<span className='w-8 text-right text-xs text-muted-foreground'>
-																		{value}%
-																	</span>
-																</>
-															)}
-														/>
-													</div>
-												</div>
-											)}
-										</SortableItem>
-									)}
-								/>
-							</SortableContext>
-						</DndContext>
+						<CvFormSkillList
+							addLabel={t('add')}
+							form={form}
+							labelPlaceholder={t('skillLabel')}
+							name='skills'
+						/>
 					</AccordionContent>
 				</AccordionItem>
 
@@ -767,108 +347,15 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						{t('languages')}
 					</AccordionHeader>
 					<AccordionContent
-						className='space-y-3 [[data-state=closed]_&]:hidden'
+						className='space-y-3 in-data-[state=closed]:hidden'
 						forceMount
 					>
-						<DndContext
-							collisionDetection={closestCenter}
-							onDragEnd={makeDragEnd(
-								languages.move,
-								languages.fields,
-							)}
-							sensors={sensors}
-						>
-							<SortableContext
-								items={languages.fields.map((f) => f.id)}
-								strategy={verticalListSortingStrategy}
-							>
-								<FieldArrayList
-									emptyValue={{ label: '', level: 50 }}
-									fields={languages.fields}
-									insert={languages.insert}
-									insertLabel={t('add')}
-									renderItem={(field, i) => (
-										<SortableItem
-											id={field.id}
-											key={field.id}
-										>
-											{(handleProps) => (
-												<div className='space-y-1 rounded border p-3'>
-													<div className='flex items-center gap-2'>
-														<button
-															className='cursor-grab text-muted-foreground hover:text-foreground'
-															type='button'
-															{...handleProps}
-														>
-															<GripVertical className='size-4' />
-														</button>
-														<Input
-															placeholder={t(
-																'skillLabel',
-															)}
-															{...register(
-																`languages.${i}.label`,
-															)}
-															className='flex-1'
-														/>
-														<Button
-															onClick={() =>
-																languages.remove(
-																	i,
-																)
-															}
-															size='sm'
-															type='button'
-															variant='ghost'
-														>
-															✕
-														</Button>
-													</div>
-													<div className='flex items-center gap-3'>
-														<Controller
-															control={
-																form.control
-															}
-															name={`languages.${i}.level`}
-															render={({
-																field: {
-																	onChange,
-																	value,
-																},
-															}) => (
-																<>
-																	<Slider
-																		className='flex-1'
-																		max={
-																			100
-																		}
-																		min={0}
-																		onValueChange={([
-																			v,
-																		]) =>
-																			onChange(
-																				v,
-																			)
-																		}
-																		step={1}
-																		value={[
-																			value,
-																		]}
-																	/>
-																	<span className='w-8 text-right text-xs text-muted-foreground'>
-																		{value}%
-																	</span>
-																</>
-															)}
-														/>
-													</div>
-												</div>
-											)}
-										</SortableItem>
-									)}
-								/>
-							</SortableContext>
-						</DndContext>
+						<CvFormSkillList
+							addLabel={t('add')}
+							form={form}
+							labelPlaceholder={t('skillLabel')}
+							name='languages'
+						/>
 					</AccordionContent>
 				</AccordionItem>
 
@@ -878,85 +365,40 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						{t('references')}
 					</AccordionHeader>
 					<AccordionContent
-						className='space-y-3 [[data-state=closed]_&]:hidden'
+						className='space-y-3 in-data-[state=closed]:hidden'
 						forceMount
 					>
-						<DndContext
-							collisionDetection={closestCenter}
-							onDragEnd={makeDragEnd(
-								references.move,
-								references.fields,
+						<SortableFieldArray
+							emptyValue={{
+								email: '',
+								name: '',
+								phone: '',
+							}}
+							fields={references.fields}
+							insert={references.insert}
+							insertLabel={t('add')}
+							move={references.move}
+							renderItem={(i, handleProps) => (
+								<div className='flex items-center gap-2'>
+									<DragHandle {...handleProps} />
+									<Input
+										placeholder={t('refName')}
+										{...register(`references.${i}.name`)}
+									/>
+									<Input
+										placeholder={t('refEmail')}
+										{...register(`references.${i}.email`)}
+									/>
+									<Input
+										placeholder={t('refPhone')}
+										{...register(`references.${i}.phone`)}
+									/>
+									<RemoveEntryButton
+										onClick={() => references.remove(i)}
+									/>
+								</div>
 							)}
-							sensors={sensors}
-						>
-							<SortableContext
-								items={references.fields.map((f) => f.id)}
-								strategy={verticalListSortingStrategy}
-							>
-								<FieldArrayList
-									emptyValue={{
-										email: '',
-										name: '',
-										phone: '',
-									}}
-									fields={references.fields}
-									insert={references.insert}
-									insertLabel={t('add')}
-									renderItem={(field, i) => (
-										<SortableItem
-											id={field.id}
-											key={field.id}
-										>
-											{(handleProps) => (
-												<div className='flex items-center gap-2'>
-													<button
-														className='cursor-grab text-muted-foreground hover:text-foreground'
-														type='button'
-														{...handleProps}
-													>
-														<GripVertical className='size-4' />
-													</button>
-													<Input
-														placeholder={t(
-															'refName',
-														)}
-														{...register(
-															`references.${i}.name`,
-														)}
-													/>
-													<Input
-														placeholder={t(
-															'refEmail',
-														)}
-														{...register(
-															`references.${i}.email`,
-														)}
-													/>
-													<Input
-														placeholder={t(
-															'refPhone',
-														)}
-														{...register(
-															`references.${i}.phone`,
-														)}
-													/>
-													<Button
-														onClick={() =>
-															references.remove(i)
-														}
-														size='sm'
-														type='button'
-														variant='ghost'
-													>
-														✕
-													</Button>
-												</div>
-											)}
-										</SortableItem>
-									)}
-								/>
-							</SortableContext>
-						</DndContext>
+						/>
 					</AccordionContent>
 				</AccordionItem>
 
@@ -966,114 +408,66 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 						{t('other')}
 					</AccordionHeader>
 					<AccordionContent
-						className='space-y-3 [[data-state=closed]_&]:hidden'
+						className='space-y-3 in-data-[state=closed]:hidden'
 						forceMount
 					>
-						<DndContext
-							collisionDetection={closestCenter}
-							onDragEnd={makeDragEnd(other.move, other.fields)}
-							sensors={sensors}
-						>
-							<SortableContext
-								items={other.fields.map((f) => f.id)}
-								strategy={verticalListSortingStrategy}
-							>
-								<FieldArrayList
-									emptyValue={{
-										icon: 'auto',
-										label: '',
-										value: '',
-									}}
-									fields={other.fields}
-									insert={other.insert}
-									insertLabel={t('add')}
-									renderItem={(field, i) => (
-										<SortableItem
-											id={field.id}
-											key={field.id}
-										>
-											{(handleProps) => (
-												<div className='flex items-center gap-2'>
-													<button
-														className='cursor-grab text-muted-foreground hover:text-foreground'
-														type='button'
-														{...handleProps}
-													>
-														<GripVertical className='size-4' />
-													</button>
-													<Controller
-														control={form.control}
-														name={`other.${i}.icon`}
-														render={({
-															field: iconField,
-														}) => (
-															<Select
-																onValueChange={
-																	iconField.onChange
-																}
-																value={
-																	iconField.value
-																}
+						<SortableFieldArray
+							emptyValue={{
+								icon: 'auto',
+								label: '',
+								value: '',
+							}}
+							fields={other.fields}
+							insert={other.insert}
+							insertLabel={t('add')}
+							move={other.move}
+							renderItem={(i, handleProps) => (
+								<div className='flex items-center gap-2'>
+									<DragHandle {...handleProps} />
+									<Controller
+										control={form.control}
+										name={`other.${i}.icon`}
+										render={({ field: iconField }) => (
+											<Select
+												onValueChange={
+													iconField.onChange
+												}
+												value={iconField.value}
+											>
+												<SelectTrigger className='w-28 shrink-0'>
+													<SelectValue />
+												</SelectTrigger>
+												<SelectContent>
+													{OTHER_ICON_OPTIONS.map(
+														(icon) => (
+															<SelectItem
+																key={icon}
+																value={icon}
 															>
-																<SelectTrigger className='w-28 shrink-0'>
-																	<SelectValue />
-																</SelectTrigger>
-																<SelectContent>
-																	{OTHER_ICON_OPTIONS.map(
-																		(
-																			icon,
-																		) => (
-																			<SelectItem
-																				key={
-																					icon
-																				}
-																				value={
-																					icon
-																				}
-																			>
-																				{t(
-																					`otherIcon.${icon}`,
-																				)}
-																			</SelectItem>
-																		),
-																	)}
-																</SelectContent>
-															</Select>
-														)}
-													/>
-													<Input
-														placeholder={t(
-															'otherLabel',
-														)}
-														{...register(
-															`other.${i}.label`,
-														)}
-													/>
-													<Input
-														placeholder={t(
-															'otherValue',
-														)}
-														{...register(
-															`other.${i}.value`,
-														)}
-													/>
-													<Button
-														onClick={() =>
-															other.remove(i)
-														}
-														size='sm'
-														type='button'
-														variant='ghost'
-													>
-														✕
-													</Button>
-												</div>
-											)}
-										</SortableItem>
-									)}
-								/>
-							</SortableContext>
-						</DndContext>
+																{t(
+																	`otherIcon.${icon}`,
+																)}
+															</SelectItem>
+														),
+													)}
+												</SelectContent>
+											</Select>
+										)}
+									/>
+									<Input
+										placeholder={t('otherLabel')}
+										{...register(`other.${i}.label`)}
+									/>
+									<Input
+										placeholder={t('otherValue')}
+										{...register(`other.${i}.value`)}
+									/>
+									<RemoveEntryButton
+										onClick={() => other.remove(i)}
+									/>
+								</div>
+							)}
+						/>
 					</AccordionContent>
 				</AccordionItem>
 			</Accordion>
