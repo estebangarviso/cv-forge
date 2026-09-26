@@ -1,38 +1,21 @@
 'use client';
 
-import {
-	Accordion,
-	AccordionContent,
-	AccordionHeader,
-	AccordionItem,
-} from '@shared/ui/primitives/accordion';
+import { Accordion } from '@shared/ui/primitives/accordion';
 import { Button } from '@shared/ui/primitives/button';
-import { Input } from '@shared/ui/primitives/input';
-import { Label } from '@shared/ui/primitives/label';
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@shared/ui/primitives/select';
 import { Textarea } from '@shared/ui/primitives/textarea';
-import { Mail, MapPin, Phone } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { Controller, useFieldArray, type UseFormReturn } from 'react-hook-form';
+import { Controller, type UseFormReturn } from 'react-hook-form';
 
 import type { CvData } from '../../domain/entities/cv-data';
 
-import { OTHER_ICON_OPTIONS } from '../../domain/entities/cv-data';
-import { BulletsField } from './bullets-field';
 import { CvFormEntryList } from './cv-form-entry-list';
+import { CvFormExperienceSection } from './cv-form-experience-section';
+import { CvFormOtherSection } from './cv-form-other-section';
+import { CvFormPersonalSection } from './cv-form-personal-section';
+import { CvFormReferencesSection } from './cv-form-references-section';
+import { CvFormSection } from './cv-form-section';
 import { CvFormSkillList } from './cv-form-skill-list';
-import {
-	DragHandle,
-	RemoveEntryButton,
-	SortableFieldArray,
-} from './cv-form-sortable';
 
 interface CvFormProps {
 	form: UseFormReturn<CvData>;
@@ -71,22 +54,6 @@ function readStoredOpenSections(): string[] {
 
 export function CvForm({ form, onSubmit }: CvFormProps) {
 	const t = useTranslations('cvForm');
-	const {
-		formState: { errors },
-		handleSubmit,
-		register,
-	} = form;
-
-	const experience = useFieldArray({
-		control: form.control,
-		name: 'experience',
-	});
-	const references = useFieldArray({
-		control: form.control,
-		name: 'references',
-	});
-	const other = useFieldArray({ control: form.control, name: 'other' });
-
 	const [openSections, setOpenSections] = useState<string[]>(
 		readStoredOpenSections,
 	);
@@ -101,375 +68,86 @@ export function CvForm({ form, onSubmit }: CvFormProps) {
 	}, [openSections]);
 
 	return (
-		<form className='space-y-6 pr-4' onSubmit={handleSubmit(onSubmit)}>
+		<form className='space-y-6 pr-4' onSubmit={form.handleSubmit(onSubmit)}>
 			<Accordion
 				onValueChange={setOpenSections}
 				type='multiple'
 				value={openSections}
 			>
-				{/* Personal Info */}
-				<AccordionItem value='personal'>
-					<AccordionHeader className='sticky top-0 z-20 bg-background'>
-						{t('personal')}
-					</AccordionHeader>
-					<AccordionContent
-						className='space-y-3 in-data-[state=closed]:hidden'
-						forceMount
-					>
-						<div className='grid grid-cols-2 gap-3'>
-							<div>
-								<Label htmlFor='name'>{t('name')}</Label>
-								<Controller
-									control={form.control}
-									name='name'
-									render={({ field }) => (
-										<Input id='name' {...field} />
-									)}
-								/>
-								{errors.name && (
-									<p className='mt-1 text-xs text-destructive'>
-										{errors.name.message}
-									</p>
-								)}
-							</div>
-							<div>
-								<Label htmlFor='title'>{t('title')}</Label>
-								<Controller
-									control={form.control}
-									name='title'
-									render={({ field }) => (
-										<Input id='title' {...field} />
-									)}
-								/>
-							</div>
-							<div>
-								<Label htmlFor='email'>{t('email')}</Label>
-								<div className='relative'>
-									<Mail className='pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground' />
-									<Controller
-										control={form.control}
-										name='email'
-										render={({ field }) => (
-											<Input
-												className='pl-9'
-												id='email'
-												type='email'
-												{...field}
-											/>
-										)}
-									/>
-								</div>
-							</div>
-							<div>
-								<Label htmlFor='phone'>{t('phone')}</Label>
-								<div className='relative'>
-									<Phone className='pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground' />
-									<Controller
-										control={form.control}
-										name='phone'
-										render={({ field }) => (
-											<Input
-												className='pl-9'
-												id='phone'
-												{...field}
-											/>
-										)}
-									/>
-								</div>
-							</div>
-							<div className='col-span-2'>
-								<Label htmlFor='address'>{t('address')}</Label>
-								<div className='relative'>
-									<MapPin className='pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground' />
-									<Controller
-										control={form.control}
-										name='address'
-										render={({ field }) => (
-											<Input
-												className='pl-9'
-												id='address'
-												{...field}
-											/>
-										)}
-									/>
-								</div>
-							</div>
-						</div>
-					</AccordionContent>
-				</AccordionItem>
+				<CvFormSection title={t('personal')} value='personal'>
+					<CvFormPersonalSection form={form} />
+				</CvFormSection>
 
-				{/* About Me */}
-				<AccordionItem value='aboutMe'>
-					<AccordionHeader className='sticky top-0 z-20 bg-background'>
-						{t('aboutMe')}
-					</AccordionHeader>
-					<AccordionContent
-						className='in-data-[state=closed]:hidden'
-						forceMount
-					>
-						<Controller
-							control={form.control}
-							name='aboutMe'
-							render={({ field }) => (
-								<Textarea rows={3} {...field} />
-							)}
-						/>
-					</AccordionContent>
-				</AccordionItem>
+				<CvFormSection title={t('aboutMe')} value='aboutMe'>
+					<Controller
+						control={form.control}
+						name='aboutMe'
+						render={({ field }) => <Textarea rows={3} {...field} />}
+					/>
+				</CvFormSection>
 
-				{/* Experience */}
-				<AccordionItem value='experience'>
-					<AccordionHeader className='sticky top-0 z-20 bg-background'>
-						{t('experience')}
-					</AccordionHeader>
-					<AccordionContent
-						className='space-y-3 in-data-[state=closed]:hidden'
-						forceMount
-					>
-						<SortableFieldArray
-							emptyValue={{
-								bullets: [''],
-								details: '',
-								role: '',
-							}}
-							fields={experience.fields}
-							insert={experience.insert}
-							insertLabel={t('add')}
-							move={experience.move}
-							renderItem={(i, handleProps) => (
-								<div className='space-y-2 rounded border p-3'>
-									<div className='flex items-center gap-2'>
-										<DragHandle {...handleProps} />
-										<Input
-											placeholder={t('role')}
-											{...register(
-												`experience.${i}.role`,
-											)}
-											className='flex-1'
-										/>
-										<RemoveEntryButton
-											onClick={() => experience.remove(i)}
-										/>
-									</div>
-									<Input
-										placeholder={t('details')}
-										{...register(`experience.${i}.details`)}
-									/>
-									<BulletsField
-										control={form.control}
-										jobIndex={i}
-										setValue={form.setValue}
-									/>
-								</div>
-							)}
-						/>
-					</AccordionContent>
-				</AccordionItem>
+				<CvFormSection title={t('experience')} value='experience'>
+					<CvFormExperienceSection form={form} />
+				</CvFormSection>
 
-				{/* Education */}
-				<AccordionItem value='education'>
-					<AccordionHeader className='sticky top-0 z-20 bg-background'>
-						{t('education')}
-					</AccordionHeader>
-					<AccordionContent
-						className='space-y-3 in-data-[state=closed]:hidden'
-						forceMount
-					>
-						<CvFormEntryList
-							addLabel={t('add')}
-							form={form}
-							name='education'
-							subtitleLabel={t('entrySubtitle')}
-							titleLabel={t('entryTitle')}
-						/>
-					</AccordionContent>
-				</AccordionItem>
+				<CvFormSection title={t('education')} value='education'>
+					<CvFormEntryList
+						addLabel={t('add')}
+						form={form}
+						name='education'
+						subtitleLabel={t('entrySubtitle')}
+						titleLabel={t('entryTitle')}
+					/>
+				</CvFormSection>
 
-				{/* Courses */}
-				<AccordionItem value='courses'>
-					<AccordionHeader className='sticky top-0 z-20 bg-background'>
-						{t('courses')}
-					</AccordionHeader>
-					<AccordionContent
-						className='space-y-3 in-data-[state=closed]:hidden'
-						forceMount
-					>
-						<CvFormEntryList
-							addLabel={t('add')}
-							form={form}
-							name='courses'
-							subtitleLabel={t('entrySubtitle')}
-							titleLabel={t('entryTitle')}
-						/>
-					</AccordionContent>
-				</AccordionItem>
+				<CvFormSection title={t('courses')} value='courses'>
+					<CvFormEntryList
+						addLabel={t('add')}
+						form={form}
+						name='courses'
+						subtitleLabel={t('entrySubtitle')}
+						titleLabel={t('entryTitle')}
+					/>
+				</CvFormSection>
 
-				{/* Extracurricular */}
-				<AccordionItem value='extracurricular'>
-					<AccordionHeader className='sticky top-0 z-20 bg-background'>
-						{t('extracurricular')}
-					</AccordionHeader>
-					<AccordionContent
-						className='space-y-3 in-data-[state=closed]:hidden'
-						forceMount
-					>
-						<CvFormEntryList
-							addLabel={t('add')}
-							form={form}
-							name='extracurricular'
-							subtitleLabel={t('entrySubtitle')}
-							titleLabel={t('entryTitle')}
-						/>
-					</AccordionContent>
-				</AccordionItem>
+				<CvFormSection
+					title={t('extracurricular')}
+					value='extracurricular'
+				>
+					<CvFormEntryList
+						addLabel={t('add')}
+						form={form}
+						name='extracurricular'
+						subtitleLabel={t('entrySubtitle')}
+						titleLabel={t('entryTitle')}
+					/>
+				</CvFormSection>
 
-				{/* Skills */}
-				<AccordionItem value='skills'>
-					<AccordionHeader className='sticky top-0 z-20 bg-background'>
-						{t('skills')}
-					</AccordionHeader>
-					<AccordionContent
-						className='space-y-3 in-data-[state=closed]:hidden'
-						forceMount
-					>
-						<CvFormSkillList
-							addLabel={t('add')}
-							form={form}
-							labelPlaceholder={t('skillLabel')}
-							name='skills'
-						/>
-					</AccordionContent>
-				</AccordionItem>
+				<CvFormSection title={t('skills')} value='skills'>
+					<CvFormSkillList
+						addLabel={t('add')}
+						form={form}
+						labelPlaceholder={t('skillLabel')}
+						name='skills'
+					/>
+				</CvFormSection>
 
-				{/* Languages */}
-				<AccordionItem value='languages'>
-					<AccordionHeader className='sticky top-0 z-20 bg-background'>
-						{t('languages')}
-					</AccordionHeader>
-					<AccordionContent
-						className='space-y-3 in-data-[state=closed]:hidden'
-						forceMount
-					>
-						<CvFormSkillList
-							addLabel={t('add')}
-							form={form}
-							labelPlaceholder={t('skillLabel')}
-							name='languages'
-						/>
-					</AccordionContent>
-				</AccordionItem>
+				<CvFormSection title={t('languages')} value='languages'>
+					<CvFormSkillList
+						addLabel={t('add')}
+						form={form}
+						labelPlaceholder={t('skillLabel')}
+						name='languages'
+					/>
+				</CvFormSection>
 
-				{/* References */}
-				<AccordionItem value='references'>
-					<AccordionHeader className='sticky top-0 z-20 bg-background'>
-						{t('references')}
-					</AccordionHeader>
-					<AccordionContent
-						className='space-y-3 in-data-[state=closed]:hidden'
-						forceMount
-					>
-						<SortableFieldArray
-							emptyValue={{
-								email: '',
-								name: '',
-								phone: '',
-							}}
-							fields={references.fields}
-							insert={references.insert}
-							insertLabel={t('add')}
-							move={references.move}
-							renderItem={(i, handleProps) => (
-								<div className='flex items-center gap-2'>
-									<DragHandle {...handleProps} />
-									<Input
-										placeholder={t('refName')}
-										{...register(`references.${i}.name`)}
-									/>
-									<Input
-										placeholder={t('refEmail')}
-										{...register(`references.${i}.email`)}
-									/>
-									<Input
-										placeholder={t('refPhone')}
-										{...register(`references.${i}.phone`)}
-									/>
-									<RemoveEntryButton
-										onClick={() => references.remove(i)}
-									/>
-								</div>
-							)}
-						/>
-					</AccordionContent>
-				</AccordionItem>
+				<CvFormSection title={t('references')} value='references'>
+					<CvFormReferencesSection form={form} />
+				</CvFormSection>
 
-				{/* Other */}
-				<AccordionItem value='other'>
-					<AccordionHeader className='sticky top-0 z-20 bg-background'>
-						{t('other')}
-					</AccordionHeader>
-					<AccordionContent
-						className='space-y-3 in-data-[state=closed]:hidden'
-						forceMount
-					>
-						<SortableFieldArray
-							emptyValue={{
-								icon: 'auto',
-								label: '',
-								value: '',
-							}}
-							fields={other.fields}
-							insert={other.insert}
-							insertLabel={t('add')}
-							move={other.move}
-							renderItem={(i, handleProps) => (
-								<div className='flex items-center gap-2'>
-									<DragHandle {...handleProps} />
-									<Controller
-										control={form.control}
-										name={`other.${i}.icon`}
-										render={({ field: iconField }) => (
-											<Select
-												onValueChange={
-													iconField.onChange
-												}
-												value={iconField.value}
-											>
-												<SelectTrigger className='w-28 shrink-0'>
-													<SelectValue />
-												</SelectTrigger>
-												<SelectContent>
-													{OTHER_ICON_OPTIONS.map(
-														(icon) => (
-															<SelectItem
-																key={icon}
-																value={icon}
-															>
-																{t(
-																	`otherIcon.${icon}`,
-																)}
-															</SelectItem>
-														),
-													)}
-												</SelectContent>
-											</Select>
-										)}
-									/>
-									<Input
-										placeholder={t('otherLabel')}
-										{...register(`other.${i}.label`)}
-									/>
-									<Input
-										placeholder={t('otherValue')}
-										{...register(`other.${i}.value`)}
-									/>
-									<RemoveEntryButton
-										onClick={() => other.remove(i)}
-									/>
-								</div>
-							)}
-						/>
-					</AccordionContent>
-				</AccordionItem>
+				<CvFormSection title={t('other')} value='other'>
+					<CvFormOtherSection form={form} />
+				</CvFormSection>
 			</Accordion>
 
 			<Button className='w-full print:hidden' type='submit'>
