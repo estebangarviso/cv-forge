@@ -47,4 +47,4 @@ mappers) → presentation/ (components, hooks, state/*.store.ts) → index.ts
 ## Documentation
 - docs/README.md — central index
 - docs/architecture/00_index.md — architecture hub
-- docs/guides/001_trunk-based-stacked-prs.md — trunk-based stacked PR protocol
+- docs/guides/001_branching-and-releases.md — develop/main branching, releases, hotfixes, stacked PRs

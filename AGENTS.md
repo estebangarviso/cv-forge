@@ -159,6 +159,7 @@ Schemas live in `domain/entities/`. Never create a form-local schema file.
 - No `useForm` inside a form section component — the owning page/client component holds the instance.
 - No bare `AccordionContent` for a form section — wrap it in `CvFormSection` so closed sections stay mounted.
 - No duplicated Zod schema in `presentation/` — import it from `domain/entities/`.
+- No branches cut from `main` — branch from `origin/develop` and open PRs against `develop`. `main` only receives `develop → main` release PRs, merged with a merge commit (see [branching guide](docs/guides/001_branching-and-releases.md)).
 
 ## Documentation index
 
@@ -170,7 +171,7 @@ Schemas live in `domain/entities/`. Never create a form-local schema file.
 | [docs/agents/05_shared-ui-library.md](docs/agents/05_shared-ui-library.md)                             | Shared UI decision gate                                        |
 | [docs/architecture/](docs/architecture/)                                                               | Architecture hub (folder structure, state, theming, data flow) |
 | [docs/getting-started/](docs/getting-started/)                                                         | Setup and commands                                             |
-| [docs/guides/001_trunk-based-stacked-prs.md](docs/guides/001_trunk-based-stacked-prs.md)               | Stacked PR / trunk-based delivery protocol                     |
+| [docs/guides/001_branching-and-releases.md](docs/guides/001_branching-and-releases.md)                 | `develop`/`main` branching, releases, hotfixes, stacked PRs    |
 
 ## Skills
 

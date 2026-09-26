@@ -64,4 +64,4 @@ Feature modules live in `src/modules/` with hexagonal layering (`domain` / `infr
 
 ## Next step
 
-Read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a pull request, and [docs/guides/001_trunk-based-stacked-prs.md](./docs/guides/001_trunk-based-stacked-prs.md) if your change ships as a stack.
+Read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a pull request, and [docs/guides/001_branching-and-releases.md](./docs/guides/001_branching-and-releases.md) for the `develop` / `main` flow and stacked PRs.
