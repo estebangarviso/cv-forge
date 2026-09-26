@@ -98,6 +98,20 @@ No Redux, MobX, or centralized state managers.
 
 Use `react-hook-form` with `zodResolver` exclusively. Schemas from `@modules/cv` (e.g., `CvDataSchema`).
 
+### Composition
+
+Forms are composed from small section components, never written as one large file. `cv-form.tsx` is the reference implementation — see the [form-composition](.github/skills/form-composition/SKILL.md) skill before adding a section or field.
+
+| Rule                                                 | Why                                                                                                                                       |
+| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| One file per section, under ~150 lines               | The parent stays an orchestrator: state, order, submit                                                                                    |
+| Only the page/client component calls `useForm`       | The editor also drives autosave, live preview and dialogs off the same instance; sections receive it as a prop                            |
+| Collapsible sections go through `CvFormSection`      | It owns `forceMount` + `in-data-[state=closed]:hidden`; Radix unmounts closed content and react-hook-form cannot hydrate unmounted fields |
+| Scalar fields fed by async data use `Controller`     | `register` keeps an uncontrolled ref that can miss a later `form.reset()`                                                                 |
+| Extract a wrapper at the 3rd repetition, not the 1st | Avoids indirection nobody needed                                                                                                          |
+
+Schemas live in `domain/entities/`. Never create a form-local schema file.
+
 ## Auth
 
 - Config in `src/auth.ts` — exports `{ handlers, signIn, signOut, auth }`.
@@ -142,6 +156,9 @@ Use `react-hook-form` with `zodResolver` exclusively. Schemas from `@modules/cv`
 - No imports from another module's internal paths.
 - No `any` — use Zod schemas and inferred types.
 - No direct Google Drive calls from components — go through the `drive` module port.
+- No `useForm` inside a form section component — the owning page/client component holds the instance.
+- No bare `AccordionContent` for a form section — wrap it in `CvFormSection` so closed sections stay mounted.
+- No duplicated Zod schema in `presentation/` — import it from `domain/entities/`.
 
 ## Documentation index
 
@@ -164,6 +181,7 @@ Project-specific, repeated patterns that go beyond generic best practices. See [
 | [google-drive-cv-storage](.github/skills/google-drive-cv-storage/SKILL.md)       | Reading, writing, listing, or deleting CVs via Google Drive                    |
 | [google-oauth-token-refresh](.github/skills/google-oauth-token-refresh/SKILL.md) | Touching `src/auth.ts` / `src/proxy.ts`, debugging stale sessions              |
 | [cv-editor-split-view](.github/skills/cv-editor-split-view/SKILL.md)             | Changing the editor's form+preview layout or scroll                            |
+| [form-composition](.github/skills/form-composition/SKILL.md)                     | Adding a form section or field, or a form file growing past ~300 lines         |
 | [react-pdf-cv-rendering](.github/skills/react-pdf-cv-rendering/SKILL.md)         | Changing `CvPdfDocument`/`cv-pdf-*` components, PDF fonts, or `@shared/ui/pdf` |
 
 ## Agent playbooks
