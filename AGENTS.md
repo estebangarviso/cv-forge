@@ -142,6 +142,7 @@ Use `react-hook-form` with `zodResolver` exclusively. Schemas from `@modules/cv`
 - No imports from another module's internal paths.
 - No `any` — use Zod schemas and inferred types.
 - No direct Google Drive calls from components — go through the `drive` module port.
+- No branches cut from `main` — branch from `origin/develop` and open PRs against `develop`. `main` only receives `develop → main` release PRs, merged with a merge commit (see [branching guide](docs/guides/001_branching-and-releases.md)).
 
 ## Documentation index
 
@@ -153,7 +154,7 @@ Use `react-hook-form` with `zodResolver` exclusively. Schemas from `@modules/cv`
 | [docs/agents/05_shared-ui-library.md](docs/agents/05_shared-ui-library.md)                             | Shared UI decision gate                                        |
 | [docs/architecture/](docs/architecture/)                                                               | Architecture hub (folder structure, state, theming, data flow) |
 | [docs/getting-started/](docs/getting-started/)                                                         | Setup and commands                                             |
-| [docs/guides/001_trunk-based-stacked-prs.md](docs/guides/001_trunk-based-stacked-prs.md)               | Stacked PR / trunk-based delivery protocol                     |
+| [docs/guides/001_branching-and-releases.md](docs/guides/001_branching-and-releases.md)                 | `develop`/`main` branching, releases, hotfixes, stacked PRs    |
 
 ## Skills
 
