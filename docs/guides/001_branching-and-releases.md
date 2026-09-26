@@ -121,7 +121,7 @@ The back-merge is not optional. Skipping it means the next `develop → main` re
 
 ## Release checklist
 
-- [ ] The preview at `cv-forge-dev.vercel.app` was exercised with a real sign-in.
+- [ ] The preview was exercised with a real sign-in.
 - [ ] `gh pr checks <n>` is green on the `develop → main` PR.
 - [ ] Merged with **merge commit**, not squash.
 - [ ] Any hotfix merged to `main` since the last release has been back-merged into `develop`.
