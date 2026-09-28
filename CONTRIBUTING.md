@@ -30,7 +30,7 @@ Template contributions should preserve existing CV data, use fictional preview d
 
 ## Pull Requests
 
-`main` is protected by a ruleset requiring passing checks and linear history. For work that naturally splits into dependent chunks, follow the [trunk-based stacked PR guide](docs/guides/001_trunk-based-stacked-prs.md) instead of one large PR.
+Branch from `develop` and open your PR against `develop`; it deploys to the preview environment. `main` is production and only receives release PRs from `develop`. See the [branching and releases guide](docs/guides/001_branching-and-releases.md) — it also covers splitting dependent work into stacked PRs instead of one large PR.
 
 Use a clear title and describe:
 

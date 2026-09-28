@@ -19,7 +19,7 @@ How this folder is organized: each subfolder maps 1:1 to a sidebar section in th
 
 ## Guides
 
-- [001 Trunk-based stacked PRs](guides/001_trunk-based-stacked-prs.md) — Protocol for shipping dependent work as a sequence of small PRs against `main`.
+- [001 Branching and releases](guides/001_branching-and-releases.md) — `develop` (preview) / `main` (production) flow, releases, hotfixes and stacked PRs.
 
 ## Source-of-truth files
 
