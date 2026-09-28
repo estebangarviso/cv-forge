@@ -6,6 +6,8 @@ updates:
     # ──────────────────────────────────────────────────────────────────────────
     - package-ecosystem: npm
       directory: /
+      # develop is the integration branch; updates reach main through a release PR.
+      target-branch: develop
       schedule:
           interval: weekly
           day: monday
@@ -83,7 +85,7 @@ updates:
           - 'dependencies'
           - 'javascript'
       commit-message:
-          prefix: 'chore(deps)'
+          prefix: 'chore'
           include: scope
 
     # ──────────────────────────────────────────────────────────────────────────
@@ -91,6 +93,7 @@ updates:
     # ──────────────────────────────────────────────────────────────────────────
     - package-ecosystem: github-actions
       directory: /
+      target-branch: develop
       schedule:
           interval: weekly
           day: monday
@@ -101,7 +104,7 @@ updates:
           - 'dependencies'
           - 'ci/cd'
       commit-message:
-          prefix: 'chore(ci)'
+          prefix: 'ci'
           include: scope
 
     # ──────────────────────────────────────────────────────────────────────────
@@ -109,6 +112,7 @@ updates:
     # ──────────────────────────────────────────────────────────────────────────
     - package-ecosystem: docker
       directory: /
+      target-branch: develop
       schedule:
           interval: weekly
           day: monday
@@ -119,5 +123,5 @@ updates:
           - 'dependencies'
           - 'docker'
       commit-message:
-          prefix: 'chore(docker)'
+          prefix: 'build'
           include: scope
