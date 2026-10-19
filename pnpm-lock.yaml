@@ -25,7 +25,7 @@ importers:
         version: 3.2.2(react@19.3.0)
       '@hookform/resolvers':
         specifier: 5.9.1
-        version: 5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.88.0(react@19.3.0))(zod@4.6.5)
+        version: 5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.90.0(@types/react@19.3.0)(react@19.3.0))(zod@4.6.7)
       '@radix-ui/react-accordion':
         specifier: 1.2.20
         version: 1.2.20(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -135,8 +135,8 @@ importers:
         specifier: 19.3.0
         version: 19.3.0(react@19.3.0)
       react-hook-form:
-        specifier: 7.88.0
-        version: 7.88.0(react@19.3.0)
+        specifier: 7.90.0
+        version: 7.90.0(@types/react@19.3.0)(react@19.3.0)
       server-only:
         specifier: 0.0.1
         version: 0.0.1
@@ -150,8 +150,8 @@ importers:
         specifier: 1.1.2
         version: 1.1.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       zod:
-        specifier: 4.6.5
-        version: 4.6.5
+        specifier: 4.6.7
+        version: 4.6.7
       zustand:
         specifier: 5.0.15
         version: 5.0.15(@types/react@19.3.0)(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
@@ -5106,6 +5106,7 @@ packages:
 
   path-dirname@1.0.2:
     resolution: {integrity: sha512-ALzNPpyNq9AqXMBjeymIjFDAkAFH06mHJH/cSBHAgU0s4vfpBn6b2nf8tiRLvagKD8RbTpq2FKTBg7cl9l3c7Q==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   path-exists@3.0.0:
     resolution: {integrity: sha512-bpC7GYwiDYQ4wYLe+FA8lhRjhQCMcQGuSgGGqDkg/QerRWw9CmGRT0iSOVRSZJ29NMLZgIzqaljJ63oaL4NIJQ==}
@@ -5387,11 +5388,15 @@ packages:
     peerDependencies:
       react: ^19.3.0
 
-  react-hook-form@7.88.0:
-    resolution: {integrity: sha512-QRaLOWhX93YCnMiRfnOFRSwWXZNt8qhm2JTZwypoDvKpSffTJHmpzMXt8U6PV5UThvL3IiiLDUWe2nHMtz6Mmw==}
+  react-hook-form@7.90.0:
+    resolution: {integrity: sha512-+NdG0FLzCPhFOp2NNxaUYLF9fyZhNjx9FTBBSYWF71/l6BBlmIc/j6xlp3DbaHWLJbIG7Zd8oznA19xJClU97w==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
+      '@types/react': '*'
       react: ^16.8.0 || ^17 || ^18 || ^19
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -6621,8 +6626,8 @@ packages:
     peerDependencies:
       zod: ^3.25.0 || ^4.0.0
 
-  zod@4.6.5:
-    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
+  zod@4.6.7:
+    resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
 
   zustand@5.0.15:
     resolution: {integrity: sha512-MpSEjRiBkA9crSYeOUH32rJC7SVqAbm0Fqcqge/bUi2PPoLcBWKOsG+C8mevmpr8TwXHBVkChbbJiyvkE+i/3A==}
@@ -7161,14 +7166,14 @@ snapshots:
     dependencies:
       '@formatjs/fast-memoize': 3.1.7
 
-  '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.88.0(react@19.3.0))(zod@4.6.5)':
+  '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(ajv@8.20.0)(react-hook-form@7.90.0(@types/react@19.3.0)(react@19.3.0))(zod@4.6.7)':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.88.0(react@19.3.0)
+      react-hook-form: 7.90.0(@types/react@19.3.0)(react@19.3.0)
     optionalDependencies:
       '@standard-schema/spec': 1.1.0
       ajv: 8.20.0
-      zod: 4.6.5
+      zod: 4.6.7
 
   '@humanfs/core@0.19.2':
     dependencies:
@@ -9811,8 +9816,8 @@ snapshots:
       '@babel/parser': 7.29.9
       eslint: 10.11.0(jiti@2.7.0)
       hermes-parser: 0.25.1
-      zod: 4.6.5
-      zod-validation-error: 4.0.2(zod@4.6.5)
+      zod: 4.6.7
+      zod-validation-error: 4.0.2(zod@4.6.7)
     transitivePeerDependencies:
       - supports-color
 
@@ -11193,7 +11198,7 @@ snapshots:
 
   mutation-server-protocol@0.4.1:
     dependencies:
-      zod: 4.6.5
+      zod: 4.6.7
 
   mutation-testing-elements@3.7.3: {}
 
@@ -11529,26 +11534,26 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39):
+  postcss-html@0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39):
     dependencies:
       htmlparser2: 3.10.1
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@8.5.28)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@8.5.28)
 
-  postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39):
+  postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39):
     dependencies:
       '@babel/core': 8.0.6
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@8.5.28)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@8.5.28)
 
   postcss-less@3.1.4:
     dependencies:
       postcss: 7.0.39
 
-  postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39):
+  postcss-markdown@0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39):
     dependencies:
       postcss: 7.0.39
-      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@8.5.28)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@8.5.28)
       remark: 10.0.1
       unist-util-find-all-after: 1.0.5
 
@@ -11609,14 +11614,14 @@ snapshots:
       lodash: 4.18.1
       postcss: 7.0.39
 
-  postcss-syntax@0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@8.5.28):
+  postcss-syntax@0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@8.5.28):
     dependencies:
       postcss: 8.5.28
     optionalDependencies:
-      postcss-html: 0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39)
-      postcss-jsx: 0.36.4(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39)
+      postcss-html: 0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39)
+      postcss-jsx: 0.36.4(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39)
       postcss-less: 3.1.4
-      postcss-markdown: 0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39)
+      postcss-markdown: 0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39)
       postcss-scss: 2.1.1
 
   postcss-value-parser@3.3.1: {}
@@ -11712,9 +11717,11 @@ snapshots:
       react: 19.3.0
       scheduler: 0.28.0
 
-  react-hook-form@7.88.0(react@19.3.0):
+  react-hook-form@7.90.0(@types/react@19.3.0)(react@19.3.0):
     dependencies:
       react: 19.3.0
+    optionalDependencies:
+      '@types/react': 19.3.0
 
   react-is@16.13.1: {}
 
@@ -12565,10 +12572,10 @@ snapshots:
       normalize-selector: 0.2.0
       pify: 4.0.1
       postcss: 7.0.39
-      postcss-html: 0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39)
-      postcss-jsx: 0.36.4(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39)
+      postcss-html: 0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39)
+      postcss-jsx: 0.36.4(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39)
       postcss-less: 3.1.4
-      postcss-markdown: 0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39)
+      postcss-markdown: 0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39)
       postcss-media-query-parser: 0.2.3
       postcss-reporter: 6.0.1
       postcss-resolve-nested-selector: 0.1.6
@@ -12576,7 +12583,7 @@ snapshots:
       postcss-sass: 0.3.5
       postcss-scss: 2.1.1
       postcss-selector-parser: 3.1.2
-      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss@8.5.28))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@8.5.28)
+      postcss-syntax: 0.36.2(postcss-html@0.36.0(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39))(postcss-jsx@0.36.4(postcss-syntax@0.36.2(postcss-less@3.1.4)(postcss-scss@2.1.1)(postcss@8.5.28))(postcss@7.0.39))(postcss-less@3.1.4)(postcss-markdown@0.36.0)(postcss-scss@2.1.1)(postcss@8.5.28)
       postcss-value-parser: 3.3.1
       resolve-from: 4.0.0
       signal-exit: 3.0.7
@@ -13106,11 +13113,11 @@ snapshots:
 
   yoga-layout@3.2.1: {}
 
-  zod-validation-error@4.0.2(zod@4.6.5):
+  zod-validation-error@4.0.2(zod@4.6.7):
     dependencies:
-      zod: 4.6.5
+      zod: 4.6.7
 
-  zod@4.6.5: {}
+  zod@4.6.7: {}
 
   zustand@5.0.15(@types/react@19.3.0)(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0)):
     optionalDependencies:
